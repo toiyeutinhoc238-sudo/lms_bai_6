@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Học liệu 1: Khảo sát tình huống - Em có bao nhiêu 'tài sản số'?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <script src="scorm_api.js"></script>
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-hover: #3730a3;
+      --primary-light: #eef2ff;
+      --accent: #0284c7;
+      --success: #10b981;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      color: var(--text);
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .embed-card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 820px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      padding: 32px;
+      border: 1px solid var(--border);
+    }
+
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eef2ff;
+      color: var(--primary);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .scenario-box {
+      background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+      border: 1.5px solid #bae6fd;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .scenario-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .scenario-text {
+      font-size: 0.98rem;
+      color: #0369a1;
+      line-height: 1.6;
+    }
+
+    .poll-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      background: #ffffff;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      border-color: var(--primary);
+      background: #faf5ff;
+      transform: translateY(-1px);
+    }
+
+    .option-item.selected {
+      border-color: var(--primary);
+      background: #eef2ff;
+      font-weight: 700;
+      color: #1e1b4b;
+    }
+
+    .option-item input[type="radio"] {
+      transform: scale(1.3);
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #4338ca, #3730a3);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: linear-gradient(135deg, #3730a3, #312e81);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(67, 56, 202, 0.35);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Result Chart Section */
+    .results-panel {
+      display: none;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 2px dashed var(--border);
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .chart-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-badge {
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .stat-row {
+      margin-bottom: 16px;
+    }
+
+    .stat-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .stat-track {
+      height: 14px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+
+    .stat-fill {
+      height: 100%;
+      border-radius: 999px;
+      width: 0%;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .teacher-feedback {
+      background: #eff6ff;
+      border-left: 4px solid var(--accent);
+      padding: 18px 20px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .teacher-feedback strong {
+      color: #0369a1;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .next-step-box {
+      margin-top: 20px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      padding: 16px 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .next-step-box span {
+      font-size: 0.92rem;
+      color: #166534;
+      font-weight: 600;
+    }
+
+    .btn-next-step {
+      background: #10b981;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .btn-next-step:hover {
+      background: #059669;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="embed-card">
+    <span class="top-badge">🎯 HOẠT ĐỘNG 1 • KHỞI ĐỘNG (5 PHÚT)</span>
+    <h2><span>🗺️</span> Khảo Sát Nhanh: Em Có Bao Nhiêu 'Tài Sản Số'?</h2>
+    <p class="desc">
+      Đọc tình huống dưới đây và lựa chọn quyết định của riêng em. Kết quả khảo sát của cả lớp sẽ được hệ thống tổng hợp và hiển thị biểu đồ phân bố ngay lập tức!
+    </p>
+
+    <!-- Scenario Box -->
+    <div class="scenario-box">
+      <div class="scenario-icon">🚲</div>
+      <div class="scenario-text">
+        <strong>Tình huống thực tế:</strong><br>
+        Khi dùng ứng dụng bản đồ (Google Maps) để tìm đường đi xe đạp đến nhà một người bạn, ứng dụng chỉ một đường tắt rất gần giúp tiết kiệm 10 phút, nhưng con đường này phải đi xuyên qua một bãi đất trống vắng người và nhiều cỏ dại rậm rạp. <strong>Em sẽ quyết định thế nào?</strong>
+      </div>
+    </div>
+
+    <!-- Poll Options -->
+    <div class="poll-options">
+      <label class="option-item" id="opt-0" onclick="chooseOpt(0)">
+        <input type="radio" name="map_choice" value="0">
+        <span><strong>A.</strong> Đi theo đường tắt ngay vì Google Maps là ứng dụng thông minh nhất, chỉ đường ngắn nhất là tốt nhất.</span>
+      </label>
+      <label class="option-item" id="opt-1" onclick="chooseOpt(1)">
+        <input type="radio" name="map_choice" value="1">
+        <span><strong>B.</strong> Không đi đường tắt; chọn con đường quen thuộc, có đèn đường và đông người qua lại dù xa hơn một chút.</span>
+      </label>
+      <label class="option-item" id="opt-2" onclick="chooseOpt(2)">
+        <input type="radio" name="map_choice" value="2">
+        <span><strong>C.</strong> Dừng lại quan sát thực tế và gọi điện hỏi ý kiến bố mẹ hoặc người lớn trước khi quyết định.</span>
+      </label>
+    </div>
+
+    <button class="btn-submit" id="btnSubmit" onclick="submitSurvey()">
+      <span>📤 GỬI BÌNH CHỌN LÊN HỆ THỐNG LMS</span>
+    </button>
+
+    <!-- Results Panel -->
+    <div class="results-panel" id="resultsPanel">
+      <div class="chart-header">
+        <div class="chart-title">
+          <span>📊</span> Kết Quả Bình Chọn Của Lớp (38/40 học sinh đã gửi)
+        </div>
+        <span class="chart-badge">Thời gian thực (Live)</span>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-meta">
+          <span>A. Đi theo đường tắt (Tin máy móc tuyệt đối)</span>
+          <strong style="color: #ef4444;" id="valA">15% (6 bạn)</strong>
+        </div>
+        <div class="stat-track">
+          <div class="stat-fill" id="barA" style="background: #ef4444;"></div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-meta">
+          <span>B. Tự chọn đường khác an toàn (Con người làm chủ)</span>
+          <strong style="color: #10b981;" id="valB">52% (20 bạn)</strong>
+        </div>
+        <div class="stat-track">
+          <div class="stat-fill" id="barB" style="background: #10b981;"></div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-meta">
+          <span>C. Dừng lại kiểm chứng / hỏi người lớn</span>
+          <strong style="color: #0284c7;" id="valC">33% (12 bạn)</strong>
+        </div>
+        <div class="stat-track">
+          <div class="stat-fill" id="barC" style="background: #0284c7;"></div>
+        </div>
+      </div>
+
+      <!-- Teacher's Automated Feedback -->
+      <div class="teacher-feedback">
+        <strong>💡 THÔNG ĐIỆP DẪN DẮT TỪ GIÁO VIÊN:</strong>
+        "Ứng dụng công nghệ có thể tính toán khoảng cách rất nhanh, nhưng nó không biết đường đi đó có an toàn hay phù hợp với chiếc xe đạp của em hay không. Con người chúng ta mới là người đưa ra quyết định cuối cùng! Hôm nay, chúng ta sẽ học cách làm chủ tài sản quý giá nhất của mình trên không gian mạng: <strong>Dữ liệu cá nhân!</strong>"
+      </div>
+
+      <!-- Next Step Notification -->
+      <div class="next-step-box">
+        <span>✅ Đã hoàn thành Hoạt động 1! Hoạt động 2 (Video SCORM) đã được mở khóa tự động.</span>
+        <button class="btn-next-step" onclick="goToActivity2()">
+          <span>Sang Hoạt động 2 ➔</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selected = -1;
+
+    function chooseOpt(index) {
+      selected = index;
+      for (let i = 0; i < 3; i++) {
+        const el = document.getElementById('opt-' + i);
+        const radio = el.querySelector('input[type="radio"]');
+        if (i === index) {
+          el.classList.add('selected');
+          radio.checked = true;
+        } else {
+          el.classList.remove('selected');
+          radio.checked = false;
+        }
+      }
+    }
+
+    function submitSurvey() {
+      if (selected === -1) {
+        alert("Vui lòng chọn 1 phương án trước khi gửi bình chọn!");
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmit');
+      btn.disabled = true;
+      btn.innerHTML = "<span>✔ ĐÃ GHI NHẬN BÌNH CHỌN VÀO HỆ THỐNG</span>";
+      btn.style.background = "#10b981";
+
+      const panel = document.getElementById('resultsPanel');
+      panel.style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('barA').style.width = '15%';
+        document.getElementById('barB').style.width = '52%';
+        document.getElementById('barC').style.width = '33%';
+      }, 100);
+
+      // SCORM Commit
+      if (typeof scorm !== 'undefined') {
+        scorm.setScore(100, 100, 0);
+        scorm.complete();
+      }
+
+      // Notify parent if inside iframe
+      try {
+        window.parent.postMessage({ type: 'LMS_COMPLETE_ACTIVITY', activity: 1 }, '*');
+      } catch (e) {}
+    }
+
+    function goToActivity2() {
+      try {
+        window.parent.postMessage({ type: 'LMS_SWITCH_TAB', tabIndex: 1 }, '*');
+      } catch (e) {}
+      try {
+        if (window.parent && window.parent.switchPreviewTab) {
+          window.parent.switchPreviewTab(1);
+          return;
+        }
+      } catch (e) {}
+      window.location.href = "hoc_lieu_2_video_scorm.html";
+    }
+  </script>
+</body>
+</html>
+

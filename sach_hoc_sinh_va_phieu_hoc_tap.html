@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sách Học Sinh & Phiếu Học Tập Đồng Hành - Bài 6 (Tin học 6)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-light: #6366f1;
+      --border-color: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f1f5f9;
+      color: var(--text-main);
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    /* Web control bar */
+    .top-toolbar {
+      max-width: 900px;
+      margin: 0 auto 24px auto;
+      background: #ffffff;
+      padding: 16px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .toolbar-title h1 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e1b4b;
+    }
+
+    .toolbar-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .btn-print {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-print:hover {
+      background: #3730a3;
+    }
+
+    .btn-back {
+      background: #ffffff;
+      border-color: var(--border-color);
+      color: #334155;
+    }
+
+    .btn-back:hover {
+      background: #f8fafc;
+    }
+
+    /* A4 Paper Styling */
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 18mm 20mm;
+      margin: 0 auto 24px auto;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .top-toolbar {
+        display: none !important;
+      }
+      .a4-page {
+        width: 100%;
+        margin: 0;
+        padding: 12mm 15mm;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+
+    .page-header {
+      border-bottom: 2px solid #1e1b4b;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-left .grade-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-left h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: #1e1b4b;
+      margin-top: 2px;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Student Info Box */
+    .student-info-box {
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+      font-size: 13px;
+      background: #fafafa;
+    }
+
+    .info-item span {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .dots-line {
+      display: inline-block;
+      border-bottom: 1px dotted #64748b;
+      min-width: 120px;
+      height: 14px;
+    }
+
+    /* Section Styling */
+    .section-block {
+      margin-bottom: 20px;
+    }
+
+    .section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      background: #1e1b4b;
+      padding: 6px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guide-callout {
+      background: #eef2ff;
+      border-left: 3.5px solid var(--primary);
+      padding: 8px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12.5px;
+      color: #312e81;
+      margin-bottom: 12px;
+    }
+
+    /* Form and Table */
+    .workbook-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .workbook-table th, .workbook-table td {
+      border: 1px solid var(--border-color);
+      padding: 7px 10px;
+      text-align: left;
+    }
+
+    .workbook-table th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #1e1b4b;
+    }
+
+    .write-line {
+      display: block;
+      border-bottom: 1px dotted #94a3b8;
+      height: 22px;
+      margin-bottom: 6px;
+    }
+
+    .page-footer {
+      position: absolute;
+      bottom: 14mm;
+      left: 20mm;
+      right: 20mm;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Toolbar -->
+  <div class="top-toolbar">
+    <div class="toolbar-title">
+      <h1>SÁCH HỌC SINH & PHIẾU HỌC TẬP ĐỒNG HÀNH (KHỔ A4)</h1>
+      <p>Bài 6: Dữ liệu cá nhân là tài sản của mỗi con người • Tin học 6 (AI)</p>
+    </div>
+    <div class="toolbar-actions">
+      <a href="index.html" class="btn btn-back">⬅ Quay lại Cổng LMS</a>
+      <button class="btn btn-print" onclick="window.print()">🖨️ In / Tải PDF (A4)</button>
+    </div>
+  </div>
+
+  <!-- A4 Page 1 -->
+  <div class="a4-page">
+    <div class="page-header">
+      <div class="header-left">
+        <div class="grade-tag">TIN HỌC 6 • CHUYÊN ĐỀ TRÍ TUỆ NHÂN TẠO (AI)</div>
+        <h2>BÀI 6: DỮ LIỆU CÁ NHÂN LÀ TÀI SẢN CỦA MỖI CON NGƯỜI</h2>
+      </div>
+      <div class="header-right">
+        PHIẾU TỰ HỌC E-LEARNING<br>
+        Thời lượng: 60 phút
+      </div>
+    </div>
+
+    <div class="student-info-box">
+      <div class="info-item"><span>Họ và tên:</span> <span class="dots-line" style="min-width: 170px;"></span></div>
+      <div class="info-item"><span>Lớp:</span> <span class="dots-line" style="min-width: 60px;"></span></div>
+      <div class="info-item"><span>Ngày học:</span> <span class="dots-line" style="min-width: 70px;"></span></div>
+    </div>
+
+    <!-- HĐ 1 -->
+    <div class="section-block">
+      <div class="section-heading">
+        <span>🗺️</span> HOẠT ĐỘNG 1: KHỞI ĐỘNG (5 PHÚT) — BÌNH CHỌN GOOGLE MAPS
+      </div>
+      <div class="guide-callout">
+        <strong>Tình huống:</strong> Khi Google Maps chỉ đường tắt qua bãi đất trống nhiều cỏ dại, em đưa ra quyết định gì?
+      </div>
+      <p style="font-size: 12.5px; margin-bottom: 8px;">
+        1. Lựa chọn của em trên LMS: <strong>[ &nbsp; ] A. Đi đường tắt</strong> &nbsp;&nbsp;&nbsp;&nbsp; <strong>[ &nbsp; ] B. Tự tìm đường khác</strong> &nbsp;&nbsp;&nbsp;&nbsp; <strong>[ &nbsp; ] C. Kiểm chứng/hỏi người lớn</strong>
+      </p>
+      <p style="font-size: 12.5px;">2. Giải thích lý do em đưa ra lựa chọn đó:</p>
+      <span class="write-line"></span>
+      <span class="write-line"></span>
+    </div>
+
+    <!-- HĐ 2 -->
+    <div class="section-block">
+      <div class="section-heading">
+        <span>🎬</span> HOẠT ĐỘNG 2: HÌNH THÀNH KIẾN THỨC (30 PHÚT)
+      </div>
+      <div class="guide-callout">
+        Ghi chép sau khi xem Video tương tác "Dấu chân kỹ thuật số" và Module "Quyền của chủ thể dữ liệu":
+      </div>
+      <p style="font-size: 12.5px; margin-bottom: 6px;">
+        <strong>1. Khái niệm:</strong> Lịch sử hoạt động, lượt like, bình luận của em trên mạng tạo thành <span class="dots-line" style="min-width: 150px;"></span>.
+      </p>
+      <p style="font-size: 12.5px; margin-bottom: 6px;">
+        <strong>2. Quyền của chủ thể dữ liệu (Điền từ):</strong>
+      </p>
+      <div style="font-size: 12px; background: #fafafa; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; margin-bottom: 10px; line-height: 1.8;">
+        • "Chỉ <strong style="border-bottom: 1px solid #000; padding: 0 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong> mới có quyền quyết định việc chia sẻ hoặc cho phép sử dụng dữ liệu cá nhân."<br>
+        • "Khi không muốn ứng dụng tiếp tục thu thập, em có quyền <strong style="border-bottom: 1px solid #000; padding: 0 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong> bằng cách vào Cài đặt thiết bị để tắt quyền hoặc gỡ bỏ ứng dụng."
+      </div>
+    </div>
+
+    <!-- HĐ 3 -->
+    <div class="section-block">
+      <div class="section-heading">
+        <span>🎮</span> HOẠT ĐỘNG 3: LUYỆN TẬP (10 PHÚT) — PHÂN LOẠI KHO BÁU DỮ LIỆU
+      </div>
+      <table class="workbook-table">
+        <thead>
+          <tr>
+            <th style="width: 8%; text-align: center;">STT</th>
+            <th style="width: 52%;">Thẻ thông tin cá nhân</th>
+            <th style="width: 40%; text-align: center;">Giỏ Cơ bản hay Giỏ Nhạy cảm?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="text-align: center;">1</td><td>Họ, chữ đệm và tên khai sinh</td><td style="text-align: center;">Dữ liệu cá nhân cơ bản</td></tr>
+          <tr><td style="text-align: center;">2</td><td>Tọa độ vị trí GPS hiện tại</td><td style="text-align: center;">...................................................</td></tr>
+          <tr><td style="text-align: center;">3</td><td>Hồ sơ bệnh án, sức khỏe cá nhân</td><td style="text-align: center;">...................................................</td></tr>
+          <tr><td style="text-align: center;">4</td><td>Dữ liệu sinh trắc vân tay, FaceID</td><td style="text-align: center;">...................................................</td></tr>
+          <tr><td style="text-align: center;">5</td><td>Mật khẩu & Tài khoản ngân hàng</td><td style="text-align: center;">...................................................</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size: 12px; font-weight: 700; color: #1e1b4b; text-align: right;">
+        Điểm số game đạt được trên LMS: ............. / 10 điểm
+      </div>
+    </div>
+
+    <!-- HĐ 4 -->
+    <div class="section-block">
+      <div class="section-heading">
+        <span>💬</span> HOẠT ĐỘNG 4: VẬN DỤNG (15 PHÚT) — TÌNH HUỐNG LỜI MỜI HẤP DẪN
+      </div>
+      <p style="font-size: 12.5px; margin-bottom: 6px;">
+        1. Quyết định đối với ứng dụng giải Toán VIP đòi danh bạ: ............................................................................
+      </p>
+      <p style="font-size: 12.5px; margin-bottom: 6px;">
+        2. Thao tác kỹ thuật xử lý nếu đã lỡ bấm Đồng ý:
+      </p>
+      <span class="write-line"></span>
+      <span class="write-line"></span>
+      <div style="margin-top: 10px; font-size: 12px; display: flex; justify-content: space-between;">
+        <span>Bạn cùng lớp em đã tương tác: <span class="dots-line" style="min-width: 120px;"></span></span>
+        <span>Điểm Rubric của GV: <strong>....... / 10.0 đ</strong></span>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>Trường THCS: ....................................................................</span>
+      <span>Tin học 6 • Bài 6: Dữ liệu cá nhân là tài sản</span>
+      <span>Trang 1 / 1</span>
+    </div>
+  </div>
+
+</body>
+</html>
+

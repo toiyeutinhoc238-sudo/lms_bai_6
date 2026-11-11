@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LMS Học Liệu Số - Bài 6: Dữ Liệu Cá Nhân Là Tài Sản Của Mỗi Con Người</title>
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #1557b0;
+      --primary-light: #e8f0fe;
+      --success: #1e8e3e;
+      --success-light: #e6f4ea;
+      --warning: #f9ab00;
+      --warning-light: #fef7e0;
+      --danger: #d93025;
+      --danger-light: #fce8e6;
+      --dark: #202124;
+      --gray: #5f6368;
+      --light-gray: #f1f3f4;
+      --border: #dadce0;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #f8f9fa;
+      color: var(--dark);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Header & LMS Navigation */
+    .lms-navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .lms-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lms-brand .badge-class {
+      background: #e8f0fe;
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .lms-brand h1 {
+      font-size: 1.2rem;
+      color: #1a73e8;
+      font-weight: 700;
+    }
+
+    .lms-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1080px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* Progress Tracker */
+    .progress-card {
+      background: white;
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .progress-bar-bg {
+      background: var(--light-gray);
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #1a73e8, #34a853);
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .nav-tab {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-tab:hover {
+      background: var(--light-gray);
+    }
+
+    .nav-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .nav-tab.completed::after {
+      content: ' ✔';
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .nav-tab.active.completed::after {
+      color: #fff;
+    }
+
+    /* Activity Sections */
+    .activity-section {
+      display: none;
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .activity-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .tag-warmup { background: #feefe3; color: #b06000; }
+    .tag-video { background: #e8f0fe; color: #1a73e8; }
+    .tag-module { background: #e6f4ea; color: #137333; }
+    .tag-game { background: #fce8e6; color: #c5221f; }
+    .tag-forum { background: #f3e8fd; color: #8430ce; }
+
+    .section-title {
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .section-desc {
+      color: var(--gray);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    /* Common Components */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-success { background: var(--success); color: white; }
+    .btn-success:hover { background: #137333; }
+    .btn-outline { background: white; border: 1px solid var(--border); color: var(--dark); }
+    .btn-outline:hover { background: var(--light-gray); }
+
+    .alert {
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 0.95rem;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .alert-info { background: var(--primary-light); color: #174ea6; border-left: 4px solid var(--primary); }
+    .alert-success { background: var(--success-light); color: #0d652d; border-left: 4px solid var(--success); }
+    .alert-warning { background: var(--warning-light); color: #9a6700; border-left: 4px solid var(--warning); }
+
+    /* HĐ 1: Poll UI */
+    .poll-scenario {
+      background: #fdfefe;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .scenario-bubble {
+      background: #edf2f7;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .scenario-bubble img, .scenario-icon {
+      font-size: 2.2rem;
+    }
+
+    .poll-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .poll-opt {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s;
+    }
+
+    .poll-opt:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .poll-opt.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .poll-opt input[type="radio"] {
+      transform: scale(1.3);
+      cursor: pointer;
+    }
+
+    .chart-container {
+      margin-top: 24px;
+      display: none;
+      background: #fafbfc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .bar-row {
+      margin-bottom: 14px;
+    }
+
+    .bar-label {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bar-track {
+      background: #e9ecef;
+      height: 14px;
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .bar-val {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 7px;
+      width: 0%;
+      transition: width 0.8s ease;
+    }
+
+    /* HĐ 2.1: SCORM Interactive Video Simulation */
+    .video-player-mock {
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .video-display {
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      position: relative;
+    }
+
+    .video-overlay-quiz {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(4px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      z-index: 10;
+      animation: fadeIn 0.3s;
+    }
+
+    .video-overlay-quiz.active {
+      display: flex;
+    }
+
+    .quiz-popup-box {
+      background: white;
+      color: var(--dark);
+      padding: 28px;
+      border-radius: 12px;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .video-timeline {
+      background: #222;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .video-progress-track {
+      flex: 1;
+      height: 8px;
+      background: #444;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .video-progress-fill {
+      height: 100%;
+      background: #ef4444;
+      width: 0%;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .checkpoint-marker {
+      position: absolute;
+      top: -4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #f59e0b;
+      border: 2px solid white;
+      transform: translateX(-50%);
+      cursor: pointer;
+    }
+
+    /* HĐ 2.2: Interactive Module & Điền khuyết */
+    .module-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .rights-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border-top: 4px solid var(--primary);
+    }
+
+    .rights-card h4 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+    }
+
+    /* HĐ 2.2: Conveyor Belt Factory Game */
+    .factory-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      border: 1.5px solid #334155;
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hud-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .gear-icon {
+      display: inline-block;
+      animation: spinGear 4s linear infinite;
+    }
+
+    @keyframes spinGear {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hud-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .hud-stat strong {
+      font-family: monospace;
+      font-size: 1.15rem;
+      color: #34d399;
+    }
+
+    .conveyor-stage {
+      background: #050811;
+      border: 2px solid #1e293b;
+      border-radius: 14px;
+      padding: 20px 16px;
+      position: relative;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .hazard-stripe {
+      height: 8px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f59e0b,
+        #f59e0b 12px,
+        #111827 12px,
+        #111827 24px
+      );
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+
+    .belt-track {
+      background: #111827;
+      border: 3px solid #374151;
+      border-radius: 12px;
+      padding: 18px 12px;
+      position: relative;
+      background-image: repeating-linear-gradient(
+        90deg,
+        #1f2937,
+        #1f2937 20px,
+        #111827 20px,
+        #111827 40px
+      );
+      animation: beltSlide 2s linear infinite;
+    }
+
+    @keyframes beltSlide {
+      from { background-position: 0 0; }
+      to { background-position: 40px 0; }
+    }
+
+    .belt-track.paused {
+      animation-play-state: paused;
+    }
+
+    .crates-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      min-width: 780px;
+    }
+
+    .data-crate {
+      background: #1e293b;
+      border: 2px solid #475569;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      position: relative;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .crate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .crate-tag {
+      font-family: monospace;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-c1 { background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid #0891b2; }
+    .tag-c2 { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #d97706; }
+    .tag-c3 { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #9333ea; }
+
+    .crate-status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+
+    .crate-status-dot.assembled {
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+    }
+
+    .crate-text {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+      margin-bottom: 14px;
+    }
+
+    .drop-socket {
+      min-height: 44px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px dashed #0284c7;
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #38bdf8;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .drop-socket.drag-hover {
+      background: rgba(6, 182, 212, 0.25);
+      border-color: #38bdf8;
+      border-style: solid;
+      transform: scale(1.02);
+    }
+
+    .drop-socket.assembled {
+      background: rgba(16, 185, 129, 0.2);
+      border: 2px solid #10b981;
+      color: #34d399;
+      font-weight: 800;
+    }
+
+    .warehouse-bay {
+      background: #0f172a;
+      border: 1.5px solid #334155;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .bay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .bay-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chips-rack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .data-chip {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1.5px solid #6366f1;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: grab;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: all 0.2s;
+    }
+
+    .data-chip:hover {
+      transform: translateY(-3px);
+      border-color: #06b6d4;
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35);
+    }
+
+    .data-chip.selected-chip {
+      border-color: #38bdf8;
+      box-shadow: 0 0 16px #38bdf8;
+      background: #1e3a8a;
+    }
+
+    .data-chip.installed {
+      opacity: 0.3;
+      pointer-events: none;
+      filter: grayscale(1);
+    }
+
+    .factory-summary {
+      background: #0b1329;
+      border: 2px solid #10b981;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 20px;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: #f8fafc;
+    }
+
+    /* HĐ 3: Drag & Drop Game */
+    .game-arena {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .game-arena {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .basket-zone {
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 260px;
+      background: #f8fafc;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .basket-zone.drag-over {
+      background: #e0f2fe;
+      border-color: var(--primary);
+    }
+
+    .basket-header {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .basket-basic .basket-header { color: #0284c7; }
+    .basket-sensitive .basket-header { color: #dc2626; }
+
+    .basket-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .data-cards-pool {
+      background: #f1f5f9;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .pool-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .drag-item {
+      background: white;
+      border: 1px solid #cbd5e1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: grab;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .drag-item:active {
+      cursor: grabbing;
+      transform: scale(0.98);
+    }
+
+    .score-board {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: #0f172a;
+      color: white;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* HĐ 4: Forum & Rubric */
+    .forum-topic-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .forum-post {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: white;
+    }
+
+    .post-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .post-content {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .action-link {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .action-link:hover {
+      color: var(--primary);
+    }
+
+    /* Rubric Table */
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    .rubric-table th, .rubric-table td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    .rubric-table th {
+      background: #f8fafc;
+      font-weight: 700;
+    }
+
+    .rubric-table tr:hover {
+      background: #f1f5f9;
+    }
+
+    .rubric-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .rubric-good { background: #dcfce7; color: #15803d; }
+    .rubric-pass { background: #fef9c3; color: #a16207; }
+    .rubric-fail { background: #fee2e2; color: #b91c1c; }
+
+    /* Footer Controls */
+    .activity-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="lms-navbar">
+    <div class="lms-brand">
+      <span class="badge-class">TIN HỌC 6 - AI</span>
+      <h1>Bài 6: Dữ liệu cá nhân là tài sản của mỗi con người</h1>
+    </div>
+    <div class="lms-user">
+      <span>Học sinh: <strong>Nguyễn Nhật Minh (6A1)</strong></span>
+      <div class="avatar">NM</div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Progress Card -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700;">Tiến trình hoàn thành bài học trực tuyến (60 phút)</h2>
+          <span style="font-size: 0.85rem; color: var(--gray);">Hoàn thành lần lượt 4 hoạt động để mở khóa chứng chỉ học tập</span>
+        </div>
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary);" id="progress-percentage">0%</div>
+      </div>
+      
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="main-progress-bar"></div>
+      </div>
+
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab(0)" id="tab-0">
+          <span>🚀 1. Khởi động (5')</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab(1)" id="tab-1">
+          <span>🎬 2.1 Video tương tác (15')</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab(2)" id="tab-2">
+          <span>📖 2.2 Module bài giảng (15')</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab(3)" id="tab-3">
+          <span>🎮 3. Game Kéo thả (10')</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab(4)" id="tab-4">
+          <span>💬 4. Diễn đàn & Rubric (15')</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== HĐ 1: KHỞI ĐỘNG ==================== -->
+    <section class="activity-section active" id="sec-0">
+      <span class="section-tag tag-warmup">Hoạt động 1: Khởi động (5 phút)</span>
+      <h3 class="section-title">Bảng hỏi khảo sát: Em có bao nhiêu 'tài sản số'?</h3>
+      <p class="section-desc">Hãy đọc tình huống thực tế dưới đây và đưa ra quyết định của riêng em.</p>
+
+      <div class="poll-scenario">
+        <div class="scenario-bubble">
+          <div class="scenario-icon">🗺️</div>
+          <div>
+            <strong>Tình huống khởi động:</strong><br>
+            Khi dùng ứng dụng chỉ đường (Google Maps) để đi xe đạp đến nhà bạn, ứng dụng gợi ý một đường tắt giúp rút ngắn 10 phút, nhưng con đường này phải đi qua một bãi đất trống vắng người và nhiều cỏ rậm rạp. Em sẽ quyết định như thế nào?
+          </div>
+        </div>
+
+        <div class="poll-options">
+          <label class="poll-opt" id="opt-label-0" onclick="selectPoll(0)">
+            <input type="radio" name="poll" value="0">
+            <span><strong>A.</strong> Đi theo đường tắt ngay vì Google Maps là ứng dụng thông minh nhất, chỉ đường ngắn nhất là tốt nhất.</span>
+          </label>
+          <label class="poll-opt" id="opt-label-1" onclick="selectPoll(1)">
+            <input type="radio" name="poll" value="1">
+            <span><strong>B.</strong> Không đi đường tắt; chọn con đường quen thuộc, có đèn đường và đông người dù xa hơn một chút.</span>
+          </label>
+          <label class="poll-opt" id="opt-label-2" onclick="selectPoll(2)">
+            <input type="radio" name="poll" value="2">
+            <span><strong>C.</strong> Dừng lại quan sát thực tế và hỏi thêm ý kiến bố mẹ hoặc người lớn trước khi quyết định.</span>
+          </label>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <button class="btn btn-primary" id="btn-submit-poll" onclick="submitPoll()">Gửi bình chọn lên LMS</button>
+        </div>
+
+        <!-- Realtime Poll Chart -->
+        <div class="chart-container" id="poll-results-chart">
+          <h4 style="margin-bottom: 16px; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+            📊 Kết quả bình chọn tức thì của lớp 6A1 (38/40 học sinh đã gửi):
+          </h4>
+          <div class="bar-row">
+            <div class="bar-label">
+              <span>A. Đi theo đường tắt (Tin máy móc tuyệt đối)</span>
+              <strong id="pct-a">15%</strong>
+            </div>
+            <div class="bar-track"><div class="bar-val" id="bar-a" style="background: #ea4335;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">
+              <span>B. Tự chọn đường khác an toàn (Con người làm chủ)</span>
+              <strong id="pct-b">52%</strong>
+            </div>
+            <div class="bar-track"><div class="bar-val" id="bar-b" style="background: #34a853;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">
+              <span>C. Dừng lại kiểm chứng / hỏi người lớn</span>
+              <strong id="pct-c">33%</strong>
+            </div>
+            <div class="bar-track"><div class="bar-val" id="bar-c" style="background: #1a73e8;"></div></div>
+          </div>
+
+          <div class="alert alert-info" style="margin-top: 16px;">
+            <div>
+              <strong>💡 Thông điệp dẫn dắt của Giáo viên:</strong><br>
+              "Ứng dụng công nghệ có thể tính toán khoảng cách rất nhanh, nhưng nó không biết đường đi đó có an toàn hay phù hợp với chiếc xe đạp của em hay không. Con người chúng ta mới là người đưa ra quyết định cuối cùng! Hôm nay, chúng ta sẽ học cách làm chủ tài sản quý giá nhất của mình trên mạng: <strong>Dữ liệu cá nhân!</strong>"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-footer">
+        <div></div>
+        <button class="btn btn-primary" id="btn-next-0" disabled onclick="switchTab(1)">
+          Chuyển sang HĐ 2.1: Video tương tác ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== HĐ 2.1: VIDEO TƯƠNG TÁC (SCORM) ==================== -->
+    <section class="activity-section" id="sec-1">
+      <span class="section-tag tag-video">Hoạt động 2.1: Khám phá kiến thức (15 phút)</span>
+      <h3 class="section-title">Gói SCORM / H5P: Video Tương Tác "Dấu chân kỹ thuật số của bạn"</h3>
+      <p class="section-desc">Học sinh xem video tương tác. Video sẽ tự động tạm dừng tại các điểm neo chặn bắt buộc em phải trả lời chính xác mới được tiếp tục xem.</p>
+
+      <div class="video-player-mock">
+        <div class="video-display" id="video-canvas" style="padding: 0; background: #000; position: relative;">
+          <video id="simVideo" src="Dấu chân kỹ thuật số của bạn.mp4" playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain; display: block;"></video>
+
+          <!-- Pop-up Quiz 1 at 0:50 -->
+          <div class="video-overlay-quiz" id="video-quiz-1">
+            <div class="quiz-popup-box">
+              <span class="section-tag tag-video">📍 Neo chặn 1 (Giây 0:50)</span>
+              <h4 style="margin: 10px 0 14px 0; font-size: 1.15rem;">
+                Những lượt like, bình luận và video mà em từng xem trên không gian mạng được gọi chung là gì?
+              </h4>
+              <div class="poll-options">
+                <label class="poll-opt" onclick="selectVideoQ1('A')">
+                  <input type="radio" name="vq1" value="A">
+                  <span>A. Dấu chân kỹ thuật số (Dữ liệu phản ánh hoạt động mạng)</span>
+                </label>
+                <label class="poll-opt" onclick="selectVideoQ1('B')">
+                  <input type="radio" name="vq1" value="B">
+                  <span>B. Lịch sử duyệt web không quan trọng, máy sẽ tự xóa</span>
+                </label>
+                <label class="poll-opt" onclick="selectVideoQ1('C')">
+                  <input type="radio" name="vq1" value="C">
+                  <span>C. Tài sản công cộng thuộc về nhà mạng</span>
+                </label>
+              </div>
+              <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
+                <button class="btn btn-success" onclick="submitVideoQ1()">Xác nhận & Xem tiếp</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pop-up Quiz 2 at 1:40 -->
+          <div class="video-overlay-quiz" id="video-quiz-2">
+            <div class="quiz-popup-box">
+              <span class="section-tag tag-video">📍 Neo chặn 2 (Giây 1:40)</span>
+              <h4 style="margin: 10px 0 14px 0; font-size: 1.15rem;">
+                Các công ty công nghệ và nền tảng mạng xã hội thu thập dữ liệu hành vi của em chủ yếu để làm gì?
+              </h4>
+              <div class="poll-options">
+                <label class="poll-opt" onclick="selectVideoQ2('A')">
+                  <input type="radio" name="vq2" value="A">
+                  <span>A. Để phân tích sở thích, huấn luyện thuật toán gợi ý và quảng cáo kiếm tiền</span>
+                </label>
+                <label class="poll-opt" onclick="selectVideoQ2('B')">
+                  <input type="radio" name="vq2" value="B">
+                  <span>B. Để tặng học bổng và tiền thưởng ngẫu nhiên cho học sinh</span>
+                </label>
+                <label class="poll-opt" onclick="selectVideoQ2('C')">
+                  <input type="radio" name="vq2" value="C">
+                  <span>C. Chỉ để lưu trữ trong kho dữ liệu mà không làm gì cả</span>
+                </label>
+              </div>
+              <div style="margin-top: 16px; display: flex; justify-content: flex-end;">
+                <button class="btn btn-success" onclick="submitVideoQ2()">Xác nhận & Hoàn thành Video</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-timeline">
+          <button class="btn btn-primary" id="btn-play-video" style="padding: 6px 12px; font-size: 0.85rem;" onclick="togglePlayVideo()">▶ Xem Video</button>
+          <span style="font-size: 0.85rem;" id="video-time-display">00:00 / 02:34</span>
+          <div class="video-progress-track">
+            <div class="video-progress-fill" id="v-progress"></div>
+            <!-- Marker 1 at 32.5% (0:50) -->
+            <div class="checkpoint-marker" style="left: 32.5%;" title="Neo chặn 1 (0:50)"></div>
+            <!-- Marker 2 at 64.9% (1:40) -->
+            <div class="checkpoint-marker" style="left: 64.9%;" title="Neo chặn 2 (1:40)"></div>
+          </div>
+          <span style="font-size: 0.85rem; color: #f59e0b;">🔒 Chặn tua nhanh</span>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <strong>📌 Căn cứ pháp lý theo Nghị định 13/2023/NĐ-CP (Điều 2):</strong><br>
+        Dữ liệu cá nhân phản ánh hoạt động, lịch sử hoạt động trên không gian mạng chính là dữ liệu cá nhân cơ bản. Mọi hành vi thu thập đều phải có sự đồng ý của chủ sở hữu dữ liệu!
+      </div>
+
+      <div class="activity-footer">
+        <button class="btn btn-outline" onclick="switchTab(0)">⬅ Quay lại HĐ 1</button>
+        <button class="btn btn-primary" id="btn-next-1" disabled onclick="switchTab(2)">
+          Chuyển sang HĐ 2.2: Module bài giảng ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== HĐ 2.2: MODULE BÀI GIẢNG & ĐIỀN KHUYẾT ==================== -->
+    <section class="activity-section" id="sec-2">
+      <span class="section-tag tag-module">Hoạt động 2.2: Khám phá kiến thức (15 phút)</span>
+      <h3 class="section-title">Module Bài giảng Tương tác: "Quyền của chủ thể dữ liệu"</h3>
+      <p class="section-desc">Đọc các thẻ kiến thức vi mô dưới đây, sau đó hoàn thành bài tập điền khuyết ở cuối phần học để xác nhận kiến thức.</p>
+
+      <div class="module-card-grid">
+        <div class="rights-card">
+          <h4><span>👑</span> 1. Chủ thể dữ liệu</h4>
+          <p>
+            Em là người tạo ra dữ liệu, chính là <strong>Chủ thể dữ liệu</strong> (chủ sở hữu). Dữ liệu cá nhân là tài sản gắn liền với em, không ai có quyền tự tiện chiếm đoạt.
+          </p>
+        </div>
+        <div class="rights-card" style="border-top-color: #34a853;">
+          <h4 style="color: #34a853;"><span>✅</span> 2. Quyền Đồng ý</h4>
+          <p>
+            Chỉ em (và cha mẹ/người giám hộ) mới có quyền quyết định cho phép ứng dụng truy cập và sử dụng thông tin của mình hay không.
+          </p>
+        </div>
+        <div class="rights-card" style="border-top-color: #ea4335;">
+          <h4 style="color: #ea4335;"><span>🛑</span> 3. Quyền Rút lại đồng ý</h4>
+          <p>
+            Nếu đã từng bấm "Đồng ý", em vẫn có toàn quyền <strong>Rút lại sự đồng ý</strong> bất cứ lúc nào bằng cách vào Cài đặt thiết bị để tắt quyền hoặc gỡ ứng dụng!
+          </p>
+        </div>
+      </div>
+
+      <!-- Conveyor Belt Factory Game -->
+      <div style="margin-top: 24px;">
+        <div class="factory-hud">
+          <div class="hud-title">
+            <span class="gear-icon">⚙️</span>
+            <span>DÂY CHUYỀN SẢN XUẤT VI MẠCH QUYỀN DỮ LIỆU</span>
+          </div>
+          <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <div class="hud-stat">
+              <span>Đã hoàn thành:</span>
+              <strong id="cratesFinished">0 / 3 kiện</strong>
+            </div>
+            <div class="hud-stat">
+              <span>Hiệu suất:</span>
+              <strong id="factoryPerf">0%</strong>
+            </div>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8rem; background: #1e293b; color: white;" onclick="toggleBeltRun()">
+              <span id="btnBeltStatus">⏸ Tạm dừng băng chuyền</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Conveyor Stage -->
+        <div class="conveyor-stage">
+          <div class="hazard-stripe"></div>
+          <div class="belt-track" id="beltTrack">
+            <div class="crates-row">
+              <!-- Crate 1 -->
+              <div class="data-crate" id="crate1">
+                <div class="crate-header">
+                  <span class="crate-tag tag-c1">KIỆN HÀNG #01 • SỞ HỮU</span>
+                  <span class="crate-status-dot" id="dot1"></span>
+                </div>
+                <div class="crate-text">
+                  "Chỉ <span style="color: #38bdf8; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span> mới có quyền quyết định việc chia sẻ hoặc cho phép sử dụng dữ liệu cá nhân đó."
+                </div>
+                <div class="drop-socket" id="socket1" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 1)" onclick="clickInstall(1)">
+                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
+                </div>
+              </div>
+
+              <!-- Crate 2 -->
+              <div class="data-crate" id="crate2">
+                <div class="crate-header">
+                  <span class="crate-tag tag-c2">KIỆN HÀNG #02 • THU HỒI</span>
+                  <span class="crate-status-dot" id="dot2"></span>
+                </div>
+                <div class="crate-text">
+                  "Khi ứng dụng đòi dữ liệu bất thường, em có quyền <span style="color: #fbbf24; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span> để ngừng cấp quyền truy cập."
+                </div>
+                <div class="drop-socket" id="socket2" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 2)" onclick="clickInstall(2)">
+                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
+                </div>
+              </div>
+
+              <!-- Crate 3 -->
+              <div class="data-crate" id="crate3">
+                <div class="crate-header">
+                  <span class="crate-tag tag-c3">KIỆN HÀNG #03 • TRẺ EM</span>
+                  <span class="crate-status-dot" id="dot3"></span>
+                </div>
+                <div class="crate-text">
+                  "Với trẻ em từ đủ 7 tuổi, xử lý dữ liệu phải có sự đồng ý của <span style="color: #c084fc; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span>."
+                </div>
+                <div class="drop-socket" id="socket3" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 3)" onclick="clickInstall(3)">
+                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hazard-stripe" style="margin-top: 14px; margin-bottom: 0;"></div>
+        </div>
+
+        <!-- Warehouse / Hopper -->
+        <div class="warehouse-bay">
+          <div class="bay-header">
+            <div class="bay-title">
+              <span>📦</span> KHO LINH KIỆN VI MẠCH (Kéo thả hoặc nhấp chọn để lắp ráp):
+            </div>
+            <span style="font-size: 0.8rem; color: #f59e0b;">Căn cứ: Nghị định 13/2023/NĐ-CP & UNICEF</span>
+          </div>
+
+          <div class="chips-rack" id="chipsRack">
+            <div class="data-chip" draggable="true" id="chip-owner" data-ans="1" onclick="selectChip(this)">
+              💎 Chủ sở hữu
+            </div>
+            <div class="data-chip" draggable="true" id="chip-revoke" data-ans="2" onclick="selectChip(this)">
+              🛑 Rút lại sự đồng ý
+            </div>
+            <div class="data-chip" draggable="true" id="chip-children" data-ans="3" onclick="selectChip(this)">
+              👨‍👩‍👧 Trẻ em & Cha mẹ / Người giám hộ
+            </div>
+            <!-- Distractor chips -->
+            <div class="data-chip" draggable="true" id="chip-dev" data-ans="wrong" onclick="selectChip(this)">
+              ❌ Nhà phát triển game
+            </div>
+            <div class="data-chip" draggable="true" id="chip-auto" data-ans="wrong" onclick="selectChip(this)">
+              ❌ Chấp nhận vô điều kiện
+            </div>
+            <div class="data-chip" draggable="true" id="chip-stranger" data-ans="wrong" onclick="selectChip(this)">
+              ❌ Người lạ trên mạng
+            </div>
+          </div>
+        </div>
+
+        <!-- Factory Summary Box -->
+        <div class="factory-summary" id="factorySummary">
+          <div>
+            <strong style="font-size: 1.1rem; display: block; margin-bottom: 4px;">🎉 XUẤT XƯỞNG THÀNH CÔNG! HIỆU SUẤT ĐẠT 100%</strong>
+            <span>Em đã lắp ráp chính xác toàn bộ 3 nguyên tắc pháp lý cốt lõi về Quyền của chủ thể dữ liệu.</span>
+          </div>
+          <button class="btn btn-success" onclick="switchTab(3)">Chuyển sang HĐ 3: Game Luyện Tập ➔</button>
+        </div>
+      </div>
+
+      <div class="activity-footer">
+        <button class="btn btn-outline" onclick="switchTab(1)">⬅ Quay lại HĐ 2.1</button>
+        <button class="btn btn-primary" id="btn-next-2" disabled onclick="switchTab(3)">
+          Chuyển sang HĐ 3: Game Luyện tập ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== HĐ 3: GAME KÉO THẢ ==================== -->
+    <section class="activity-section" id="sec-3">
+      <span class="section-tag tag-game">Hoạt động 3: Luyện tập (10 phút)</span>
+      <h3 class="section-title">Game Tương Tác: "Bảo Vệ Kho Báu Dữ Liệu"</h3>
+      <p class="section-desc">Kéo và thả 10 thẻ thông tin dưới đây vào đúng 2 giỏ phân loại. Em cần đạt tối thiểu <strong>8/10 điểm</strong> để hoàn thành!</p>
+
+      <div class="score-board">
+        <div>
+          <span>Điểm hiện tại: </span>
+          <strong id="game-score" style="font-size: 1.5rem; color: #fbbf24;">0 / 10</strong>
+        </div>
+        <div id="game-status-text">Hãy kéo các thẻ bên dưới vào giỏ phù hợp</div>
+        <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;" onclick="resetGame()">Làm lại game 🔄</button>
+      </div>
+
+      <!-- Pool of Draggable Data Cards -->
+      <div class="data-cards-pool">
+        <strong style="display: block; margin-bottom: 10px; font-size: 0.9rem; color: #475569;">
+          📦 CÁC THẺ THÔNG TIN CẦN PHÂN LOẠI (Nhấp hoặc kéo thả vào giỏ):
+        </strong>
+        <div class="pool-cards" id="cards-pool">
+          <div class="drag-item" draggable="true" id="c1" data-cat="basic">🏷️ Họ và tên khai sinh</div>
+          <div class="drag-item" draggable="true" id="c2" data-cat="basic">🎂 Ngày tháng năm sinh</div>
+          <div class="drag-item" draggable="true" id="c3" data-cat="basic">🚻 Giới tính</div>
+          <div class="drag-item" draggable="true" id="c4" data-cat="basic">📞 Số điện thoại cá nhân</div>
+          <div class="drag-item" draggable="true" id="c5" data-cat="basic">📧 Địa chỉ Email cá nhân</div>
+          <div class="drag-item" draggable="true" id="c6" data-cat="sensitive">📍 Tọa độ vị trí GPS hiện tại</div>
+          <div class="drag-item" draggable="true" id="c7" data-cat="sensitive">🩺 Hồ sơ bệnh án, sức khỏe</div>
+          <div class="drag-item" draggable="true" id="c8" data-cat="sensitive">🧬 Dữ liệu sinh trắc vân tay, FaceID</div>
+          <div class="drag-item" draggable="true" id="c9" data-cat="sensitive">💳 Mật khẩu tài khoản ngân hàng</div>
+          <div class="drag-item" draggable="true" id="c10" data-cat="sensitive">🚗 Lịch sử di chuyển chi tiết</div>
+        </div>
+      </div>
+
+      <!-- 2 Baskets -->
+      <div class="game-arena">
+        <div class="basket-zone basket-basic" id="basket-basic" ondragover="allowDrop(event)" ondrop="drop(event, 'basic')">
+          <div class="basket-header">
+            <span>📁</span> Giỏ 1: Dữ liệu cá nhân cơ bản
+          </div>
+          <div class="basket-items" id="items-basic"></div>
+        </div>
+
+        <div class="basket-zone basket-sensitive" id="basket-sensitive" ondragover="allowDrop(event)" ondrop="drop(event, 'sensitive')">
+          <div class="basket-header">
+            <span>🔒</span> Giỏ 2: Dữ liệu cá nhân nhạy cảm
+          </div>
+          <div class="basket-items" id="items-sensitive"></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <button class="btn btn-primary" onclick="gradeGame()">Chấm điểm tự động</button>
+        <span id="game-feedback" style="margin-left: 14px; font-weight: 600;"></span>
+      </div>
+
+      <div class="activity-footer">
+        <button class="btn btn-outline" onclick="switchTab(2)">⬅ Quay lại HĐ 2.2</button>
+        <button class="btn btn-primary" id="btn-next-3" disabled onclick="switchTab(4)">
+          Chuyển sang HĐ 4: Diễn đàn Vận dụng ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== HĐ 4: DIỄN ĐÀN & RUBRIC ==================== -->
+    <section class="activity-section" id="sec-4">
+      <span class="section-tag tag-forum">Hoạt động 4: Vận dụng (15 phút)</span>
+      <h3 class="section-title">Diễn đàn Thảo luận: Xử Lý Tình Huống "Lời Mời Hấp Dẫn"</h3>
+      <p class="section-desc">Không gian mở (Forum) tích hợp Rubric 10 điểm để Giáo viên đánh giá năng lực ra quyết định và trách nhiệm số của học sinh.</p>
+
+      <div class="forum-topic-box">
+        <div style="display: flex; gap: 14px; align-items: flex-start;">
+          <div style="font-size: 2.2rem;">📱</div>
+          <div>
+            <h4 style="color: #1e293b; font-size: 1.15rem; margin-bottom: 6px;">
+              Chủ đề thảo luận do Giáo viên đăng tải:
+            </h4>
+            <p style="background: #f8fafc; border-left: 4px solid #8b5cf6; padding: 14px; border-radius: 6px; line-height: 1.6;">
+              "Có một ứng dụng học Toán bằng AI rất hay, đang gây sốt. Khi em tải về, ứng dụng hiện thông báo: <em>'Để kích hoạt tài khoản VIP dùng thử 30 ngày miễn phí, vui lòng cho phép ứng dụng truy cập toàn bộ Danh bạ điện thoại và Vị trí GPS của bạn'</em>.<br><br>
+              <strong>Yêu cầu thảo luận:</strong><br>
+              1. Em sẽ đưa ra QUYẾT ĐỊNH gì trong tình huống này? Giải thích lý do vì sao?<br>
+              2. Nếu hôm qua em đã lỡ bấm ĐỒNG Ý rồi, hôm nay em sẽ làm gì để khắc phục?<br>
+              3. Đọc và phản hồi ý kiến cho ít nhất 1 bạn cùng lớp."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Input Form -->
+      <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+        <h4 style="margin-bottom: 10px;">✍️ Bài trả lời của em (Nguyễn Nhật Minh - 6A1):</h4>
+        <textarea id="student-post-input" rows="4" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; font-size: 0.95rem; resize: vertical;" placeholder="Nhập câu trả lời của em: Quyết định từ chối/đồng ý? Lý do? Cách xử lý khi đã lỡ cấp quyền?..."></textarea>
+        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+          <button class="btn btn-primary" onclick="postToForum()">Đăng bài lên Diễn đàn</button>
+          <span style="font-size: 0.85rem; color: var(--gray);">Hệ thống lưu log tự động và liên kết với sổ điểm LMS</span>
+        </div>
+      </div>
+
+      <!-- Forum Discussion Stream -->
+      <h4 style="margin-bottom: 16px;">💬 Các bài thảo luận của lớp:</h4>
+      <div id="forum-stream">
+        <!-- Peer post 1 -->
+        <div class="forum-post">
+          <div class="post-author">
+            <div class="avatar" style="background: #0ea5e9;">LT</div>
+            <div>
+              <strong>Lê Thu Trang (6A1)</strong>
+              <div style="font-size: 0.75rem; color: var(--gray);">Đã đăng 10 phút trước</div>
+            </div>
+          </div>
+          <div class="post-content">
+            Em sẽ <strong>từ chối cấp quyền Danh bạ</strong> vì một ứng dụng học Toán không có lý do gì để đọc danh bạ của em cả. Việc đòi hỏi này là bất thường. Nếu đã lỡ bấm Đồng ý, em sẽ vào phần <em>Cài đặt của điện thoại > Quản lý quyền ứng dụng</em> để Tắt quyền truy cập danh bạ (đây là quyền rút lại sự đồng ý mà chúng ta vừa học).
+          </div>
+          <div class="post-actions">
+            <span class="action-link" onclick="likePost(this)">❤️ <span>5 lượt thích</span></span>
+            <span class="action-link">💬 Trả lời</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rubric Section (Integrated into LMS) -->
+      <div style="margin-top: 32px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
+        <h4 style="display: flex; align-items: center; gap: 8px; color: #1e293b; margin-bottom: 8px;">
+          📋 Bảng Rubric 10 Điểm Đánh Giá Hoạt Động Vận Dụng (Tích hợp trên LMS):
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--gray); margin-bottom: 14px;">
+          Giáo viên nhấp trực tiếp vào tiêu chí tương ứng trên LMS để chấm điểm tự động đổ về Sổ điểm điện tử:
+        </p>
+
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th style="width: 28%;">Tiêu chí đánh giá</th>
+              <th style="width: 24%;">Mức Tốt (8 - 10 điểm)</th>
+              <th style="width: 24%;">Mức Đạt (5 - 7 điểm)</th>
+              <th style="width: 24%;">Cần cố gắng (&lt; 5 điểm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>1. Năng lực ra quyết định & giải quyết tình huống</strong><br>
+                <small style="color: var(--gray);">(Trọng số: 6 điểm)</small>
+              </td>
+              <td style="cursor: pointer; background: #f0fdf4;" onclick="applyScore(6, 1)">
+                <span class="rubric-badge rubric-good">6 Điểm</span><br>
+                Trả lời đủ 2 vế: Quyết đoán từ chối quyền danh bạ; biết cách thu hồi quyền/xóa ứng dụng.
+              </td>
+              <td style="cursor: pointer;" onclick="applyScore(4, 1)">
+                <span class="rubric-badge rubric-pass">4 Điểm</span><br>
+                Trả lời được 1 vế (biết từ chối nhưng chưa biết cách xử lý khi lỡ tay, hoặc ngược lại).
+              </td>
+              <td style="cursor: pointer;" onclick="applyScore(2, 1)">
+                <span class="rubric-badge rubric-fail">2 Điểm</span><br>
+                Đồng ý cấp quyền vì ham dùng VIP thử, chưa nhận thức được rủi ro lộ dữ liệu.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>2. Vận dụng kiến thức & căn cứ pháp lý</strong><br>
+                <small style="color: var(--gray);">(Trọng số: 2 điểm)</small>
+              </td>
+              <td style="cursor: pointer; background: #f0fdf4;" onclick="applyScore(2, 2)">
+                <span class="rubric-badge rubric-good">2 Điểm</span><br>
+                Sử dụng đúng thuật ngữ: <em>Dữ liệu nhạy cảm, Chủ thể dữ liệu, Quyền rút lại sự đồng ý</em>.
+              </td>
+              <td style="cursor: pointer;" onclick="applyScore(1, 2)">
+                <span class="rubric-badge rubric-pass">1 Điểm</span><br>
+                Lập luận hợp lý nhưng diễn đạt theo cảm tính cá nhân, chưa gắn với từ khóa bài học.
+              </td>
+              <td style="cursor: pointer;" onclick="applyScore(0, 2)">
+                <span class="rubric-badge rubric-fail">0 Điểm</span><br>
+                Không đưa ra được giải thích hoặc lập luận sai lệch.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>3. Kỹ năng tương tác & Trách nhiệm số</strong><br>
+                <small style="color: var(--gray);">(Trọng số: 2 điểm)</small>
+              </td>
+              <td style="cursor: pointer; background: #f0fdf4;" onclick="applyScore(2, 3)">
+                <span class="rubric-badge rubric-good">2 Điểm</span><br>
+                Đăng bài đúng hạn, đúng chính tả, có tương tác phản hồi lịch sự với ít nhất 1 bạn.
+              </td>
+              <td style="cursor: pointer;" onclick="applyScore(1, 3)">
+                <span class="rubric-badge rubric-pass">1 Điểm</span><br>
+                Đăng bài nhưng chưa tương tác nhận xét bài của bạn, hoặc còn lỗi chính tả.
+              </td>
+              <td style="cursor: pointer;" onclick="applyScore(0, 3)">
+                <span class="rubric-badge rubric-fail">0 Điểm</span><br>
+                Đăng bài đối phó, sao chép hoặc dùng từ ngữ không phù hợp.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 16px; padding: 12px 16px; background: #ecfdf5; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+          <span>Điểm Rubric tổng hợp hiện tại: <strong id="rubric-total-score" style="font-size: 1.25rem; color: #047857;">10 / 10 Điểm (Xuất sắc)</strong></span>
+          <button class="btn btn-success" onclick="finishAllLesson()">Hoàn tất bài học trực tuyến 🎉</button>
+        </div>
+      </div>
+
+      <div class="activity-footer">
+        <button class="btn btn-outline" onclick="switchTab(3)">⬅ Quay lại HĐ 3</button>
+        <div></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // State management
+    const state = {
+      currentTab: 0,
+      completedTabs: [false, false, false, false, false],
+      pollSelected: -1,
+      videoQuiz1Done: false,
+      videoQuiz2Done: false,
+      videoProgress: 0,
+      videoPlaying: false,
+      clozeDone: false,
+      gameScore: 0,
+      gameDone: false,
+      rubricScores: { s1: 6, s2: 2, s3: 2 }
+    };
+
+    function updateProgress() {
+      const count = state.completedTabs.filter(Boolean).length;
+      const pct = Math.round((count / 5) * 100);
+      document.getElementById('progress-percentage').innerText = pct + '%';
+      document.getElementById('main-progress-bar').style.width = pct + '%';
+
+      state.completedTabs.forEach((done, idx) => {
+        const tabEl = document.getElementById('tab-' + idx);
+        if (done) {
+          tabEl.classList.add('completed');
+        }
+      });
+    }
+
+    function switchTab(idx) {
+      document.querySelectorAll('.activity-section').forEach((el, i) => {
+        el.classList.toggle('active', i === idx);
+      });
+      document.querySelectorAll('.nav-tab').forEach((el, i) => {
+        el.classList.toggle('active', i === idx);
+      });
+      state.currentTab = idx;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ========== HĐ 1 Logic ==========
+    function selectPoll(idx) {
+      state.pollSelected = idx;
+      for (let i = 0; i < 3; i++) {
+        document.getElementById('opt-label-' + i).classList.toggle('selected', i === idx);
+      }
+    }
+
+    function submitPoll() {
+      if (state.pollSelected === -1) {
+        alert('Vui lòng chọn 1 phương án trước khi gửi!');
+        return;
+      }
+      document.getElementById('poll-results-chart').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('bar-a').style.width = '15%';
+        document.getElementById('bar-b').style.width = '52%';
+        document.getElementById('bar-c').style.width = '33%';
+      }, 100);
+
+      document.getElementById('btn-submit-poll').disabled = true;
+      document.getElementById('btn-submit-poll').innerText = 'Đã gửi bình chọn ✔';
+      document.getElementById('btn-next-0').disabled = false;
+      state.completedTabs[0] = true;
+      updateProgress();
+    }
+
+    // ========== HĐ 2.1 Video Logic ==========
+    const simVid = document.getElementById('simVideo');
+    let simMaxWatched = 0;
+
+    function togglePlayVideo() {
+      const btn = document.getElementById('btn-play-video');
+      if (simVid.paused) {
+        simVid.play().catch(e => console.log(e));
+        btn.innerText = '⏸ Tạm dừng';
+      } else {
+        simVid.pause();
+        btn.innerText = '▶ Tiếp tục xem';
+      }
+    }
+
+    if (simVid) {
+      simVid.addEventListener('play', () => {
+        document.getElementById('btn-play-video').innerText = '⏸ Tạm dừng';
+      });
+
+      simVid.addEventListener('pause', () => {
+        if (!simVid.ended) {
+          document.getElementById('btn-play-video').innerText = '▶ Tiếp tục xem';
+        }
+      });
+
+      simVid.addEventListener('timeupdate', () => {
+        const cur = simVid.currentTime;
+        const dur = simVid.duration || 154;
+
+        if (cur > simMaxWatched) simMaxWatched = cur;
+
+        // Display
+        const m = String(Math.floor(cur / 60)).padStart(2, '0');
+        const s = String(Math.floor(cur % 60)).padStart(2, '0');
+        const totM = String(Math.floor(dur / 60)).padStart(2, '0');
+        const totS = String(Math.floor(dur % 60)).padStart(2, '0');
+        document.getElementById('video-time-display').innerText = `${m}:${s} / ${totM}:${totS}`;
+
+        const pct = (cur / dur) * 100;
+        document.getElementById('v-progress').style.width = pct + '%';
+
+        // Checkpoint 1 at 50s
+        if (cur >= 50 && !state.videoQuiz1Done) {
+          simVid.pause();
+          simVid.currentTime = 50;
+          document.getElementById('video-quiz-1').classList.add('active');
+          document.getElementById('btn-play-video').innerText = '🔒 Neo chặn 1';
+        }
+
+        // Checkpoint 2 at 100s
+        if (cur >= 100 && !state.videoQuiz2Done) {
+          simVid.pause();
+          simVid.currentTime = 100;
+          document.getElementById('video-quiz-2').classList.add('active');
+          document.getElementById('btn-play-video').innerText = '🔒 Neo chặn 2';
+        }
+      });
+
+      simVid.addEventListener('seeking', () => {
+        let maxAllowed = simMaxWatched;
+        if (!state.videoQuiz1Done && maxAllowed > 50) maxAllowed = 50;
+        if (!state.videoQuiz2Done && maxAllowed > 100) maxAllowed = 100;
+
+        if (simVid.currentTime > maxAllowed + 1.5) {
+          alert("🔒 Chặn tua nhanh: Em cần xem video tuần tự và vượt qua các câu hỏi neo chặn!");
+          simVid.currentTime = maxAllowed;
+        }
+      });
+
+      simVid.addEventListener('ended', () => {
+        document.getElementById('btn-play-video').innerText = '✔ Đã xem xong 100%';
+        document.getElementById('btn-play-video').disabled = true;
+        document.getElementById('btn-next-1').disabled = false;
+        state.completedTabs[1] = true;
+        updateProgress();
+      });
+    }
+
+    let selectedVQ1 = '';
+    function selectVideoQ1(val) { selectedVQ1 = val; }
+    function submitVideoQ1() {
+      if (selectedVQ1 !== 'A') {
+        alert('Chưa chính xác! Nhắc lại: Các tương tác, like, bình luận của em tạo thành "Dấu chân kỹ thuật số". Hãy chọn lại!');
+        return;
+      }
+      state.videoQuiz1Done = true;
+      document.getElementById('video-quiz-1').classList.remove('active');
+      simVid.play();
+    }
+
+    let selectedVQ2 = '';
+    function selectVideoQ2(val) { selectedVQ2 = val; }
+    function submitVideoQ2() {
+      if (selectedVQ2 !== 'A') {
+        alert('Chưa chính xác! Các nền tảng thu thập dữ liệu để phân tích sở thích và quảng cáo kiếm tiền. Hãy chọn lại!');
+        return;
+      }
+      state.videoQuiz2Done = true;
+      document.getElementById('video-quiz-2').classList.remove('active');
+      simVid.play();
+    }
+
+    // ========== HĐ 2.2: Game Dây Chuyền Sản Xuất Vi Mạch ==========
+    let assembledCrates = [false, false, false];
+    let selectedChipEl = null;
+    let draggedChipId = null;
+
+    function toggleBeltRun() {
+      const belt = document.getElementById('beltTrack');
+      const btn = document.getElementById('btnBeltStatus');
+      belt.classList.toggle('paused');
+      if (belt.classList.contains('paused')) {
+        btn.innerText = '▶ Khởi động băng chuyền';
+      } else {
+        btn.innerText = '⏸ Tạm dừng băng chuyền';
+      }
+    }
+
+    // Drag and drop setup for Chips
+    document.querySelectorAll('.data-chip').forEach(chip => {
+      chip.addEventListener('dragstart', (e) => {
+        draggedChipId = chip.id;
+        e.dataTransfer.setData('text/plain', chip.id);
+        playSynthBeep(380, 0.05);
+      });
+    });
+
+    function allowDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-hover');
+    }
+
+    function handleDropChip(e, crateNum) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-hover');
+      const chipId = e.dataTransfer.getData('text/plain') || draggedChipId;
+      const chipEl = document.getElementById(chipId);
+      installChipToCrate(chipEl, crateNum);
+    }
+
+    function selectChip(chipEl) {
+      if (chipEl.classList.contains('installed')) return;
+      document.querySelectorAll('.data-chip').forEach(c => c.classList.remove('selected-chip'));
+      selectedChipEl = chipEl;
+      chipEl.classList.add('selected-chip');
+      playSynthBeep(440, 0.08);
+    }
+
+    function clickInstall(crateNum) {
+      if (!selectedChipEl) {
+        alert("Vui lòng nhấp chọn một Chip linh kiện ở Kho bên dưới trước, sau đó nhấp vào đây để lắp ráp!");
+        return;
+      }
+      installChipToCrate(selectedChipEl, crateNum);
+      selectedChipEl.classList.remove('selected-chip');
+      selectedChipEl = null;
+    }
+
+    function installChipToCrate(chipEl, crateNum) {
+      if (!chipEl) return;
+      const expectedAns = String(crateNum);
+      const chipAns = chipEl.dataset.ans;
+
+      if (chipAns === expectedAns) {
+        // Correct Assembly
+        playSynthBeep(600, 0.12);
+        const socket = document.getElementById('socket' + crateNum);
+        socket.innerHTML = `✅ ĐÃ LẮP: <strong>${chipEl.innerText.trim()}</strong>`;
+        socket.classList.add('assembled');
+
+        document.getElementById('dot' + crateNum).classList.add('assembled');
+        document.getElementById('crate' + crateNum).style.borderColor = '#10b981';
+
+        chipEl.classList.add('installed');
+        assembledCrates[crateNum - 1] = true;
+
+        updateFactoryStatus();
+      } else {
+        // Defective chip or wrong crate
+        playSynthBeep(180, 0.25);
+        alert(`❌ LỖI LẮP RÁP Ở KIỆN #${crateNum}: Linh kiện này không tương thích!\nCăn cứ Nghị định 13/2023/NĐ-CP: Hãy đọc kỹ nội dung kiện hàng để chọn đúng linh kiện bảo vệ dữ liệu!`);
+      }
+    }
+
+    function updateFactoryStatus() {
+      const finishedCount = assembledCrates.filter(Boolean).length;
+      document.getElementById('cratesFinished').innerText = `${finishedCount} / 3 kiện`;
+      const perf = Math.round((finishedCount / 3) * 100);
+      document.getElementById('factoryPerf').innerText = `${perf}%`;
+
+      if (finishedCount === 3) {
+        playSynthBeep(880, 0.3);
+        document.getElementById('factorySummary').style.display = 'flex';
+        document.getElementById('btn-next-2').disabled = false;
+        state.completedTabs[2] = true;
+        updateProgress();
+      }
+    }
+
+    function playSynthBeep(freq, dur) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + dur);
+      } catch (e) {}
+    }
+
+    // ========== HĐ 3 Game Logic ==========
+    let draggedId = null;
+
+    document.querySelectorAll('.drag-item').forEach(item => {
+      item.addEventListener('dragstart', (e) => {
+        draggedId = e.target.id;
+        e.dataTransfer.setData('text/plain', e.target.id);
+      });
+      // Click-to-move for touch/mouse
+      item.addEventListener('click', () => {
+        const parentId = item.parentElement.id;
+        if (parentId === 'cards-pool') {
+          // Send to basic by default if left clicked, or prompt
+          const target = prompt('Nhập số 1 để bỏ vào Giỏ CƠ BẢN, hoặc số 2 để bỏ vào Giỏ NHẠY CẢM:', '1');
+          if (target === '1') {
+            document.getElementById('items-basic').appendChild(item);
+          } else if (target === '2') {
+            document.getElementById('items-sensitive').appendChild(item);
+          }
+        } else {
+          // Send back to pool
+          document.getElementById('cards-pool').appendChild(item);
+        }
+      });
+    });
+
+    function allowDrop(e) { e.preventDefault(); }
+    function drop(e, basketType) {
+      e.preventDefault();
+      const id = e.dataTransfer.getData('text/plain') || draggedId;
+      const el = document.getElementById(id);
+      if (el) {
+        document.getElementById('items-' + basketType).appendChild(el);
+      }
+    }
+
+    function gradeGame() {
+      let score = 0;
+      const basicItems = document.getElementById('items-basic').querySelectorAll('.drag-item');
+      const sensitiveItems = document.getElementById('items-sensitive').querySelectorAll('.drag-item');
+
+      basicItems.forEach(el => {
+        if (el.dataset.cat === 'basic') score++;
+      });
+
+      sensitiveItems.forEach(el => {
+        if (el.dataset.cat === 'sensitive') score++;
+      });
+
+      state.gameScore = score;
+      document.getElementById('game-score').innerText = score + ' / 10';
+      const fb = document.getElementById('game-feedback');
+
+      if (score >= 8) {
+        fb.innerHTML = `<span style="color: var(--success)">🏆 Xuất sắc! Em đạt ${score}/10 điểm (Đủ tiêu chuẩn mở khóa HĐ 4).</span>`;
+        document.getElementById('btn-next-3').disabled = false;
+        state.completedTabs[3] = true;
+        updateProgress();
+      } else {
+        fb.innerHTML = `<span style="color: var(--danger)">Cần cố gắng: Em đạt ${score}/10 điểm (Cần >= 8 để qua). Hãy kiểm tra lại và kéo lại các thẻ nhé!</span>`;
+      }
+    }
+
+    function resetGame() {
+      const pool = document.getElementById('cards-pool');
+      document.querySelectorAll('.drag-item').forEach(el => pool.appendChild(el));
+      document.getElementById('game-score').innerText = '0 / 10';
+      document.getElementById('game-feedback').innerText = '';
+    }
+
+    // ========== HĐ 4 Forum & Rubric Logic ==========
+    function postToForum() {
+      const text = document.getElementById('student-post-input').value.trim();
+      if (!text) {
+        alert('Vui lòng nhập nội dung câu trả lời của em!');
+        return;
+      }
+
+      const stream = document.getElementById('forum-stream');
+      const newPost = document.createElement('div');
+      newPost.className = 'forum-post';
+      newPost.innerHTML = `
+        <div class="post-author">
+          <div class="avatar" style="background: #1a73e8;">NM</div>
+          <div>
+            <strong>Nguyễn Nhật Minh (6A1) - Bài của bạn</strong>
+            <div style="font-size: 0.75rem; color: var(--gray);">Vừa xong ✔ Đã lưu vào LMS</div>
+          </div>
+        </div>
+        <div class="post-content">${text.replace(/\\n/g, '<br>')}</div>
+        <div class="post-actions">
+          <span class="action-link" onclick="likePost(this)">❤️ <span>1 lượt thích</span></span>
+          <span class="action-link">💬 0 phản hồi</span>
+        </div>
+      `;
+      stream.insertBefore(newPost, stream.firstChild);
+      document.getElementById('student-post-input').value = '';
+      alert('Đăng bài thành công! Thầy/Cô đã nhận được bài làm của em và hệ thống đã ghi điểm Rubric.');
+      state.completedTabs[4] = true;
+      updateProgress();
+    }
+
+    function likePost(btn) {
+      const span = btn.querySelector('span');
+      let count = parseInt(span.innerText) || 0;
+      span.innerText = (count + 1) + ' lượt thích';
+      btn.style.color = '#e11d48';
+    }
+
+    function applyScore(val, critNum) {
+      state.rubricScores['s' + critNum] = val;
+      const total = state.rubricScores.s1 + state.rubricScores.s2 + state.rubricScores.s3;
+      let label = total >= 8 ? 'Xuất sắc' : (total >= 5 ? 'Đạt' : 'Cần cố gắng');
+      document.getElementById('rubric-total-score').innerText = `${total} / 10 Điểm (${label})`;
+    }
+
+    function finishAllLesson() {
+      state.completedTabs = [true, true, true, true, true];
+      updateProgress();
+      alert('🎉 Chúc mừng em đã hoàn thành xuất sắc 100% Học liệu số Bài 6 trên LMS!\nĐiểm số đã được tự động đồng bộ vào Sổ điểm điện tử của lớp 6A1.');
+    }
+
+    // Init
+    updateProgress();
+  </script>
+</body>
+</html>
+

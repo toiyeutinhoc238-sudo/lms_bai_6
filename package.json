@@ -1,0 +1,11 @@
+{
+  "name": "lms-bai-6",
+  "version": "1.0.0",
+  "description": "Học liệu số LMS Tin học 6 - Bài 6: Dữ liệu cá nhân là tài sản của mỗi con người",
+  "scripts": {
+    "generate-slides": "node generate_canva_slide.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

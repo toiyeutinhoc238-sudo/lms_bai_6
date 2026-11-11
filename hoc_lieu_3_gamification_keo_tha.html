@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trò chơi Kéo - Thả: Bảo vệ Kho báu dữ liệu (Gamification 3.0 Pro)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="scorm_api.js"></script>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: #111827;
+      --card-inner: #1f2937;
+      --border-subtle: #374151;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.35);
+      --basic-color: #0ea5e9;
+      --basic-glow: rgba(14, 165, 233, 0.25);
+      --basic-bg: rgba(2, 132, 199, 0.15);
+      --basic-border: #0284c7;
+      --sens-color: #f43f5e;
+      --sens-glow: rgba(244, 63, 94, 0.25);
+      --sens-bg: rgba(225, 29, 72, 0.15);
+      --sens-border: #e11d48;
+      --accent: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 75%);
+      color: var(--text-main);
+      padding: 16px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .game-wrapper {
+      width: 100%;
+      max-width: 1040px;
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+      padding: 28px;
+      position: relative;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Top Header */
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #a5b4fc;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Score Meter Bar */
+    .hud-bar {
+      display: flex;
+      gap: 16px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 20px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hud-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hud-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* Drop Arenas */
+    .arenas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .arenas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .basket-vault {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 14px;
+      border: 2px dashed #4b5563;
+      padding: 20px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .basket-vault.vault-basic {
+      border-color: rgba(14, 165, 233, 0.4);
+      background: var(--basic-bg);
+    }
+
+    .basket-vault.vault-sens {
+      border-color: rgba(244, 63, 94, 0.4);
+      background: var(--sens-bg);
+    }
+
+    .basket-vault.drag-over {
+      transform: scale(1.02);
+      border-style: solid;
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+    }
+
+    .vault-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .vault-basic .vault-title { color: var(--basic-color); }
+    .vault-sens .vault-title { color: var(--sens-color); }
+
+    .vault-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .vault-items-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Cards Pool */
+    .pool-section {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+
+    .pool-header {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cards-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 80px;
+    }
+
+    /* Interactive Data Card */
+    .data-card {
+      background: #1e293b;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: grab;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .data-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 6px 16px var(--primary-glow);
+    }
+
+    .data-card:active {
+      cursor: grabbing;
+      transform: scale(0.96);
+    }
+
+    .data-card.placed {
+      width: 100%;
+      background: rgba(30, 41, 59, 0.8);
+      font-size: 0.88rem;
+      justify-content: space-between;
+    }
+
+    .data-card.correct {
+      border-color: #10b981 !important;
+      background: rgba(16, 185, 129, 0.2) !important;
+    }
+
+    .data-card.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.2) !important;
+    }
+
+    /* Footer Buttons */
+    .game-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+
+    .btn-reset {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-muted);
+    }
+
+    .btn-reset:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-wrapper">
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Header -->
+    <div class="game-header">
+      <div>
+        <span class="badge-tag">🎮 HOẠT ĐỘNG 3 • LUYỆN TẬP (10 PHÚT)</span>
+        <h1><span>🛡️</span> Game: Bảo Vệ Kho Báu Dữ Liệu</h1>
+      </div>
+      <div>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Căn cứ pháp lý: <strong>Nghị định 13/2023/NĐ-CP</strong></span>
+      </div>
+    </div>
+
+    <!-- HUD -->
+    <div class="hud-bar">
+      <div class="hud-item">
+        <span class="hud-label">Điểm số hiện tại:</span>
+        <span class="hud-val" id="hudScore">0 / 10</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Điều kiện qua môn:</span>
+        <span class="hud-val" style="color: #34d399;">Tối thiểu 8 / 10 (80%)</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Số thẻ chưa xếp:</span>
+        <span class="hud-val" style="color: #38bdf8;" id="hudRemaining">10 thẻ</span>
+      </div>
+    </div>
+
+    <!-- Cards Pool -->
+    <div class="pool-section">
+      <div class="pool-header">
+        <span>📦 CÁC THẺ THÔNG TIN DỮ LIỆU CÁ NHÂN (Kéo vào giỏ hoặc nhấp để chọn):</span>
+        <span style="color: var(--accent);">Hỗ trợ cảm ứng & chuột</span>
+      </div>
+      <div class="cards-flow" id="cardsPool">
+        <div class="data-card" draggable="true" id="c1" data-cat="basic">🏷️ Họ, chữ đệm & tên khai sinh</div>
+        <div class="data-card" draggable="true" id="c2" data-cat="basic">🎂 Ngày, tháng, năm sinh</div>
+        <div class="data-card" draggable="true" id="c3" data-cat="basic">🚻 Giới tính cá nhân</div>
+        <div class="data-card" draggable="true" id="c4" data-cat="basic">📞 Số điện thoại cá nhân</div>
+        <div class="data-card" draggable="true" id="c5" data-cat="basic">📧 Địa chỉ Email cá nhân</div>
+        <div class="data-card" draggable="true" id="c6" data-cat="sens">📍 Tọa độ vị trí GPS hiện tại</div>
+        <div class="data-card" draggable="true" id="c7" data-cat="sens">🩺 Tình trạng sức khỏe & Bệnh án</div>
+        <div class="data-card" draggable="true" id="c8" data-cat="sens">🧬 Dữ liệu sinh trắc vân tay, FaceID</div>
+        <div class="data-card" draggable="true" id="c9" data-cat="sens">💳 Mật khẩu & Tài khoản ngân hàng</div>
+        <div class="data-card" draggable="true" id="c10" data-cat="sens">🚗 Lịch sử di chuyển, hành trình cá nhân</div>
+      </div>
+    </div>
+
+    <!-- 2 Arenas -->
+    <div class="arenas-grid">
+      <!-- Basic Vault -->
+      <div class="basket-vault vault-basic" id="vaultBasic" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'basic')">
+        <div class="vault-title">
+          <span>📁 GIỎ 1: DỮ LIỆU CÁ NHÂN CƠ BẢN</span>
+          <span id="cntBasic" style="font-size: 0.9rem;">0 thẻ</span>
+        </div>
+        <div class="vault-desc">
+          Thông tin nhận diện thông thường theo Điều 2 Khoản 3 NĐ 13/2023/NĐ-CP.
+        </div>
+        <div class="vault-items-container" id="itemsBasic"></div>
+      </div>
+
+      <!-- Sensitive Vault -->
+      <div class="basket-vault vault-sens" id="vaultSens" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'sens')">
+        <div class="vault-title">
+          <span>🔒 GIỎ 2: DỮ LIỆU CÁ NHÂN NHẠY CẢM</span>
+          <span id="cntSens" style="font-size: 0.9rem;">0 thẻ</span>
+        </div>
+        <div class="vault-desc">
+          Thông tin gắn với quyền riêng tư đặc biệt, nếu lộ gây nguy hại ngay (Điều 2 Khoản 4).
+        </div>
+        <div class="vault-items-container" id="itemsSens"></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="game-footer">
+      <button class="btn-main btn-reset" onclick="resetGame()">
+        <span>🔄 Làm lại trò chơi</span>
+      </button>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <span id="gradeResultText" style="font-weight: 700;"></span>
+        <button class="btn-main btn-submit" id="btnGrade" onclick="checkAnswers()">
+          <span>⚡ CHẤM ĐIỂM TỰ ĐỘNG</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Audio synthesizer for interactive gaming sounds
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq, type = 'sine', duration = 0.1) {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    let draggedId = null;
+
+    document.querySelectorAll('.data-card').forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        draggedId = card.id;
+        e.dataTransfer.setData('text/plain', card.id);
+        playBeep(440, 'triangle', 0.05);
+      });
+
+      // Click to move (Mobile / Touch friendly)
+      card.addEventListener('click', () => {
+        const p = card.parentElement.id;
+        if (p === 'cardsPool') {
+          const opt = prompt('Nhập số 1: Giỏ CƠ BẢN\nNhập số 2: Giỏ NHẠY CẢM:', '1');
+          if (opt === '1') {
+            document.getElementById('itemsBasic').appendChild(card);
+            card.classList.add('placed');
+          } else if (opt === '2') {
+            document.getElementById('itemsSens').appendChild(card);
+            card.classList.add('placed');
+          }
+        } else {
+          document.getElementById('cardsPool').appendChild(card);
+          card.classList.remove('placed', 'correct', 'wrong');
+        }
+        updateCounts();
+        playBeep(520, 'sine', 0.05);
+      });
+    });
+
+    function allowDrop(e) { e.preventDefault(); }
+
+    function handleDrop(e, targetType) {
+      e.preventDefault();
+      const id = e.dataTransfer.getData('text/plain') || draggedId;
+      const el = document.getElementById(id);
+      if (el) {
+        const targetContainer = targetType === 'basic' ? document.getElementById('itemsBasic') : document.getElementById('itemsSens');
+        targetContainer.appendChild(el);
+        el.classList.add('placed');
+        updateCounts();
+        playBeep(587, 'sine', 0.08);
+      }
+    }
+
+    function updateCounts() {
+      const bCnt = document.getElementById('itemsBasic').children.length;
+      const sCnt = document.getElementById('itemsSens').children.length;
+      const poolCnt = document.getElementById('cardsPool').children.length;
+
+      document.getElementById('cntBasic').innerText = bCnt + ' thẻ';
+      document.getElementById('cntSens').innerText = sCnt + ' thẻ';
+      document.getElementById('hudRemaining').innerText = poolCnt + ' thẻ';
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      const basicCards = document.getElementById('itemsBasic').querySelectorAll('.data-card');
+      const sensCards = document.getElementById('itemsSens').querySelectorAll('.data-card');
+
+      basicCards.forEach(c => {
+        if (c.dataset.cat === 'basic') {
+          score++;
+          c.classList.add('correct');
+          c.classList.remove('wrong');
+        } else {
+          c.classList.add('wrong');
+          c.classList.remove('correct');
+        }
+      });
+
+      sensCards.forEach(c => {
+        if (c.dataset.cat === 'sens') {
+          score++;
+          c.classList.add('correct');
+          c.classList.remove('wrong');
+        } else {
+          c.classList.add('wrong');
+          c.classList.remove('correct');
+        }
+      });
+
+      document.getElementById('hudScore').innerText = `${score} / 10`;
+      const resEl = document.getElementById('gradeResultText');
+
+      if (score >= 8) {
+        playBeep(880, 'square', 0.25);
+        resEl.innerHTML = `<span style="color: #34d399;">🏆 XUẤT SẮC! Đạt ${score}/10 điểm (Đủ chuẩn qua bài).</span>`;
+        startConfetti();
+        if (typeof scorm !== 'undefined') {
+          scorm.setScore(score * 10, 100, 0);
+          scorm.complete();
+        }
+        try {
+          window.parent.postMessage({ type: 'LMS_COMPLETE_ACTIVITY', activity: 3 }, '*');
+        } catch (e) {}
+      } else {
+        playBeep(220, 'sawtooth', 0.3);
+        resEl.innerHTML = `<span style="color: #f43f5e;">⚠️ Đạt ${score}/10 điểm (Cần ≥ 8 để qua). Hãy quan sát thẻ viền đỏ và làm lại!</span>`;
+      }
+    }
+
+    function resetGame() {
+      const pool = document.getElementById('cardsPool');
+      document.querySelectorAll('.data-card').forEach(c => {
+        c.classList.remove('placed', 'correct', 'wrong');
+        pool.appendChild(c);
+      });
+      document.getElementById('hudScore').innerText = '0 / 10';
+      document.getElementById('gradeResultText').innerText = '';
+      updateCounts();
+    }
+
+    // Confetti effect
+    function startConfetti() {
+      const c = document.getElementById('confettiCanvas');
+      const ctx = c.getContext('2d');
+      c.width = c.offsetWidth;
+      c.height = c.offsetHeight;
+      const particles = [];
+      const colors = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'];
+      for (let i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * c.width,
+          y: Math.random() * c.height * 0.3,
+          r: Math.random() * 6 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 3 + 2
+        });
+      }
+      let t = 0;
+      function anim() {
+        ctx.clearRect(0, 0, c.width, c.height);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+        });
+        t++;
+        if (t < 90) requestAnimationFrame(anim);
+        else ctx.clearRect(0, 0, c.width, c.height);
+      }
+      anim();
+    }
+  </script>
+</body>
+</html>
+

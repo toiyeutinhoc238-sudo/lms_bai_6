@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Học liệu 4: Diễn đàn thảo luận kèm Rubric chấm điểm (Vận dụng 3.0 Pro)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="scorm_api.js"></script>
+  <style>
+    :root {
+      --primary: #4338ca;
+      --primary-light: #6366f1;
+      --primary-dark: #312e81;
+      --secondary: #0ea5e9;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-card: rgba(30, 41, 59, 0.7);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-glow: rgba(99, 102, 241, 0.35);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 980px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid var(--border-glow);
+      color: #a5b4fc;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* Topic Prompt Box */
+    .topic-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1.5px solid rgba(14, 165, 233, 0.3);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .topic-tag {
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--secondary);
+      color: #082f49;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .topic-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .topic-scenario {
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 4px solid var(--secondary);
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      margin-bottom: 16px;
+    }
+
+    .topic-tasks {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .topic-tasks ol {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .topic-tasks li {
+      margin-bottom: 6px;
+    }
+
+    /* Post Form */
+    .form-section {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .form-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .text-input, .text-area {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-size: 0.92rem;
+      transition: all 0.2s;
+    }
+
+    .text-input:focus, .text-area:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 15px var(--border-glow);
+    }
+
+    /* Validator Checklist */
+    .checklist-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.82rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .check-item.valid {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .btn-submit-post {
+      background: linear-gradient(135deg, #4338ca, #3730a3);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(67, 56, 202, 0.4);
+    }
+
+    .btn-submit-post:hover {
+      background: linear-gradient(135deg, #3730a3, #312e81);
+      transform: translateY(-2px);
+    }
+
+    /* Discussion Stream */
+    .stream-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .forum-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+      transition: transform 0.2s;
+    }
+
+    .forum-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0ea5e9, #4338ca);
+      color: white;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .author-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #f8fafc;
+    }
+
+    .post-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .post-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .post-body {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .post-footer {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 10px;
+    }
+
+    .action-btn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .action-btn:hover {
+      color: var(--secondary);
+    }
+
+    /* Rubric Matrix Table */
+    .rubric-box {
+      margin-top: 36px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(99, 102, 241, 0.3);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .rubric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .rubric-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .rubric-table th, .rubric-table td {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      vertical-align: top;
+    }
+
+    .rubric-table th {
+      background: rgba(30, 41, 59, 0.8);
+      color: #f8fafc;
+      font-weight: 800;
+    }
+
+    .rubric-cell {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .rubric-cell:hover {
+      background: rgba(99, 102, 241, 0.15);
+    }
+
+    .rubric-cell.active-score {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border: 1.5px solid var(--success) !important;
+    }
+
+    .score-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .b-good { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .b-pass { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .b-fail { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <span class="top-badge">💬 HOẠT ĐỘNG 4 • VẬN DỤNG (15-20 PHÚT)</span>
+      <h1>Diễn Đàn Thảo Luận: Xử Lý Tình Huống "Lời Mời Hấp Dẫn"</h1>
+      <p class="desc">
+        Vận dụng kiến thức về quyền của chủ thể dữ liệu và bảo vệ dữ liệu cá nhân nhạy cảm để giải quyết tình huống thực tế, nhận đánh giá định lượng qua Bảng Rubric 10 điểm.
+      </p>
+    </header>
+
+    <!-- Topic Card -->
+    <div class="topic-card">
+      <span class="topic-tag">TÌNH HUỐNG GIẢ ĐỊNH</span>
+      <div class="topic-title">📱 Lời mời cấp quyền từ ứng dụng học Toán VIP</div>
+      <div class="topic-scenario">
+        "Có một ứng dụng giải bài tập Toán bằng AI rất hay, đang gây sốt trong giới học sinh. Khi em vừa tải về máy, ứng dụng hiện thông báo: <strong>'Để kích hoạt tài khoản VIP dùng thử miễn phí 30 ngày, vui lòng cho phép ứng dụng truy cập toàn bộ Danh bạ điện thoại và Vị trí định vị GPS của bạn'</strong>."
+      </div>
+      <div class="topic-tasks">
+        <strong>Nhiệm vụ của em trên Diễn đàn:</strong>
+        <ol>
+          <li>Đưa ra <strong>QUYẾT ĐỊNH</strong> của em (Đồng ý hay Từ chối)? Giải thích rõ lý do vì sao (gợi ý: ứng dụng học toán có cần đến danh bạ không?).</li>
+          <li>Nếu hôm qua em đã lỡ bấm <strong>ĐỒNG Ý</strong>, hôm nay em sẽ làm gì để khắc phục và bảo vệ dữ liệu cá nhân?</li>
+          <li>Đọc bài viết của ít nhất <strong>01 bạn cùng lớp</strong>, thả tim và bình luận nhận xét, chia sẻ ý kiến.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Student Form -->
+    <div class="form-section">
+      <div class="form-title">
+        <span>✍️</span> Soạn thảo và Đăng bài lên Diễn đàn (HS: Nguyễn Nhật Minh - 6A1)
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Tiêu đề bài viết (Quy ước: [Họ và tên - Lớp] Tên giải pháp):</label>
+        <input type="text" class="text-input" id="postTitle" placeholder="Ví dụ: [Nguyễn Nhật Minh - 6A1] Quyết định từ chối cấp quyền danh bạ" oninput="validateForm()">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Nội dung câu trả lời (Gồm Quyết định + Lý do + Cách xử lý khi lỡ đồng ý):</label>
+        <textarea class="text-area" rows="4" id="postContent" placeholder="Nhập câu trả lời của em tại đây..." oninput="validateForm()"></textarea>
+      </div>
+
+      <!-- Checklist Validator -->
+      <div class="checklist-box">
+        <div class="check-item" id="chkTitle">⚪ Đúng cú pháp [Họ tên - Lớp]</div>
+        <div class="check-item" id="chkDecision">⚪ Nêu rõ Quyết định (Từ chối)</div>
+        <div class="check-item" id="chkRevoke">⚪ Có giải pháp rút lại sự đồng ý / cài đặt</div>
+        <div class="check-item" id="chkLen">⚪ Độ dài bài viết ≥ 30 từ</div>
+      </div>
+
+      <button class="btn-submit-post" onclick="submitPost()">
+        <span>📤 ĐĂNG BÀI LÊN DIỄN ĐÀN LMS</span>
+      </button>
+    </div>
+
+    <!-- Stream -->
+    <div class="stream-header">
+      <span>💬 CÁC BÀI THẢO LUẬN CỦA LỚP 6A1</span>
+      <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">Chế độ: Đăng bài trước khi xem</span>
+    </div>
+
+    <div id="postsStream">
+      <!-- Peer Sample 1 (10/10 Score) -->
+      <div class="forum-card">
+        <div class="post-header">
+          <div class="author-info">
+            <div class="avatar" style="background: #0284c7;">TT</div>
+            <div>
+              <div class="author-name">Lê Thu Trang (6A1)</div>
+              <div class="post-time">Đã đăng 15 phút trước • Tiêu đề: <strong>[Lê Thu Trang - 6A1] Quyết định bảo vệ tài sản dữ liệu</strong></div>
+            </div>
+          </div>
+          <span class="post-badge">⭐ ĐẠT 10/10 RUBRIC</span>
+        </div>
+        <div class="post-body">
+          Em xin đưa ra quyết định trong tình huống này như sau:<br>
+          1. <strong>Quyết định:</strong> Em dứt khoát <strong>TỪ CHỐI</strong> cấp quyền truy cập Danh bạ và Vị trí GPS. Vì ứng dụng học Toán chỉ cần xử lý công thức và bài tập, hoàn toàn không cần đọc danh bạ của em. Danh bạ và vị trí là <em>dữ liệu cá nhân nhạy cảm</em>, nếu cấp bừa bãi sẽ làm phiền bạn bè và lộ lịch trình cá nhân.<br>
+          2. <strong>Cách xử lý khi lỡ đồng ý:</strong> Nếu đã lỡ bấm Đồng ý, em sẽ vào ngay mục <em>Cài đặt điện thoại &gt; Quản lý quyền ứng dụng</em> để <strong>Tắt quyền truy cập</strong> (thực hiện quyền rút lại sự đồng ý của chủ thể dữ liệu) hoặc gỡ bỏ luôn ứng dụng nếu nó bắt buộc phải cấp quyền mới cho dùng.
+        </div>
+        <div class="post-footer">
+          <span class="action-btn" onclick="likePost(this)">❤️ <span>8 lượt thích</span></span>
+          <span class="action-btn">💬 3 phản hồi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teacher Rubric Table (Interactive Assessment) -->
+    <div class="rubric-box">
+      <div class="rubric-header">
+        <div class="rubric-title">
+          <span>📋</span> Bảng Rubric 10 Điểm Đánh Giá Hoạt Động Vận Dụng (Giáo Viên Chấm LMS)
+        </div>
+        <div>
+          <span style="font-size: 0.9rem;">Tổng điểm Rubric: </span>
+          <strong id="totalRubricScore" style="color: #34d399; font-size: 1.3rem;">10.0 / 10.0 đ</strong>
+        </div>
+      </div>
+
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th style="width: 28%;">Tiêu chí đánh giá</th>
+            <th style="width: 24%;">Mức Tốt (8 – 10 điểm)</th>
+            <th style="width: 24%;">Mức Đạt (5 – 7 điểm)</th>
+            <th style="width: 24%;">Mức Cần cố gắng (&lt; 5 điểm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>1. Khả năng giải quyết tình huống</strong><br>
+              <small style="color: var(--text-muted);">(Trọng số: 6.0 điểm)</small>
+            </td>
+            <td class="rubric-cell active-score" onclick="setScore(1, 6.0, this)">
+              <span class="score-badge b-good">6.0 điểm</span><br>
+              Đủ 2 vế: Từ chối cấp quyền danh bạ/GPS vì không cần thiết; biết cách vào Cài đặt để rút lại sự đồng ý hoặc xóa app.
+            </td>
+            <td class="rubric-cell" onclick="setScore(1, 4.0, this)">
+              <span class="score-badge b-pass">4.0 điểm</span><br>
+              Trả lời được 1 trong 2 vế (biết từ chối nhưng chưa biết cách xử lý khi lỡ tay, hoặc ngược lại).
+            </td>
+            <td class="rubric-cell" onclick="setScore(1, 2.0, this)">
+              <span class="score-badge b-fail">2.0 điểm</span><br>
+              Đồng ý cấp quyền vì ham dùng VIP; không nhận thức được rủi ro mất an toàn thông tin cá nhân.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>2. Lập luận dựa trên kiến thức pháp lý</strong><br>
+              <small style="color: var(--text-muted);">(Trọng số: 2.0 điểm)</small>
+            </td>
+            <td class="rubric-cell active-score" onclick="setScore(2, 2.0, this)">
+              <span class="score-badge b-good">2.0 điểm</span><br>
+              Sử dụng đúng thuật ngữ: <em>Dữ liệu nhạy cảm, Chủ thể dữ liệu, Quyền đồng ý, Quyền rút lại sự đồng ý</em> (NĐ 13/2023/NĐ-CP).
+            </td>
+            <td class="rubric-cell" onclick="setScore(2, 1.0, this)">
+              <span class="score-badge b-pass">1.0 điểm</span><br>
+              Lập luận hợp lý nhưng theo cảm tính cá nhân, chưa vận dụng các thuật ngữ và quyền đã học.
+            </td>
+            <td class="rubric-cell" onclick="setScore(2, 0.0, this)">
+              <span class="score-badge b-fail">0.0 điểm</span><br>
+              Không đưa ra được căn cứ hoặc giải thích sai lệch.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>3. Kỹ năng tương tác & Trách nhiệm số</strong><br>
+              <small style="color: var(--text-muted);">(Trọng số: 2.0 điểm)</small>
+            </td>
+            <td class="rubric-cell active-score" onclick="setScore(3, 2.0, this)">
+              <span class="score-badge b-good">2.0 điểm</span><br>
+              Đăng bài đúng hạn, đúng chính tả; có tương tác phản hồi lịch sự, mang tính xây dựng với ít nhất 1 bạn.
+            </td>
+            <td class="rubric-cell" onclick="setScore(3, 1.0, this)">
+              <span class="score-badge b-pass">1.0 điểm</span><br>
+              Đăng bài đúng hạn nhưng chưa tương tác nhận xét bài của bạn, hoặc còn một số lỗi chính tả.
+            </td>
+            <td class="rubric-cell" onclick="setScore(3, 0.0, this)">
+              <span class="score-badge b-fail">0.0 điểm</span><br>
+              Nộp bài đối phó, sao chép hoặc dùng từ ngữ không phù hợp trên diễn đàn.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let scores = { c1: 6.0, c2: 2.0, c3: 2.0 };
+
+    function validateForm() {
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+
+      // Title pattern [Họ tên - Lớp]
+      const hasPattern = /\[.*? - .*?\]/.test(title);
+      document.getElementById('chkTitle').classList.toggle('valid', hasPattern);
+      document.getElementById('chkTitle').innerText = (hasPattern ? '🟢' : '⚪') + ' Đúng cú pháp [Họ tên - Lớp]';
+
+      // Decision
+      const hasDecision = /từ chối|không cho|không đồng ý/i.test(content);
+      document.getElementById('chkDecision').classList.toggle('valid', hasDecision);
+      document.getElementById('chkDecision').innerText = (hasDecision ? '🟢' : '⚪') + ' Nêu rõ Quyết định (Từ chối)';
+
+      // Revoke / Settings
+      const hasRevoke = /rút lại|cài đặt|tắt quyền|xóa app|gỡ/i.test(content);
+      document.getElementById('chkRevoke').classList.toggle('valid', hasRevoke);
+      document.getElementById('chkRevoke').innerText = (hasRevoke ? '🟢' : '⚪') + ' Có giải pháp rút lại sự đồng ý / cài đặt';
+
+      // Word count
+      const words = content.split(/\s+/).filter(Boolean).length;
+      const isLongEnough = words >= 30;
+      document.getElementById('chkLen').classList.toggle('valid', isLongEnough);
+      document.getElementById('chkLen').innerText = (isLongEnough ? '🟢' : '⚪') + ` Độ dài: ${words}/30 từ`;
+    }
+
+    function submitPost() {
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+
+      if (!title || !content) {
+        alert("Vui lòng điền đầy đủ Tiêu đề và Nội dung bài viết!");
+        return;
+      }
+
+      const stream = document.getElementById('postsStream');
+      const card = document.createElement('div');
+      card.className = 'forum-card';
+      card.innerHTML = `
+        <div class="post-header">
+          <div class="author-info">
+            <div class="avatar" style="background: #10b981;">NM</div>
+            <div>
+              <div class="author-name">Nguyễn Nhật Minh (6A1) - Bài làm của bạn</div>
+              <div class="post-time">Vừa xong • Tiêu đề: <strong>${title}</strong></div>
+            </div>
+          </div>
+          <span class="post-badge">✔ ĐÃ ĐỒNG BỘ LMS</span>
+        </div>
+        <div class="post-body">${content.replace(/\n/g, '<br>')}</div>
+        <div class="post-footer">
+          <span class="action-btn" onclick="likePost(this)">❤️ <span>1 lượt thích</span></span>
+          <span class="action-btn">💬 0 phản hồi</span>
+        </div>
+      `;
+      stream.insertBefore(card, stream.firstChild);
+
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postContent').value = '';
+      alert("Đăng bài thành công! Thầy/Cô đã nhận được bài và bảng Rubric đã tự động ghi điểm.");
+
+      if (typeof scorm !== 'undefined') {
+        scorm.setScore(100, 100, 0);
+        scorm.complete();
+      }
+      try {
+        window.parent.postMessage({ type: 'LMS_COMPLETE_ACTIVITY', activity: 4 }, '*');
+      } catch (e) {}
+    }
+
+    function likePost(btn) {
+      const span = btn.querySelector('span');
+      let cnt = parseInt(span.innerText) || 0;
+      span.innerText = (cnt + 1) + ' lượt thích';
+      btn.style.color = '#f43f5e';
+    }
+
+    function setScore(critIndex, val, cell) {
+      scores['c' + critIndex] = val;
+      const row = cell.parentElement;
+      row.querySelectorAll('.rubric-cell').forEach(c => c.classList.remove('active-score'));
+      cell.classList.add('active-score');
+
+      const total = scores.c1 + scores.c2 + scores.c3;
+      document.getElementById('totalRubricScore').innerText = `${total.toFixed(1)} / 10.0 đ`;
+    }
+  </script>
+</body>
+</html>
+
