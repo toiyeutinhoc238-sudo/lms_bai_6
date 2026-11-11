@@ -1178,7 +1178,7 @@
           </div>
         </div>
         <div class="lock-pill-notice">
-          <span>🔒</span> Neo chặn tại 0:50 & 1:40 • Khóa tua nhanh
+          <span>🔒</span> 3 Điểm neo chặn (0:50, 1:40 & 2:25) • Khóa tua nhanh
         </div>
       </div>
 
@@ -1192,18 +1192,22 @@
         <!-- Neo chặn 1 tại Giây 0:50 -->
         <div class="video-quiz-modal" id="quizPop1">
           <div class="quiz-inner-card">
-            <span class="quiz-inner-badge">📍 NEO CHẶN 1 (MỐC 0:50)</span>
-            <h3>Những lượt like, bình luận và video mà em từng xem trên không gian mạng được gọi chung là gì?</h3>
+            <span class="quiz-inner-badge">📍 NEO CHẶN 1 (0:50) • KHÁM PHÁ KHÁI NIỆM</span>
+            <h3>Theo nội dung video vừa xem, "Dấu chân kỹ thuật số" (Digital Footprint) được hình thành từ những hành động nào của em trên không gian mạng?</h3>
             <div class="quiz-opt-btn" onclick="pickQ1('A', this)">
-              <strong>A.</strong> Dấu chân kỹ thuật số (Dữ liệu phản ánh lịch sử hoạt động mạng)
+              <strong>A.</strong> Từ toàn bộ các hoạt động trực tuyến như: xem video, tìm kiếm, thích, bình luận và chia sẻ bài viết
             </div>
             <div class="quiz-opt-btn" onclick="pickQ1('B', this)">
-              <strong>B.</strong> Lịch sử web tạm thời, máy tính sẽ tự động xóa sau 24h
+              <strong>B.</strong> Chỉ hình thành khi em trực tiếp điền số căn cước công dân hoặc số tài khoản ngân hàng
             </div>
             <div class="quiz-opt-btn" onclick="pickQ1('C', this)">
-              <strong>C.</strong> Tài sản công cộng của các nhà mạng viễn thông
+              <strong>C.</strong> Là các tệp virus máy tính tự động sinh ra khi tắt máy tính
             </div>
-            <div style="margin-top: 18px; text-align: right;">
+            <div class="quiz-opt-btn" onclick="pickQ1('D', this)">
+              <strong>D.</strong> Chỉ xuất hiện khi em bị kẻ xấu đánh cắp mất mật khẩu đăng nhập
+            </div>
+            <div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <span style="font-size: 0.8rem; color: #38bdf8;">💡 Gợi ý: Hãy nhớ lại hình ảnh những bước chân để lại dấu vết trên cát trong video.</span>
               <button class="btn-main" onclick="submitQ1()">Xác nhận & Xem tiếp ➔</button>
             </div>
           </div>
@@ -1212,23 +1216,50 @@
         <!-- Neo chặn 2 tại Giây 1:40 -->
         <div class="video-quiz-modal" id="quizPop2">
           <div class="quiz-inner-card">
-            <span class="quiz-inner-badge">📍 NEO CHẶN 2 (MỐC 1:40)</span>
-            <h3>Các công ty công nghệ và mạng xã hội thu thập dữ liệu hành vi của em chủ yếu để làm gì?</h3>
+            <span class="quiz-inner-badge">📍 NEO CHẶN 2 (1:40) • MỤC ĐÍCH THU THẬP DỮ LIỆU</span>
+            <h3>Các nền tảng trực tuyến và công ty công nghệ thu thập dấu vết dữ liệu hành vi của người dùng chủ yếu để làm gì?</h3>
             <div class="quiz-opt-btn" onclick="pickQ2('A', this)">
-              <strong>A.</strong> Để phân tích sở thích, huấn luyện thuật toán gợi ý và bán quảng cáo kiếm tiền
+              <strong>A.</strong> Để phân tích sở thích cá nhân, huấn luyện thuật toán gợi ý nội dung và bán quảng cáo nhắm mục tiêu
             </div>
             <div class="quiz-opt-btn" onclick="pickQ2('B', this)">
-              <strong>B.</strong> Để tặng quà và tiền học bổng ngẫu nhiên cho học sinh
+              <strong>B.</strong> Để tự động xóa sạch toàn bộ lịch sử người dùng sau mỗi 24 giờ
             </div>
             <div class="quiz-opt-btn" onclick="pickQ2('C', this)">
-              <strong>C.</strong> Chỉ để lưu trữ trong ổ cứng mà không bao giờ sử dụng đến
+              <strong>C.</strong> Để tặng quà và tiền thưởng học bổng ngẫu nhiên cho học sinh
             </div>
-            <div style="margin-top: 18px; text-align: right;">
-              <button class="btn-main" onclick="submitQ2()">Xác nhận & Hoàn thành Video ➔</button>
+            <div class="quiz-opt-btn" onclick="pickQ2('D', this)">
+              <strong>D.</strong> Chỉ để lưu trữ trong kho ổ cứng mà không bao giờ sử dụng đến
+            </div>
+            <div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <span style="font-size: 0.8rem; color: #38bdf8;">💡 Gợi ý: Dữ liệu hành vi giúp các ứng dụng "hiểu" em thích xem gì để giữ chân em lâu hơn.</span>
+              <button class="btn-main" onclick="submitQ2()">Xác nhận & Xem tiếp ➔</button>
             </div>
           </div>
         </div>
 
+        <!-- Neo chặn 3 tại Giây 2:25 -->
+        <div class="video-quiz-modal" id="quizPop3">
+          <div class="quiz-inner-card">
+            <span class="quiz-inner-badge">📍 NEO CHẶN 3 (2:25) • NGUYÊN TẮC BẢO VỆ DẤU CHÂN SỐ</span>
+            <h3>Để không để lại những dấu chân số tiêu cực gây rủi ro cho tương lai, thông điệp quan trọng nhất video khuyên em là gì?</h3>
+            <div class="quiz-opt-btn" onclick="pickQ3('A', this)">
+              <strong>A.</strong> Hãy suy nghĩ cẩn thận trước khi đăng bài ("Think before you post"), cài đặt quyền riêng tư và chia sẻ có trách nhiệm
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ3('B', this)">
+              <strong>B.</strong> Cứ thoải mái đăng mọi số điện thoại, địa chỉ nhà lên các hội nhóm công khai
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ3('C', this)">
+              <strong>C.</strong> Đăng bài xong xóa ngay thì dữ liệu sẽ biến mất vĩnh viễn không để lại dấu vết
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ3('D', this)">
+              <strong>D.</strong> Cho phép tất cả các ứng dụng lạ truy cập vào danh bạ và vị trí định vị
+            </div>
+            <div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <span style="font-size: 0.8rem; color: #38bdf8;">💡 Gợi ý: "Những gì đưa lên mạng có thể tồn tại mãi mãi!"</span>
+              <button class="btn-main" onclick="submitQ3()">Xác nhận & Hoàn thành Video ➔</button>
+            </div>
+          </div>
+        </div>
         <!-- Video Finish Overlay -->
         <div class="video-finish-overlay" id="videoFinishOverlay">
           <div class="finish-icon">🎉</div>
@@ -1252,9 +1283,11 @@
         <div class="cyber-timeline-box" id="cyberTimeline" onclick="handleSeek(event)">
           <div class="cyber-timeline-fill" id="cyberFill"></div>
           <!-- Marker 1 at 32.5% (0:50) -->
-          <div class="checkpoint-marker" style="left: 32.5%;" data-tooltip="📍 Neo chặn 1 (0:50)"></div>
+          <div class="checkpoint-marker" style="left: 32.5%;" data-tooltip="📍 Neo chặn 1 (0:50): Khái niệm Dấu chân số"></div>
           <!-- Marker 2 at 64.9% (1:40) -->
-          <div class="checkpoint-marker" style="left: 64.9%;" data-tooltip="📍 Neo chặn 2 (1:40)"></div>
+          <div class="checkpoint-marker" style="left: 64.9%;" data-tooltip="📍 Neo chặn 2 (1:40): Mục đích thu thập dữ liệu"></div>
+          <!-- Marker 3 at 94.2% (2:25) -->
+          <div class="checkpoint-marker" style="left: 94.2%;" data-tooltip="📍 Neo chặn 3 (2:25): Nguyên tắc bảo vệ an toàn"></div>
         </div>
         <div class="lock-pill-notice" style="font-size: 0.75rem; padding: 4px 10px;">
           🔒 Chặn tua nhanh
@@ -1539,7 +1572,7 @@
     }
 
     // ========================================================
-    // TAB 1: VIDEO TƯƠNG TÁC CYBER CINEMA
+    // TAB 1: VIDEO TƯƠNG TÁC CYBER CINEMA (3 ĐIỂM NEO CHẶN CHUẨN XÁC)
     // ========================================================
     const vid = document.getElementById('mainVideo');
     const btnPlay = document.getElementById('btnPlay');
@@ -1549,6 +1582,7 @@
     const cyberFill = document.getElementById('cyberFill');
     const quizPop1 = document.getElementById('quizPop1');
     const quizPop2 = document.getElementById('quizPop2');
+    const quizPop3 = document.getElementById('quizPop3');
     const videoFinishOverlay = document.getElementById('videoFinishOverlay');
     const cyberToast = document.getElementById('cyberToast');
     const toastMsg = document.getElementById('toastMsg');
@@ -1556,8 +1590,10 @@
     let maxTimeReached = 0;
     let quiz1Passed = false;
     let quiz2Passed = false;
+    let quiz3Passed = false;
     let selectedQ1 = '';
     let selectedQ2 = '';
+    let selectedQ3 = '';
 
     function showToast(msg) {
       toastMsg.innerText = msg;
@@ -1607,26 +1643,34 @@
         const curS = String(Math.floor(cur % 60)).padStart(2, '0');
         const durM = String(Math.floor(dur / 60)).padStart(2, '0');
         const durS = String(Math.floor(dur % 60)).padStart(2, '0');
-        timeDisplay.innerText = `${curM}:${curS} / ${durM}:${durS}`;
+        timeDisplay.innerText = curM + ':' + curS + ' / ' + durM + ':' + durS;
 
         // Fill bar
         const pct = (cur / dur) * 100;
         cyberFill.style.width = pct + '%';
 
-        // Checkpoint 1 at 50s
+        // Checkpoint 1 tại 50s (0:50) - Khái niệm Dấu chân số
         if (cur >= 50 && !quiz1Passed) {
           vid.pause();
           vid.currentTime = 50;
           quizPop1.classList.add('active');
-          btnPlay.innerText = '🔒 Neo chặn 1';
+          btnPlay.innerText = '🔒 Neo chặn 1 (0:50)';
         }
 
-        // Checkpoint 2 at 100s (1:40)
+        // Checkpoint 2 tại 100s (1:40) - Mục đích thu thập dữ liệu
         if (cur >= 100 && !quiz2Passed) {
           vid.pause();
           vid.currentTime = 100;
           quizPop2.classList.add('active');
-          btnPlay.innerText = '🔒 Neo chặn 2';
+          btnPlay.innerText = '🔒 Neo chặn 2 (1:40)';
+        }
+
+        // Checkpoint 3 tại 145s (2:25) - Nguyên tắc bảo vệ an toàn
+        if (cur >= 145 && !quiz3Passed) {
+          vid.pause();
+          vid.currentTime = 145;
+          quizPop3.classList.add('active');
+          btnPlay.innerText = '🔒 Neo chặn 3 (2:25)';
         }
       });
 
@@ -1635,9 +1679,10 @@
         let maxAllowed = maxTimeReached;
         if (!quiz1Passed && maxAllowed > 50) maxAllowed = 50;
         if (!quiz2Passed && maxAllowed > 100) maxAllowed = 100;
+        if (!quiz3Passed && maxAllowed > 145) maxAllowed = 145;
 
         if (vid.currentTime > maxAllowed + 1.5) {
-          showToast('🔒 Khóa tua nhanh: Em phải xem tuần tự và vượt qua câu hỏi neo chặn!');
+          showToast('🔒 Khóa tua nhanh: Em phải xem video tuần tự và vượt qua các câu hỏi neo chặn!');
           vid.currentTime = maxAllowed;
         }
       });
@@ -1648,14 +1693,16 @@
         document.getElementById('btnNextFromTab1').disabled = false;
         videoFinishOverlay.classList.add('active');
         
-        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+        if (typeof confetti !== 'undefined') {
+          confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+        }
 
         // Tự động chuyển tab sau 5 giây
         let secondsLeft = 5;
         const countdownEl = document.getElementById('countdownAutoRedirect');
         const timer = setInterval(() => {
           secondsLeft--;
-          if (countdownEl) countdownEl.innerText = `Tự động chuyển tiếp sau ${secondsLeft} giây...`;
+          if (countdownEl) countdownEl.innerText = 'Tự động chuyển tiếp sau ' + secondsLeft + ' giây...';
           if (secondsLeft <= 0) {
             clearInterval(timer);
             switchTab(2);
@@ -1674,9 +1721,10 @@
       let maxAllowed = maxTimeReached;
       if (!quiz1Passed && maxAllowed > 50) maxAllowed = 50;
       if (!quiz2Passed && maxAllowed > 100) maxAllowed = 100;
+      if (!quiz3Passed && maxAllowed > 145) maxAllowed = 145;
 
       if (targetTime > maxAllowed + 1) {
-        showToast('🔒 Khóa tua nhanh: Em không thể tua vượt qua đoạn chưa xem!');
+        showToast('🔒 Khóa tua nhanh: Em không thể tua vượt qua câu hỏi neo chặn chưa trả lời!');
         vid.currentTime = maxAllowed;
       } else {
         vid.currentTime = targetTime;
@@ -1695,12 +1743,12 @@
         return;
       }
       if (selectedQ1 !== 'A') {
-        alert("Chưa chính xác! Nhắc lại: Các tương tác, like, bình luận của em trên mạng tạo thành 'Dấu chân kỹ thuật số'. Hãy chọn lại phương án A!");
+        alert("Chưa chính xác! Dấu chân số là toàn bộ dấu vết lịch sử hoạt động mạng (like, bình luận, xem video, tìm kiếm...). Em hãy chọn phương án A!");
         return;
       }
       quiz1Passed = true;
       quizPop1.classList.remove('active');
-      showToast("🎉 Chính xác! Tiếp tục khám phá video.");
+      showToast("🎉 Chính xác! Tiếp tục theo dõi video.");
       vid.play();
     }
 
@@ -1716,12 +1764,33 @@
         return;
       }
       if (selectedQ2 !== 'A') {
-        alert("Chưa chính xác! Các công ty công nghệ thu thập dữ liệu để phân tích thói quen và quảng cáo kiếm tiền. Hãy chọn lại phương án A!");
+        alert("Chưa chính xác! Các công ty công nghệ thu thập dữ liệu hành vi để phân tích sở thích và bán quảng cáo kiếm tiền. Em hãy chọn phương án A!");
         return;
       }
       quiz2Passed = true;
       quizPop2.classList.remove('active');
-      showToast("🎉 Tuyệt vời! Hoàn thành câu hỏi neo chặn 2.");
+      showToast("🎉 Rất tốt! Tiếp tục theo dõi các nguyên tắc bảo vệ.");
+      vid.play();
+    }
+
+    function pickQ3(val, el) {
+      selectedQ3 = val;
+      document.querySelectorAll('#quizPop3 .quiz-opt-btn').forEach(btn => btn.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function submitQ3() {
+      if (!selectedQ3) {
+        alert("Em hãy chọn một phương án trả lời!");
+        return;
+      }
+      if (selectedQ3 !== 'A') {
+        alert("Chưa chính xác! Lời khuyên quan trọng nhất là: Hãy suy nghĩ cẩn thận trước khi đăng bài (Think before you post) và bảo mật quyền riêng tư! Em hãy chọn phương án A!");
+        return;
+      }
+      quiz3Passed = true;
+      quizPop3.classList.remove('active');
+      showToast("🎉 Xuất sắc! Em đã hoàn thành toàn bộ câu hỏi neo chặn của video.");
       vid.play();
     }
 

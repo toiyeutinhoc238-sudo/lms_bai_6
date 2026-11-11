@@ -50,7 +50,7 @@
 - Năng lực đặc thù AI **NLa (1, 3)**: Hiểu vai trò quyết định của con người khi dùng AI; biết bảo vệ quyền riêng tư, dữ liệu cá nhân.
 
 **b. Nội dung:**
-- **HĐ 2.1 (15 phút):** Xem Video tương tác SCORM "Dấu chân kỹ thuật số của bạn", trả lời 2 câu hỏi trắc nghiệm neo chặn tại 0:50 và 1:40.
+- **HĐ 2.1 (15 phút):** Xem Video tương tác SCORM "Dấu chân kỹ thuật số của bạn", trả lời 3 câu hỏi trắc nghiệm neo chặn chuẩn xác tại 0:50 (Khái niệm), 1:40 (Mục đích thu thập) và 2:25 (Nguyên tắc bảo vệ an toàn).
 - **HĐ 2.2 (15 phút):** Đọc Module bài giảng vi mô về "Quyền của chủ thể dữ liệu" và tham gia **Trắc nghiệm tình huống tương tác (Interactive Scenario Quiz)** cùng bạn Minh (12 tuổi • Lớp 6) để giải quyết 3 tình huống pháp lý cốt lõi theo Nghị định 13/2023/NĐ-CP và Luật Trẻ em.
 
 **c. Sản phẩm:**
