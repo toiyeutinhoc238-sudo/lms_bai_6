@@ -1617,6 +1617,10 @@
     }
 
     function switchTab(idx) {
+      if (idx === 2 && !state.completedTabs[1]) {
+        alert("🔒 KHÓA HOẠT ĐỘNG: Em bắt buộc phải xem xong 100% Video tương tác ở HĐ 2.1 và vượt qua các câu hỏi neo chặn trước khi mở phần Trắc nghiệm!");
+        return;
+      }
       document.querySelectorAll('.activity-section').forEach((el, i) => {
         el.classList.toggle('active', i === idx);
       });

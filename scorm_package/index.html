@@ -166,6 +166,25 @@
       border: 1px solid rgba(0, 242, 254, 0.35);
     }
 
+    
+    .step-item.locked {
+      opacity: 0.45;
+      cursor: not-allowed;
+      border: 1px dashed #334155;
+    }
+    .step-item.locked:hover {
+      background: transparent;
+      opacity: 0.45;
+    }
+    .step-item.locked .step-num {
+      background: #0f172a;
+      color: #64748b;
+      border: 1px solid #334155;
+    }
+    .step-item.shake {
+      animation: shake 0.4s ease;
+    }
+
     .step-num {
       width: 28px;
       height: 28px;
@@ -1067,9 +1086,9 @@
         <div class="step-title">🎬 Video Tương Tác: Dấu Chân Số (2.5')</div>
       </div>
       <div class="step-arrow">➔</div>
-      <div class="step-item" id="stepTab2" onclick="switchTab(2)">
-        <div class="step-num">2</div>
-        <div class="step-title">🎮 Trắc Nghiệm: Quyền Của Chủ Thể Dữ Liệu (3 Tình Huống)</div>
+      <div class="step-item locked" id="stepTab2" onclick="switchTab(2)" title="🔒 Cần xem hết Video để mở khóa">
+        <div class="step-num" id="step2Num">🔒</div>
+        <div class="step-title" id="step2Title">🎮 Trắc Nghiệm: Quyền Của Chủ Thể Dữ Liệu (Chưa mở khóa)</div>
       </div>
     </nav>
 
@@ -1409,7 +1428,19 @@
     // ========================================================
     // TAB NAVIGATION
     // ========================================================
+    let isVideoFinished = false;
+
     function switchTab(tabIndex) {
+      if (tabIndex === 2 && !isVideoFinished) {
+        showToast("🔒 Khóa: Em cần xem hết 100% video và vượt qua 3 câu hỏi neo chặn trước khi mở phần Trắc nghiệm!");
+        const step2 = document.getElementById('stepTab2');
+        if (step2) {
+          step2.classList.add('shake');
+          setTimeout(() => step2.classList.remove('shake'), 500);
+        }
+        return;
+      }
+
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active'));
 
@@ -1544,9 +1575,22 @@
       });
 
       vid.addEventListener('ended', () => {
+        isVideoFinished = true;
         btnPlay.innerText = '✔ Hoàn thành 100%';
         btnPlay.disabled = true;
         document.getElementById('btnNextFromTab1').disabled = false;
+
+        // Mở khóa Tab 2 trên thanh điều hướng
+        const step2 = document.getElementById('stepTab2');
+        if (step2) {
+          step2.classList.remove('locked');
+          step2.title = "Đã mở khóa phần Trắc nghiệm!";
+          const step2Num = document.getElementById('step2Num');
+          if (step2Num) step2Num.innerText = "2";
+          const step2Title = document.getElementById('step2Title');
+          if (step2Title) step2Title.innerHTML = '🎮 Trắc Nghiệm: Quyền Của Chủ Thể Dữ Liệu (3 Tình Huống)';
+        }
+
         videoFinishOverlay.classList.add('active');
         
         if (typeof confetti !== 'undefined') {
