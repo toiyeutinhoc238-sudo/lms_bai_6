@@ -1090,7 +1090,7 @@
           <span>🎬 2.1 Video tương tác (15')</span>
         </button>
         <button class="nav-tab" onclick="switchTab(2)" id="tab-2">
-          <span>📖 2.2 Module bài giảng (15')</span>
+          <span id="tab2Label">🔒 2.2 Trắc nghiệm pháp lý (Chưa mở)</span>
         </button>
         <button class="nav-tab" onclick="switchTab(3)" id="tab-3">
           <span>🎮 3. Game Kéo thả (10')</span>
@@ -1742,6 +1742,8 @@
         document.getElementById('btn-play-video').disabled = true;
         document.getElementById('btn-next-1').disabled = false;
         state.completedTabs[1] = true;
+        const t2L = document.getElementById('tab2Label');
+        if (t2L) t2L.innerHTML = '🎮 2.2 Trắc nghiệm pháp lý (Đã mở)';
         updateProgress();
       });
     }

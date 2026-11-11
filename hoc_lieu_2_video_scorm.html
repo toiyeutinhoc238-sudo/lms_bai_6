@@ -168,18 +168,37 @@
 
     
     .step-item.locked {
-      opacity: 0.45;
-      cursor: not-allowed;
-      border: 1px dashed #334155;
+      opacity: 0.45 !important;
+      cursor: not-allowed !important;
+      border: 1.5px dashed #475569 !important;
+      background: rgba(15, 23, 42, 0.6) !important;
+      user-select: none;
     }
     .step-item.locked:hover {
-      background: transparent;
-      opacity: 0.45;
+      background: rgba(15, 23, 42, 0.6) !important;
+      opacity: 0.45 !important;
+      transform: none !important;
     }
     .step-item.locked .step-num {
-      background: #0f172a;
-      color: #64748b;
-      border: 1px solid #334155;
+      background: #1e293b !important;
+      color: #ef4444 !important;
+      border: 1px solid #ef4444 !important;
+      box-shadow: none !important;
+    }
+    .step-lock-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
     .step-item.shake {
       animation: shake 0.4s ease;
@@ -1086,9 +1105,12 @@
         <div class="step-title">🎬 Video Tương Tác: Dấu Chân Số (2.5')</div>
       </div>
       <div class="step-arrow">➔</div>
-      <div class="step-item locked" id="stepTab2" onclick="switchTab(2)" title="🔒 Cần xem hết Video để mở khóa">
+      <div class="step-item locked" id="stepTab2" onclick="trySwitchToTab2()" title="🔒 ĐIỀU KIỆN TIÊN QUYẾT: Bắt buộc phải xem xong 100% Video mới được làm Trắc nghiệm!">
         <div class="step-num" id="step2Num">🔒</div>
-        <div class="step-title" id="step2Title">🎮 Trắc Nghiệm: Quyền Của Chủ Thể Dữ Liệu (Chưa mở khóa)</div>
+        <div class="step-title" id="step2Title">
+          <span>🎮 Bước 2: Trắc Nghiệm Quyền Dữ Liệu</span>
+          <span class="step-lock-tag" id="step2LockTag">🔒 Khóa Tiên Quyết</span>
+        </div>
       </div>
     </nav>
 
@@ -1430,14 +1452,23 @@
     // ========================================================
     let isVideoFinished = false;
 
-    function switchTab(tabIndex) {
-      if (tabIndex === 2 && !isVideoFinished) {
-        showToast("🔒 Khóa: Em cần xem hết 100% video và vượt qua 3 câu hỏi neo chặn trước khi mở phần Trắc nghiệm!");
+    function trySwitchToTab2() {
+      if (!isVideoFinished) {
+        showToast("🔒 ĐIỀU KIỆN TIÊN QUYẾT: Em bắt buộc phải xem xong 100% Video ở Bước 1 và vượt qua 3 câu hỏi neo chặn trước khi làm Trắc nghiệm!");
         const step2 = document.getElementById('stepTab2');
         if (step2) {
           step2.classList.add('shake');
           setTimeout(() => step2.classList.remove('shake'), 500);
         }
+        return false;
+      }
+      switchTab(2);
+    }
+
+    function switchTab(tabIndex) {
+      // Tuyệt đối chặn nhảy cóc vào Tab 2 nếu chưa xong video
+      if (tabIndex === 2 && !isVideoFinished) {
+        trySwitchToTab2();
         return;
       }
 
@@ -1587,8 +1618,13 @@
           step2.title = "Đã mở khóa phần Trắc nghiệm!";
           const step2Num = document.getElementById('step2Num');
           if (step2Num) step2Num.innerText = "2";
-          const step2Title = document.getElementById('step2Title');
-          if (step2Title) step2Title.innerHTML = '🎮 Trắc Nghiệm: Quyền Của Chủ Thể Dữ Liệu (3 Tình Huống)';
+          const step2LockTag = document.getElementById('step2LockTag');
+          if (step2LockTag) {
+            step2LockTag.style.background = "rgba(16, 185, 129, 0.15)";
+            step2LockTag.style.color = "#34d399";
+            step2LockTag.style.borderColor = "rgba(16, 185, 129, 0.35)";
+            step2LockTag.innerText = "✔ ĐÃ MỞ KHÓA";
+          }
         }
 
         videoFinishOverlay.classList.add('active');
