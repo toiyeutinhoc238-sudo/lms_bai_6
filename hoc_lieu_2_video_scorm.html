@@ -3,25 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Học liệu 2: Video tương tác SCORM & Game Dây chuyền Quyền dữ liệu</title>
+  <title>Học liệu 2: Video Tương Tác & Trắc Nghiệm Quyền Dữ Liệu Cá Nhân - Tin học 6 Bài 6</title>
+  
+  <!-- SCORM API wrapper -->
+  <script src="scorm_api.js"></script>
+
+  <!-- Google Fonts & Canvas Confetti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
-  <script src="scorm_api.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4338ca;
-      --neon-cyan: #06b6d4;
-      --neon-emerald: #10b981;
-      --neon-amber: #f59e0b;
-      --neon-rose: #f43f5e;
-      --bg-dark: #070913;
-      --card-bg: rgba(15, 23, 42, 0.85);
-      --card-border: rgba(99, 102, 241, 0.25);
-      --text: #f8fafc;
+      --bg-dark: #070d18;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --cyan-neon: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.35);
+      --purple-neon: #9d4edd;
+      --purple-glow: rgba(157, 78, 221, 0.3);
+      --green-neon: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.35);
+      --red-neon: #ef4444;
+      --amber-neon: #f59e0b;
+      --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --radius: 18px;
     }
 
     * {
@@ -34,102 +41,170 @@
     body {
       background: var(--bg-dark);
       background-image: 
-        radial-gradient(rgba(99, 102, 241, 0.12) 1px, transparent 1px),
-        linear-gradient(135deg, #05070e 0%, #0d1224 50%, #150f2f 100%);
-      background-size: 28px 28px, 100% 100%;
-      color: var(--text);
-      padding: 20px 16px;
+        radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(157, 78, 221, 0.08) 0%, transparent 40%);
+      color: var(--text-main);
       min-height: 100vh;
+      padding: 20px 16px 40px;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .container {
-      background: rgba(11, 17, 33, 0.95);
-      backdrop-filter: blur(16px);
+    .main-wrapper {
       width: 100%;
-      max-width: 1020px;
-      border-radius: var(--radius);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(99, 102, 241, 0.2);
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 30px;
+      max-width: 1040px;
     }
 
-    .top-badge {
+    /* Header Bar */
+    .header-bar {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-badge {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 14px rgba(0, 114, 255, 0.4);
+    }
+
+    .header-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .header-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .scorm-status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      color: #a5b4fc;
-      padding: 5px 14px;
-      border-radius: 999px;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
       font-size: 0.82rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.65rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 6px;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 22px;
-      line-height: 1.5;
-    }
-
-    /* Sub-tabs */
-    .section-nav {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
-    .nav-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-      padding: 11px 20px;
-      border-radius: 12px;
       font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Flow Stepper */
+    .flow-stepper {
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
+      justify-content: space-between;
+      background: #090e1a;
+      border: 1.5px solid #1e293b;
+      border-radius: 14px;
+      padding: 10px 18px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .nav-btn:hover {
-      background: rgba(99, 102, 241, 0.15);
-      color: #ffffff;
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      opacity: 0.55;
+      transition: all 0.25s ease;
+      padding: 6px 12px;
+      border-radius: 10px;
     }
 
-    .nav-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-      box-shadow: 0 0 18px rgba(99, 102, 241, 0.45);
+    .step-item:hover {
+      opacity: 0.85;
+      background: rgba(255, 255, 255, 0.04);
     }
 
+    .step-item.active {
+      opacity: 1;
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1e293b;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .step-item.active .step-num {
+      background: var(--cyan-neon);
+      color: #070d18;
+      box-shadow: 0 0 10px var(--cyan-glow);
+    }
+
+    .step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .step-arrow {
+      color: #475569;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    /* Tab Content Panels */
     .tab-content {
       display: none;
+      animation: fadeIn 0.3s ease;
     }
 
     .tab-content.active {
       display: block;
-      animation: fadeIn 0.3s ease;
     }
 
     @keyframes fadeIn {
@@ -138,29 +213,69 @@
     }
 
     /* ========================================================
-       PHẦN 1: VIDEO TƯƠNG TÁC (SCORM 1.2 PLAYER)
+       TAB 1: VIDEO TƯƠNG TÁC CYBER CINEMA
        ======================================================== */
-    .video-shell {
-      background: #020617;
-      border-radius: 14px;
-      border: 1.5px solid rgba(99, 102, 241, 0.35);
-      overflow: hidden;
-      position: relative;
-      margin-bottom: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    }
-
-    .video-screen {
-      height: 440px;
-      background: #000;
-      position: relative;
+    .video-intro-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      overflow: hidden;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    video#mainVideo {
+    .video-intro-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .video-intro-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .lock-pill-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 30px;
+      white-space: nowrap;
+    }
+
+    /* Cyber Video Frame */
+    .cyber-video-frame {
+      position: relative;
+      background: #000;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid #1e293b;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.12);
+      aspect-ratio: 16 / 9;
+      max-height: 520px;
+      width: 100%;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cyber-video-frame video {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -168,984 +283,1709 @@
       display: block;
     }
 
-    /* Quiz Popup Overlay */
-    .quiz-popup-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(3, 7, 18, 0.95);
-      backdrop-filter: blur(8px);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-      z-index: 50;
-    }
-
-    .quiz-popup-overlay.active {
-      display: flex;
-      animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.92); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .quiz-modal {
-      background: #0f172a;
-      border: 2px solid var(--neon-cyan);
-      border-radius: 16px;
-      padding: 28px;
-      max-width: 640px;
-      width: 100%;
-      box-shadow: 0 0 35px rgba(6, 182, 212, 0.35);
-    }
-
-    .quiz-modal h3 {
-      font-size: 1.15rem;
-      color: #f8fafc;
-      margin: 10px 0 16px 0;
-      line-height: 1.5;
-    }
-
-    .quiz-option {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      padding: 13px 18px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.93rem;
-      transition: all 0.2s;
-    }
-
-    .quiz-option:hover {
-      background: rgba(99, 102, 241, 0.2);
-      border-color: var(--primary);
-    }
-
-    .quiz-option.selected {
-      background: rgba(99, 102, 241, 0.4);
-      border-color: var(--neon-cyan);
-      font-weight: 700;
-      box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
-    }
-
-    /* Player Controls Bar */
-    .player-controls {
-      background: #090d1a;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      flex-wrap: wrap;
-    }
-
-    .btn-play {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 9px 18px;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.2s;
-    }
-
-    .btn-play:hover {
-      background: var(--primary-dark);
-    }
-
-    .time-badge {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 0.88rem;
-      color: #94a3b8;
-      min-width: 105px;
-    }
-
-    .progress-track {
-      flex: 1;
-      min-width: 180px;
-      height: 10px;
-      background: #1e293b;
-      border-radius: 999px;
-      position: relative;
-      cursor: pointer;
-      overflow: visible;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #6366f1, #06b6d4);
-      width: 0%;
-      border-radius: 999px;
-      position: relative;
-    }
-
-    .checkpoint-dot {
+    /* Center Big Play Button */
+    .big-play-btn {
       position: absolute;
       top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
+      width: 74px;
+      height: 74px;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.85), rgba(0, 114, 255, 0.85));
+      border: 3px solid #fff;
       border-radius: 50%;
-      background: var(--neon-amber);
-      border: 2.5px solid #ffffff;
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
-      z-index: 10;
-    }
-
-    .lock-badge {
       display: flex;
       align-items: center;
-      gap: 5px;
-      font-size: 0.8rem;
-      color: var(--neon-amber);
-      font-weight: 700;
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 5px 10px;
-      border-radius: 6px;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 2rem;
+      color: #fff;
+      box-shadow: 0 0 25px var(--cyan-glow);
+      transition: all 0.25s ease;
+      z-index: 5;
     }
 
-    .btn-action {
-      background: var(--neon-emerald);
-      color: #022c22;
+    .big-play-btn:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 0 35px var(--cyan-glow);
+    }
+
+    .cyber-video-frame.playing .big-play-btn {
+      display: none;
+    }
+
+    /* Video Player Controls */
+    .cyber-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #090e1a;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn-cyber-play {
+      background: linear-gradient(135deg, #00f2fe, #0072ff);
+      color: #070d18;
       border: none;
-      padding: 10px 22px;
+      padding: 8px 16px;
       border-radius: 10px;
+      font-size: 0.88rem;
       font-weight: 800;
       cursor: pointer;
-      font-size: 0.92rem;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-action:hover {
-      background: #059669;
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    /* ========================================================
-       PHẦN 2: GAME DÂY CHUYỀN SẢN XUẤT DỮ LIỆU (CONVEYOR FACTORY)
-       ======================================================== */
-    .factory-container {
-      background: #0a0f1e;
-      border: 2px solid #1e293b;
-      border-radius: 16px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    }
-
-    /* Factory HUD */
-    .factory-hud {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0f172a;
-      border: 1.5px solid #334155;
-      border-radius: 12px;
-      padding: 12px 20px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .hud-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.05rem;
-      color: #38bdf8;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: 0.5px;
-    }
-
-    .gear-icon {
-      display: inline-block;
-      animation: spinGear 4s linear infinite;
-    }
-
-    @keyframes spinGear {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .hud-stat {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.88rem;
-      color: #94a3b8;
+      transition: all 0.2s;
     }
 
-    .hud-stat strong {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.15rem;
-      color: #34d399;
+    .btn-cyber-play:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 14px var(--cyan-glow);
     }
 
-    /* Conveyor Belt System */
-    .conveyor-stage {
-      background: #050811;
-      border: 2px solid #1e293b;
-      border-radius: 14px;
-      padding: 20px 16px;
-      position: relative;
-      margin-bottom: 24px;
-      overflow-x: auto;
-    }
-
-    /* Industrial Hazard Border */
-    .hazard-stripe {
-      height: 8px;
-      background: repeating-linear-gradient(
-        -45deg,
-        #f59e0b,
-        #f59e0b 12px,
-        #111827 12px,
-        #111827 24px
-      );
-      border-radius: 4px;
-      margin-bottom: 14px;
-    }
-
-    .belt-track {
-      background: #111827;
-      border: 3px solid #374151;
-      border-radius: 12px;
-      padding: 18px 12px;
-      position: relative;
-      background-image: repeating-linear-gradient(
-        90deg,
-        #1f2937,
-        #1f2937 20px,
-        #111827 20px,
-        #111827 40px
-      );
-      animation: beltSlide 2s linear infinite;
-    }
-
-    @keyframes beltSlide {
-      from { background-position: 0 0; }
-      to { background-position: 40px 0; }
-    }
-
-    .belt-track.paused {
-      animation-play-state: paused;
-    }
-
-    /* Crates Grid on the Conveyor */
-    .crates-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      min-width: 780px;
-    }
-
-    .data-crate {
-      background: #1e293b;
-      border: 2px solid #475569;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      position: relative;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .crate-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .crate-tag {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    .tag-c1 { background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid #0891b2; }
-    .tag-c2 { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #d97706; }
-    .tag-c3 { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #9333ea; }
-
-    .crate-status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ef4444;
-      box-shadow: 0 0 8px #ef4444;
-    }
-
-    .crate-status-dot.assembled {
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-    }
-
-    .crate-text {
-      font-size: 0.88rem;
-      line-height: 1.8;
-      color: #e2e8f0;
-      margin-bottom: 14px;
-    }
-
-    /* Magnetic Drop Slot */
-    .drop-socket {
-      min-height: 44px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 2px dashed #0284c7;
-      border-radius: 8px;
-      padding: 6px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+    .digital-clock {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
       font-weight: 700;
       color: #38bdf8;
-      transition: all 0.2s;
+      background: rgba(56, 189, 248, 0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .cyber-timeline-box {
+      flex: 1;
+      min-width: 180px;
+      height: 12px;
+      background: #1e293b;
+      border-radius: 6px;
+      position: relative;
       cursor: pointer;
     }
 
-    .drop-socket.drag-hover {
-      background: rgba(6, 182, 212, 0.25);
-      border-color: #38bdf8;
-      border-style: solid;
-      transform: scale(1.02);
+    .cyber-timeline-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00f2fe, #3b82f6);
+      border-radius: 6px;
+      width: 0%;
+      transition: width 0.1s linear;
+      position: relative;
     }
 
-    .drop-socket.assembled {
-      background: rgba(16, 185, 129, 0.2);
-      border: 2px solid #10b981;
-      color: #34d399;
-      font-weight: 800;
+    .checkpoint-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #f59e0b;
+      border: 2px solid #fff;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
+      cursor: pointer;
+      z-index: 3;
+      transition: transform 0.2s;
     }
 
-    /* Parts Warehouse / Hopper */
-    .warehouse-bay {
-      background: #0f172a;
-      border: 1.5px solid #334155;
-      border-radius: 14px;
+    .checkpoint-marker:hover {
+      transform: translate(-50%, -50%) scale(1.35);
+    }
+
+    .checkpoint-marker::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #334155;
+      color: #f8fafc;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .checkpoint-marker:hover::after {
+      opacity: 1;
+    }
+
+    /* Pop-up Quiz Overlay */
+    .video-quiz-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(7, 13, 24, 0.92);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
+      z-index: 10;
+      animation: fadeIn 0.25s ease;
     }
 
-    .bay-header {
+    .video-quiz-modal.active {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
     }
 
-    .bay-title {
-      font-size: 0.92rem;
+    .quiz-inner-card {
+      background: #0f172a;
+      border: 2px solid var(--cyan-neon);
+      box-shadow: 0 0 35px var(--cyan-glow);
+      border-radius: 18px;
+      padding: 24px 28px;
+      max-width: 620px;
+      width: 100%;
+    }
+
+    .quiz-inner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
       font-weight: 800;
-      color: #cbd5e1;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .quiz-inner-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.45;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .quiz-opt-btn {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+      cursor: pointer;
       display: flex;
       align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .quiz-opt-btn:hover {
+      border-color: var(--cyan-neon);
+      background: rgba(0, 242, 254, 0.08);
+      transform: translateX(4px);
+    }
+
+    .quiz-opt-btn.selected {
+      border-color: var(--cyan-neon);
+      background: rgba(0, 242, 254, 0.18);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Video Finish Overlay */
+    .video-finish-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(7, 13, 24, 0.95);
+      backdrop-filter: blur(10px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      z-index: 10;
+    }
+
+    .video-finish-overlay.active {
+      display: flex;
+    }
+
+    .finish-icon {
+      font-size: 3.5rem;
+      margin-bottom: 12px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    /* Toast Notification for Lock Seeking */
+    .cyber-toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: #1e293b;
+      border: 1.5px solid var(--amber-neon);
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+      color: #f8fafc;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .cyber-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Backup YouTube Bar */
+    .video-backup-bar {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed #334155;
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .btn-yt-backup {
+      color: #f87171;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-yt-backup:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    /* ========================================================
+       TAB 2: GAME TRẮC NGHIỆM TÌNH HUỐNG "QUYỀN DỮ LIỆU CÁ NHÂN"
+       (THAY THẾ TOÀN BỘ THEO YÊU CẦU CỦA NGƯỜI DÙNG)
+       ======================================================== */
+    .quiz-container {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* HUD Dashboard */
+    .quiz-hud {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hud-card {
+      background: #090e1a;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hud-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .hud-card.safety .hud-card-icon {
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: var(--cyan-neon);
+    }
+
+    .hud-card.legal .hud-card-icon {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--green-neon);
+    }
+
+    .hud-card.badge-rank .hud-card-icon {
+      background: rgba(157, 78, 221, 0.12);
+      border: 1px solid rgba(157, 78, 221, 0.3);
+      color: var(--purple-neon);
+    }
+
+    .hud-card-info h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .hud-card-info .val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Character & Situation Lead */
+    .situation-lead-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .avatar-minh {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+    }
+
+    .lead-text h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .lead-text p {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    /* Progress Dots */
+    .round-progress-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .round-indicator {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--cyan-neon);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .round-dots-track {
+      display: flex;
       gap: 8px;
     }
 
-    .chips-rack {
+    .round-dot {
+      width: 28px;
+      height: 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      transition: all 0.3s;
+    }
+
+    .round-dot.completed {
+      background: var(--green-neon);
+      box-shadow: 0 0 8px var(--green-glow);
+    }
+
+    .round-dot.active {
+      background: var(--cyan-neon);
+      box-shadow: 0 0 10px var(--cyan-glow);
+      width: 40px;
+    }
+
+    /* Question & Options Area */
+    .question-box {
+      margin-bottom: 22px;
+    }
+
+    .question-prompt {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.5;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .options-grid {
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .opt-card {
+      background: #0b1325;
+      border: 1.5px solid #1e293b;
+      border-radius: 14px;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: all 0.22s ease;
+      position: relative;
+    }
+
+    .opt-card:hover {
+      border-color: var(--cyan-neon);
+      background: rgba(0, 242, 254, 0.04);
+      transform: translateY(-2px);
+    }
+
+    .opt-card.selected {
+      border-color: var(--cyan-neon);
+      background: rgba(0, 242, 254, 0.12);
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+
+    .opt-card.correct {
+      border-color: var(--green-neon) !important;
+      background: rgba(16, 185, 129, 0.15) !important;
+      box-shadow: 0 0 18px var(--green-glow) !important;
+    }
+
+    .opt-card.wrong {
+      border-color: var(--red-neon) !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .opt-letter {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .opt-card.selected .opt-letter {
+      background: var(--cyan-neon);
+      color: #070d18;
+    }
+
+    .opt-card.correct .opt-letter {
+      background: var(--green-neon);
+      color: #070d18;
+    }
+
+    .opt-card.wrong .opt-letter {
+      background: var(--red-neon);
+      color: #fff;
+    }
+
+    .opt-content {
+      flex: 1;
+    }
+
+    .opt-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.45;
+    }
+
+    .opt-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Feedback Banner */
+    .feedback-banner {
+      display: none;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .feedback-banner.show {
+      display: block;
+    }
+
+    .feedback-banner.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1.5px solid var(--green-neon);
+    }
+
+    .feedback-banner.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1.5px solid var(--red-neon);
+    }
+
+    .fb-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feedback-banner.success .fb-header { color: #34d399; }
+    .feedback-banner.error .fb-header { color: #f87171; }
+
+    .fb-body {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+    }
+
+    .fb-legal {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      font-size: 0.82rem;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* Action Buttons */
+    .action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
       flex-wrap: wrap;
       gap: 12px;
     }
 
-    /* Draggable Chip */
-    .data-chip {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1.5px solid #6366f1;
-      color: #ffffff;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: grab;
-      user-select: none;
+    .btn-main {
+      background: linear-gradient(135deg, #00f2fe, #0072ff);
+      color: #070d18;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      gap: 10px;
+      transition: all 0.22s;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .btn-main:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
       transition: all 0.2s;
     }
 
-    .data-chip:hover {
-      transform: translateY(-3px);
-      border-color: var(--neon-cyan);
-      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35);
+    .btn-secondary:hover {
+      background: #334155;
+      color: #fff;
     }
 
-    .data-chip:active {
-      cursor: grabbing;
-      transform: scale(0.96);
-    }
-
-    .data-chip.selected-chip {
-      border-color: #34d399;
-      background: rgba(16, 185, 129, 0.25);
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
-    }
-
-    .data-chip.installed {
-      opacity: 0.3;
-      cursor: not-allowed;
-      pointer-events: none;
-      filter: grayscale(1);
-    }
-
-    .factory-summary {
-      margin-top: 20px;
-      padding: 16px 20px;
-      border-radius: 10px;
+    /* Victory Card */
+    .victory-card {
       display: none;
-      align-items: center;
-      justify-content: space-between;
-      animation: fadeIn 0.4s;
+      text-align: center;
+      padding: 30px 20px;
+      animation: fadeIn 0.4s ease;
     }
 
-    .factory-success {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1.5px solid #10b981;
-      color: #34d399;
+    .victory-card.active {
+      display: block;
+    }
+
+    .trophy-badge {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 18px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.5);
+      animation: bounce 1s infinite alternate;
+    }
+
+    .victory-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .victory-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 24px;
+      line-height: 1.5;
+    }
+
+    .rights-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .right-box {
+      background: #090e1a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .right-box h5 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .right-box p {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    /* ========================================================
+       TAB 3: SỔ TAY KIẾN THỨC & CHỐT LÝ THUYẾT
+       ======================================================== */
+    .handbook-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    .handbook-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .handbook-icon {
+      font-size: 2.2rem;
+    }
+
+    .handbook-title h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .handbook-title p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .law-article {
+      background: #090e1a;
+      border-left: 4px solid var(--cyan-neon);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+    }
+
+    .law-article h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      margin-bottom: 6px;
+    }
+
+    .law-article p {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.55;
+    }
+
+    .takeaway-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .takeaway-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .takeaway-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .takeaway-card p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Footer Nav */
+    .module-footer {
+      margin-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid #1e293b;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <span class="top-badge">⚡ HOẠT ĐỘNG 2 • HÌNH THÀNH KIẾN THỨC (30 PHÚT)</span>
-    <h1>Gói Học Liệu Số: Video Tương Tác SCORM & Dây Chuyền Quyền Dữ Liệu</h1>
-    <p class="subtitle">
-      Xem Video hoạt hình "Dấu chân kỹ thuật số" có neo chặn nghiêm ngặt (15'), sau đó tham gia Game Dây chuyền sản xuất lắp ráp linh kiện Quyền chủ thể dữ liệu (15').
-    </p>
+  <!-- Toast Notification -->
+  <div class="cyber-toast" id="cyberToast">
+    <span>🔒</span>
+    <span id="toastMsg">Em cần xem video tuần tự và vượt qua câu hỏi neo chặn trước khi xem tiếp!</span>
+  </div>
 
-    <!-- Navigation Tabs -->
-    <div class="section-nav">
-      <button class="nav-btn active" id="btnTab1" onclick="switchTab(1)">
-        <span>🎬 2.1 Video Tương Tác SCORM (15')</span>
-      </button>
-      <button class="nav-btn" id="btnTab2" onclick="switchTab(2)">
-        <span>⚙️ 2.2 Game Dây Chuyền Sản Xuất Dữ Liệu (15')</span>
-      </button>
-    </div>
+  <div class="main-wrapper">
+
+    <!-- Header Bar -->
+    <header class="header-bar">
+      <div class="header-info">
+        <div class="header-badge">🛡️</div>
+        <div class="header-text">
+          <h1>Học liệu 2: Dấu Chân Kỹ Thuật Số & Quyền Của Chủ Thể Dữ Liệu</h1>
+          <p>Tin học 6 • Bài 6: Dữ liệu cá nhân là tài sản của mỗi con người (Chuẩn Nghị định 13/2023/NĐ-CP)</p>
+        </div>
+      </div>
+      <div class="scorm-status-pill">
+        <div class="pulse-dot"></div>
+        <span id="scormPillText">SCORM 1.2: ĐANG ĐỒNG BỘ LMS</span>
+      </div>
+    </header>
+
+    <!-- Top Flow Stepper -->
+    <nav class="flow-stepper">
+      <div class="step-item active" id="stepTab1" onclick="switchTab(1)">
+        <div class="step-num">1</div>
+        <div class="step-title">🎬 Video Hoạt Hình (2.5')</div>
+      </div>
+      <div class="step-arrow">➔</div>
+      <div class="step-item" id="stepTab2" onclick="switchTab(2)">
+        <div class="step-num">2</div>
+        <div class="step-title">🎮 Trắc Nghiệm Quyền Dữ Liệu (3 Tình Huống)</div>
+      </div>
+      <div class="step-arrow">➔</div>
+      <div class="step-item" id="stepTab3" onclick="switchTab(3)">
+        <div class="step-num">3</div>
+        <div class="step-title">📖 Sách Học Sinh & Chốt Lý Thuyết</div>
+      </div>
+    </nav>
 
     <!-- ========================================================
-         TAB 1: SCORM VIDEO TƯƠNG TÁC
+         TAB 1: VIDEO TƯƠNG TÁC CYBER CINEMA
          ======================================================== -->
     <div class="tab-content active" id="tabContent1">
-      <div class="video-shell">
-        <div class="video-screen">
-          <!-- Real HTML5 Video File -->
-          <video id="mainVideo" src="Dấu chân kỹ thuật số của bạn.mp4" playsinline preload="metadata"></video>
-
-          <!-- Neo chặn 1 tại Giây 0:50 -->
-          <div class="quiz-popup-overlay" id="quizPop1">
-            <div class="quiz-modal">
-              <span class="top-badge">📍 NEO CHẶN 1 (GIÂY 0:50)</span>
-              <h3>Những lượt like, bình luận và video mà em đã xem trên không gian mạng được gọi chung là gì?</h3>
-              <div class="quiz-option" onclick="pickQ1('A', this)">
-                <strong>A.</strong> Dấu chân kỹ thuật số (Dữ liệu phản ánh lịch sử hoạt động mạng)
-              </div>
-              <div class="quiz-option" onclick="pickQ1('B', this)">
-                <strong>B.</strong> Lịch sử web tạm thời, máy tính sẽ tự động xóa sau 24h
-              </div>
-              <div class="quiz-option" onclick="pickQ1('C', this)">
-                <strong>C.</strong> Tài sản công cộng của các nhà mạng viễn thông
-              </div>
-              <div style="margin-top: 18px; text-align: right;">
-                <button class="btn-action" onclick="submitQ1()">Xác nhận & Xem tiếp ➔</button>
-              </div>
-            </div>
+      
+      <!-- Video Intro Box -->
+      <div class="video-intro-box">
+        <div>
+          <div class="video-intro-title">
+            <span>🎬</span> BƯỚC 1: XEM VIDEO KHÁM PHÁ KIẾN THỨC (~2.5 PHÚT)
           </div>
-
-          <!-- Neo chặn 2 tại Giây 1:40 -->
-          <div class="quiz-popup-overlay" id="quizPop2">
-            <div class="quiz-modal">
-              <span class="top-badge">📍 NEO CHẶN 2 (GIÂY 1:40)</span>
-              <h3>Các công ty công nghệ và mạng xã hội thu thập dữ liệu hành vi của em chủ yếu để làm gì?</h3>
-              <div class="quiz-option" onclick="pickQ2('A', this)">
-                <strong>A.</strong> Để phân tích sở thích, huấn luyện thuật toán gợi ý và bán quảng cáo kiếm tiền
-              </div>
-              <div class="quiz-option" onclick="pickQ2('B', this)">
-                <strong>B.</strong> Để tặng quà và tiền học bổng ngẫu nhiên cho học sinh
-              </div>
-              <div class="quiz-option" onclick="pickQ2('C', this)">
-                <strong>C.</strong> Chỉ để lưu trữ trong ổ cứng mà không bao giờ sử dụng đến
-              </div>
-              <div style="margin-top: 18px; text-align: right;">
-                <button class="btn-action" onclick="submitQ2()">Xác nhận & Xem tiếp ➔</button>
-              </div>
-            </div>
+          <div class="video-intro-desc">
+            Theo dõi video <em>"Dấu chân kỹ thuật số của bạn"</em> để hiểu cách dữ liệu hành vi mạng được tạo ra và khai thác.
           </div>
         </div>
-
-        <!-- Video Player Controls -->
-        <div class="player-controls">
-          <button class="btn-play" id="btnPlay" onclick="togglePlay()">▶ Phát video</button>
-          <div class="time-badge" id="timeDisplay">00:00 / 02:34</div>
-          <div class="progress-track" id="progTrack" onclick="handleSeek(event)">
-            <div class="progress-fill" id="vFill"></div>
-            <!-- Checkpoint 1 at 50s (32.5%) -->
-            <div class="checkpoint-dot" style="left: 32.5%;" title="Neo chặn 1 (0:50) - Bắt buộc trả lời"></div>
-            <!-- Checkpoint 2 at 100s (64.9%) -->
-            <div class="checkpoint-dot" style="left: 64.9%;" title="Neo chặn 2 (1:40) - Bắt buộc trả lời"></div>
-          </div>
-          <div class="lock-badge">🔒 Chặn tua nhanh</div>
+        <div class="lock-pill-notice">
+          <span>🔒</span> Neo chặn tại 0:50 & 1:40 • Khóa tua nhanh
         </div>
       </div>
 
-      <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.08); font-size: 0.88rem; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div>
-          📌 <strong>Căn cứ Điều 2 Khoản 3 Điểm k Nghị định 13/2023/NĐ-CP:</strong> Dữ liệu phản ánh hoạt động, lịch sử hoạt động trên mạng là dữ liệu cá nhân cơ bản. Mọi hành vi thu thập đều phải được chủ thể dữ liệu đồng ý!
+      <!-- Cyber Video Player -->
+      <div class="cyber-video-frame" id="videoFrame">
+        <video id="mainVideo" src="Dấu chân kỹ thuật số của bạn.mp4" playsinline preload="metadata"></video>
+        
+        <!-- Big Play Button Center -->
+        <div class="big-play-btn" id="bigPlayBtn" onclick="togglePlay()">▶</div>
+
+        <!-- Neo chặn 1 tại Giây 0:50 -->
+        <div class="video-quiz-modal" id="quizPop1">
+          <div class="quiz-inner-card">
+            <span class="quiz-inner-badge">📍 NEO CHẶN 1 (MỐC 0:50)</span>
+            <h3>Những lượt like, bình luận và video mà em từng xem trên không gian mạng được gọi chung là gì?</h3>
+            <div class="quiz-opt-btn" onclick="pickQ1('A', this)">
+              <strong>A.</strong> Dấu chân kỹ thuật số (Dữ liệu phản ánh lịch sử hoạt động mạng)
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ1('B', this)">
+              <strong>B.</strong> Lịch sử web tạm thời, máy tính sẽ tự động xóa sau 24h
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ1('C', this)">
+              <strong>C.</strong> Tài sản công cộng của các nhà mạng viễn thông
+            </div>
+            <div style="margin-top: 18px; text-align: right;">
+              <button class="btn-main" onclick="submitQ1()">Xác nhận & Xem tiếp ➔</button>
+            </div>
+          </div>
         </div>
-        <button class="btn-action" id="btnGoToModule" style="display: none;" onclick="switchTab(2)">
-          <span>Vào Game Dây Chuyền Sản Xuất ➔</span>
+
+        <!-- Neo chặn 2 tại Giây 1:40 -->
+        <div class="video-quiz-modal" id="quizPop2">
+          <div class="quiz-inner-card">
+            <span class="quiz-inner-badge">📍 NEO CHẶN 2 (MỐC 1:40)</span>
+            <h3>Các công ty công nghệ và mạng xã hội thu thập dữ liệu hành vi của em chủ yếu để làm gì?</h3>
+            <div class="quiz-opt-btn" onclick="pickQ2('A', this)">
+              <strong>A.</strong> Để phân tích sở thích, huấn luyện thuật toán gợi ý và bán quảng cáo kiếm tiền
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ2('B', this)">
+              <strong>B.</strong> Để tặng quà và tiền học bổng ngẫu nhiên cho học sinh
+            </div>
+            <div class="quiz-opt-btn" onclick="pickQ2('C', this)">
+              <strong>C.</strong> Chỉ để lưu trữ trong ổ cứng mà không bao giờ sử dụng đến
+            </div>
+            <div style="margin-top: 18px; text-align: right;">
+              <button class="btn-main" onclick="submitQ2()">Xác nhận & Hoàn thành Video ➔</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Finish Overlay -->
+        <div class="video-finish-overlay" id="videoFinishOverlay">
+          <div class="finish-icon">🎉</div>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 8px;">XUẤT SẮC! EM ĐÃ HOÀN THÀNH VIDEO KHÁM PHÁ</h2>
+          <p style="font-size: 0.9rem; color: #cbd5e1; max-width: 500px; margin-bottom: 20px;">
+            Em đã nắm vững khái niệm <strong>Dấu chân kỹ thuật số</strong> và mục đích thu thập dữ liệu của các nền tảng mạng.
+          </p>
+          <button class="btn-main" onclick="switchTab(2)">
+            <span>Vào Bước 2: Trắc Nghiệm Quyền Dữ Liệu Ngay</span> ➔
+          </button>
+          <div style="margin-top: 12px; font-size: 0.8rem; color: #94a3b8;" id="countdownAutoRedirect">
+            Tự động chuyển tiếp sau 5 giây...
+          </div>
+        </div>
+      </div>
+
+      <!-- Cyber Controls Bar -->
+      <div class="cyber-controls">
+        <button class="btn-cyber-play" id="btnPlay" onclick="togglePlay()">▶ Phát Video</button>
+        <div class="digital-clock" id="timeDisplay">00:00 / 02:34</div>
+        <div class="cyber-timeline-box" id="cyberTimeline" onclick="handleSeek(event)">
+          <div class="cyber-timeline-fill" id="cyberFill"></div>
+          <!-- Marker 1 at 32.5% (0:50) -->
+          <div class="checkpoint-marker" style="left: 32.5%;" data-tooltip="📍 Neo chặn 1 (0:50)"></div>
+          <!-- Marker 2 at 64.9% (1:40) -->
+          <div class="checkpoint-marker" style="left: 64.9%;" data-tooltip="📍 Neo chặn 2 (1:40)"></div>
+        </div>
+        <div class="lock-pill-notice" style="font-size: 0.75rem; padding: 4px 10px;">
+          🔒 Chặn tua nhanh
+        </div>
+      </div>
+
+      <!-- YouTube Backup Link -->
+      <div class="video-backup-bar">
+        <div>
+          📌 <em>Nếu trình duyệt gặp lỗi phát video, em có thể xem video dự phòng trên YouTube:</em>
+        </div>
+        <a href="https://youtu.be/HwhHHdbmcBE" target="_blank" rel="noopener noreferrer" class="btn-yt-backup">
+          ▶ Xem trên YouTube (Dự phòng)
+        </a>
+      </div>
+
+      <!-- Module Footer 1 -->
+      <div class="module-footer">
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
+          Căn cứ Điều 2 Nghị định 13/2023/NĐ-CP: Lịch sử duyệt web & dấu chân số là dữ liệu cá nhân cơ bản.
+        </div>
+        <button class="btn-main" id="btnNextFromTab1" disabled onclick="switchTab(2)">
+          <span>Bước 2: Trắc Nghiệm Quyền Dữ Liệu</span> ➔
         </button>
       </div>
     </div>
 
     <!-- ========================================================
-         TAB 2: GAME DÂY CHUYỀN SẢN XUẤT DỮ LIỆU SỐ
+         TAB 2: TRẮC NGHIỆM TÌNH HUỐNG "QUYỀN CỦA CHỦ THỂ DỮ LIỆU"
+         (CHUYỂN TOÀN BỘ GAME SANG DẠNG TRẮC NGHIỆM CHUẨN BÀI 4)
          ======================================================== -->
     <div class="tab-content" id="tabContent2">
-      <div class="factory-container">
+      <div class="quiz-container">
+        
         <!-- HUD Dashboard -->
-        <div class="factory-hud">
-          <div class="hud-title">
-            <span class="gear-icon">⚙️</span>
-            <span>DATA FACTORY: DÂY CHUYỀN LẮP RÁP QUYỀN DỮ LIỆU</span>
+        <div class="quiz-hud">
+          <div class="hud-card safety">
+            <div class="hud-card-icon">🛡️</div>
+            <div class="hud-card-info">
+              <h4>Mức An Toàn Dữ Liệu</h4>
+              <div class="val" id="hudSafety">30%</div>
+            </div>
           </div>
-          <div style="display: flex; gap: 20px; align-items: center;">
-            <div class="hud-stat">
-              <span>Đã hoàn thành:</span>
-              <strong id="cratesFinished">0 / 3 kiện</strong>
+          <div class="hud-card legal">
+            <div class="hud-card-icon">⚖️</div>
+            <div class="hud-card-info">
+              <h4>Hiểu Luật NĐ 13/2023</h4>
+              <div class="val" id="hudLegal">0%</div>
             </div>
-            <div class="hud-stat">
-              <span>Hiệu suất Nhà máy:</span>
-              <strong id="factoryPerf">0%</strong>
+          </div>
+          <div class="hud-card badge-rank">
+            <div class="hud-card-icon">🏅</div>
+            <div class="hud-card-info">
+              <h4>Cấp Độ Bảo Vệ</h4>
+              <div class="val" id="hudRank" style="font-size: 1rem; color: #c084fc;">Học viên số</div>
             </div>
-            <button class="btn-play" style="padding: 6px 12px; font-size: 0.8rem; background: #334155;" onclick="toggleBeltRun()">
-              <span id="btnBeltStatus">⏸ Tạm dừng băng chuyền</span>
+          </div>
+        </div>
+
+        <!-- Situation Lead Card -->
+        <div class="situation-lead-card">
+          <div class="avatar-minh">👦</div>
+          <div class="lead-text">
+            <h3>Tình huống thực tế: Bạn Minh (12 tuổi • Lớp 6)</h3>
+            <p>
+              Minh thường xuyên sử dụng điện thoại và máy tính để học tập và giải trí. Hãy cùng Minh giải quyết <strong>3 thử thách trắc nghiệm pháp lý</strong> để bảo vệ quyền và tài sản dữ liệu cá nhân của mình!
+            </p>
+          </div>
+        </div>
+
+        <!-- Question Arena (Ẩn khi xong 3 câu) -->
+        <div id="quizArena">
+          <!-- Round Progress -->
+          <div class="round-progress-bar">
+            <div class="round-indicator" id="roundIndicator">THỬ THÁCH 1 / 3 • QUYỀN SỞ HỮU & ĐỒNG Ý</div>
+            <div class="round-dots-track">
+              <div class="round-dot active" id="dot1"></div>
+              <div class="round-dot" id="dot2"></div>
+              <div class="round-dot" id="dot3"></div>
+            </div>
+          </div>
+
+          <!-- Question Content -->
+          <div class="question-box">
+            <div class="question-prompt" id="questionPrompt">
+              <!-- Render by JS -->
+            </div>
+            <div class="options-grid" id="optionsGrid">
+              <!-- Render by JS -->
+            </div>
+          </div>
+
+          <!-- Feedback Banner -->
+          <div class="feedback-banner" id="feedbackBanner">
+            <div class="fb-header" id="fbHeader">
+              <span id="fbIcon">✅</span>
+              <span id="fbTitle">Chính xác tuyệt đối!</span>
+            </div>
+            <div class="fb-body" id="fbBody"></div>
+            <div class="fb-legal" id="fbLegal"></div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-row">
+            <button class="btn-secondary" onclick="switchTab(1)">⬅ Xem lại Video</button>
+            <div style="display: flex; gap: 12px;">
+              <button class="btn-main" id="btnConfirmAnswer" onclick="checkCurrentAnswer()">
+                <span>Xác nhận đáp án</span> ➔
+              </button>
+              <button class="btn-main" id="btnNextQuestion" style="display: none;" onclick="goToNextQuestion()">
+                <span>Câu tiếp theo</span> ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Victory Screen (Hiển thị khi hoàn thành cả 3 câu) -->
+        <div class="victory-card" id="victoryCard">
+          <div class="trophy-badge">🏆</div>
+          <h2 class="victory-title">XUẤT SẮC! EM ĐÃ ĐẠT DANH HIỆU "HIỆP SĨ BẢO VỆ DỮ LIỆU"</h2>
+          <p class="victory-sub">
+            Em đã trả lời chính xác cả 3 tình huống trắc nghiệm và nắm vững toàn bộ <strong>3 quyền cốt lõi của chủ thể dữ liệu</strong> theo quy định của pháp luật Việt Nam.
+          </p>
+
+          <!-- 3 Rights Summary -->
+          <div class="rights-summary-grid">
+            <div class="right-box">
+              <h5>💎 1. Quyền Sở Hữu & Đồng Ý</h5>
+              <p>Chỉ chủ thể dữ liệu (bản thân em) mới có quyền quyết định cho phép hoặc từ chối thu thập dữ liệu cá nhân của mình.</p>
+            </div>
+            <div class="right-box">
+              <h5>🛑 2. Quyền Rút Lại & Xóa Dữ Liệu</h5>
+              <p>Em có quyền rút lại sự đồng ý bất kỳ lúc nào và yêu cầu các ứng dụng phải ngừng xử lý hoặc xóa dữ liệu đã lưu trữ.</p>
+            </div>
+            <div class="right-box">
+              <h5>👨‍👩‍👦 3. Quyền Bảo Vệ Dữ Liệu Trẻ Em</h5>
+              <p>Với trẻ em từ đủ 7 tuổi, xử lý dữ liệu bắt buộc phải có sự đồng ý của cả trẻ em và cha mẹ (hoặc người giám hộ hợp pháp).</p>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <button class="btn-secondary" onclick="restartQuiz()">🔄 Làm lại trắc nghiệm</button>
+            <button class="btn-main" onclick="switchTab(3)">
+              <span>Mở Sách Học Sinh & Chốt Lý Thuyết</span> 📖
             </button>
           </div>
         </div>
 
-        <!-- Conveyor Stage -->
-        <div class="conveyor-stage">
-          <div class="hazard-stripe"></div>
-          <div class="belt-track" id="beltTrack">
-            <div class="crates-row">
-              <!-- Crate 1 -->
-              <div class="data-crate" id="crate1">
-                <div class="crate-header">
-                  <span class="crate-tag tag-c1">KIỆN HÀNG #01 • SỞ HỮU</span>
-                  <span class="crate-status-dot" id="dot1"></span>
-                </div>
-                <div class="crate-text">
-                  "Chỉ <span style="color: #38bdf8; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span> mới có quyền quyết định việc chia sẻ hoặc cho phép sử dụng dữ liệu cá nhân đó."
-                </div>
-                <div class="drop-socket" id="socket1" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 1)" onclick="clickInstall(1)">
-                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
-                </div>
-              </div>
+      </div>
+    </div>
 
-              <!-- Crate 2 -->
-              <div class="data-crate" id="crate2">
-                <div class="crate-header">
-                  <span class="crate-tag tag-c2">KIỆN HÀNG #02 • THU HỒI</span>
-                  <span class="crate-status-dot" id="dot2"></span>
-                </div>
-                <div class="crate-text">
-                  "Khi ứng dụng đòi dữ liệu bất thường, em có quyền <span style="color: #fbbf24; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span> để ngừng cấp quyền truy cập."
-                </div>
-                <div class="drop-socket" id="socket2" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 2)" onclick="clickInstall(2)">
-                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
-                </div>
-              </div>
-
-              <!-- Crate 3 -->
-              <div class="data-crate" id="crate3">
-                <div class="crate-header">
-                  <span class="crate-tag tag-c3">KIỆN HÀNG #03 • TRẺ EM</span>
-                  <span class="crate-status-dot" id="dot3"></span>
-                </div>
-                <div class="crate-text">
-                  "Với trẻ em từ đủ 7 tuổi, xử lý dữ liệu phải có sự đồng ý của <span style="color: #c084fc; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span>."
-                </div>
-                <div class="drop-socket" id="socket3" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 3)" onclick="clickInstall(3)">
-                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hazard-stripe" style="margin-top: 14px; margin-bottom: 0;"></div>
-        </div>
-
-        <!-- Warehouse / Hopper -->
-        <div class="warehouse-bay">
-          <div class="bay-header">
-            <div class="bay-title">
-              <span>📦</span> KHO LINH KIỆN VI MẠCH (Kéo thả hoặc nhấp chọn để lắp ráp):
-            </div>
-            <span style="font-size: 0.8rem; color: var(--neon-amber);">Căn cứ: Nghị định 13/2023/NĐ-CP & UNICEF</span>
-          </div>
-
-          <div class="chips-rack" id="chipsRack">
-            <div class="data-chip" draggable="true" id="chip-owner" data-ans="1" onclick="selectChip(this)">
-              💎 Chủ sở hữu
-            </div>
-            <div class="data-chip" draggable="true" id="chip-revoke" data-ans="2" onclick="selectChip(this)">
-              🛑 Rút lại sự đồng ý
-            </div>
-            <div class="data-chip" draggable="true" id="chip-children" data-ans="3" onclick="selectChip(this)">
-              👨‍👩‍👧 Trẻ em & Cha mẹ / Người giám hộ
-            </div>
-            <!-- Distractor chips -->
-            <div class="data-chip" draggable="true" id="chip-dev" data-ans="wrong" onclick="selectChip(this)">
-              ❌ Nhà phát triển game
-            </div>
-            <div class="data-chip" draggable="true" id="chip-auto" data-ans="wrong" onclick="selectChip(this)">
-              ❌ Chấp nhận vô điều kiện
-            </div>
-            <div class="data-chip" draggable="true" id="chip-stranger" data-ans="wrong" onclick="selectChip(this)">
-              ❌ Người lạ trên mạng
-            </div>
+    <!-- ========================================================
+         TAB 3: SÁCH HỌC SINH & CHỐT LÝ THUYẾT
+         ======================================================== -->
+    <div class="tab-content" id="tabContent3">
+      <div class="handbook-card">
+        <div class="handbook-header">
+          <div class="handbook-icon">📖</div>
+          <div class="handbook-title">
+            <h2>Sổ Tay Ghi Nhớ: Quyền Của Chủ Thể Dữ Liệu Cá Nhân</h2>
+            <p>Hệ thống hóa kiến thức trọng tâm bài học theo Nghị định số 13/2023/NĐ-CP và SGK Tin học 6</p>
           </div>
         </div>
 
-        <!-- Factory Summary Box -->
-        <div class="factory-summary factory-success" id="factorySummary">
-          <div>
-            <strong style="font-size: 1.1rem; display: block; margin-bottom: 4px;">🎉 XUẤT XƯỞNG THÀNH CÔNG! HIỆU SUẤT ĐẠT 100%</strong>
-            <span>Em đã lắp ráp chính xác toàn bộ 3 nguyên tắc pháp lý cốt lõi về Quyền của chủ thể dữ liệu.</span>
+        <div class="law-article">
+          <h4>Điều 9 Nghị định 13/2023/NĐ-CP: Quyền của chủ thể dữ liệu</h4>
+          <p>
+            Chủ thể dữ liệu có các quyền cơ bản: <strong>Quyền được biết</strong> mục đích xử lý dữ liệu; <strong>Quyền đồng ý hoặc không đồng ý</strong>; <strong>Quyền truy cập và chỉnh sửa</strong>; <strong>Quyền rút lại sự đồng ý</strong>; <strong>Quyền yêu cầu xóa dữ liệu</strong>; và <strong>Quyền khiếu nại, tố cáo, bồi thường thiệt hại</strong> khi dữ liệu bị xâm phạm.
+          </p>
+        </div>
+
+        <div class="law-article" style="border-left-color: var(--purple-neon);">
+          <h4 style="color: #c084fc;">Điều 20 Nghị định 13/2023/NĐ-CP: Bảo vệ dữ liệu cá nhân của trẻ em</h4>
+          <p>
+            Trẻ em là đối tượng được bảo vệ đặc biệt. Việc xử lý dữ liệu cá nhân của <strong>trẻ em từ đủ 7 tuổi trở lên</strong> phải có sự đồng ý của cả trẻ em và cha mẹ (hoặc người giám hộ hợp pháp). Tổ chức, doanh nghiệp phải xác minh tuổi và ngừng xử lý khi có yêu cầu.
+          </p>
+        </div>
+
+        <h3 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin: 24px 0 14px;">
+          💡 3 Nguyên tắc "Vàng" bảo vệ tài sản dữ liệu của em:
+        </h3>
+
+        <div class="takeaway-grid">
+          <div class="takeaway-card">
+            <h4 style="color: #38bdf8;">🔑 1. Không chia sẻ tùy tiện</h4>
+            <p>Không công khai số điện thoại, địa chỉ nhà, căn cước công dân hoặc mật khẩu lên mạng xã hội, nhóm chat công cộng.</p>
           </div>
-          <button class="btn-action" onclick="finishActivity2()">Chuyển sang HĐ 3: Game Luyện Tập ➔</button>
+          <div class="takeaway-card">
+            <h4 style="color: #34d399;">🛑 2. Kiểm tra quyền ứng dụng</h4>
+            <p>Khi cài đặt ứng dụng hoặc game, chỉ cấp quyền thật sự cần thiết. Từ chối ngay nếu ứng dụng giải toán đòi xem danh bạ hay vị trí.</p>
+          </div>
+          <div class="takeaway-card">
+            <h4 style="color: #fbbf24;">🗣️ 3. Lên tiếng khi bị xâm phạm</h4>
+            <p>Khi phát hiện thông tin của mình bị người khác đăng lên bôi nhọ, lập tức báo cho cha mẹ, thầy cô và báo cáo vi phạm với nền tảng.</p>
+          </div>
+        </div>
+
+        <div class="module-footer">
+          <button class="btn-secondary" onclick="switchTab(2)">⬅ Quay lại Trắc nghiệm</button>
+          <a href="hoc_lieu_3_gamification_keo_tha.html" class="btn-main" style="text-decoration: none;">
+            <span>Chuyển sang Hoạt động 3: Game Kéo Thả Kho Báu</span> ➔
+          </a>
         </div>
       </div>
     </div>
+
   </div>
 
+  <!-- ========================================================
+       JAVASCRIPT LOGIC
+       ======================================================== -->
   <script>
     // ========================================================
-    // ÂM THANH NHÀ MÁY & GAME SYNTHESIZER (WEB AUDIO API)
+    // SCORM 1.2 INITIALIZATION & LIFECYCLE
     // ========================================================
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playTone(freq, type = 'sine', duration = 0.12, gainVal = 0.15) {
+    let scormConnected = false;
+
+    window.addEventListener('load', () => {
       try {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
+        if (typeof pipwerks !== 'undefined' && pipwerks.SCORM) {
+          scormConnected = pipwerks.SCORM.init();
+          if (scormConnected) {
+            console.log("[SCORM 1.2] Kết nối LMS thành công!");
+            document.getElementById('scormPillText').innerText = "SCORM 1.2: ĐÃ KẾT NỐI LMS";
+            const prevStatus = pipwerks.SCORM.get("cmi.core.lesson_status");
+            if (!prevStatus || prevStatus === "not attempted") {
+              pipwerks.SCORM.set("cmi.core.lesson_status", "incomplete");
+              pipwerks.SCORM.save();
+            }
+          } else {
+            console.warn("[SCORM 1.2] Chạy ở chế độ Standalone (Không có LMS).");
+            document.getElementById('scormPillText').innerText = "CHẾ ĐỘ STANDALONE / BÀI GIẢNG ĐỘC LẬP";
+          }
+        }
+      } catch (e) {
+        console.warn("[SCORM] Standalone mode:", e);
+      }
+      initQuiz();
+    });
 
-    function soundTing() {
-      playTone(523.25, 'sine', 0.15, 0.2); // C5
-      setTimeout(() => playTone(659.25, 'sine', 0.2, 0.2), 100); // E5
-      setTimeout(() => playTone(783.99, 'sine', 0.35, 0.2), 200); // G5
-    }
+    window.addEventListener('beforeunload', () => {
+      if (scormConnected && typeof pipwerks !== 'undefined') {
+        pipwerks.SCORM.save();
+        pipwerks.SCORM.quit();
+      }
+    });
 
-    function soundBuzzer() {
-      playTone(180, 'sawtooth', 0.3, 0.25);
-    }
-
-    function soundStamp() {
-      playTone(320, 'triangle', 0.1, 0.3);
-      setTimeout(() => playTone(480, 'sine', 0.15, 0.2), 60);
+    function commitScormScore(score) {
+      if (scormConnected && typeof pipwerks !== 'undefined') {
+        pipwerks.SCORM.set("cmi.core.score.raw", score.toString());
+        pipwerks.SCORM.set("cmi.core.score.min", "0");
+        pipwerks.SCORM.set("cmi.core.score.max", "100");
+        if (score >= 80) {
+          pipwerks.SCORM.set("cmi.core.lesson_status", "passed");
+        } else {
+          pipwerks.SCORM.set("cmi.core.lesson_status", "completed");
+        }
+        pipwerks.SCORM.save();
+        console.log("[SCORM 1.2] Đã lưu điểm số:", score);
+      }
     }
 
     // ========================================================
-    // LOGIC TAB 1: VIDEO TƯƠNG TÁC SCORM
+    // TAB NAVIGATION
     // ========================================================
-    const vid = document.getElementById('mainVideo');
-    let maxWatched = 0;
-    let quiz1Done = false;
-    let quiz2Done = false;
-    let selQ1 = '', selQ2 = '';
+    function switchTab(tabIndex) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active'));
 
-    function switchTab(idx) {
-      document.getElementById('btnTab1').classList.toggle('active', idx === 1);
-      document.getElementById('btnTab2').classList.toggle('active', idx === 2);
-      document.getElementById('tabContent1').classList.toggle('active', idx === 1);
-      document.getElementById('tabContent2').classList.toggle('active', idx === 2);
-      if (idx === 2 && !vid.paused) {
+      const targetContent = document.getElementById('tabContent' + tabIndex);
+      const targetStep = document.getElementById('stepTab' + tabIndex);
+
+      if (targetContent) targetContent.classList.add('active');
+      if (targetStep) targetStep.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Nếu chuyển khỏi Tab 1 thì pause video
+      if (tabIndex !== 1 && vid && !vid.paused) {
         vid.pause();
       }
+    }
+
+    // ========================================================
+    // TAB 1: VIDEO TƯƠNG TÁC CYBER CINEMA
+    // ========================================================
+    const vid = document.getElementById('mainVideo');
+    const btnPlay = document.getElementById('btnPlay');
+    const bigPlayBtn = document.getElementById('bigPlayBtn');
+    const videoFrame = document.getElementById('videoFrame');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const cyberFill = document.getElementById('cyberFill');
+    const quizPop1 = document.getElementById('quizPop1');
+    const quizPop2 = document.getElementById('quizPop2');
+    const videoFinishOverlay = document.getElementById('videoFinishOverlay');
+    const cyberToast = document.getElementById('cyberToast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    let maxTimeReached = 0;
+    let quiz1Passed = false;
+    let quiz2Passed = false;
+    let selectedQ1 = '';
+    let selectedQ2 = '';
+
+    function showToast(msg) {
+      toastMsg.innerText = msg;
+      cyberToast.classList.add('show');
+      setTimeout(() => {
+        cyberToast.classList.remove('show');
+      }, 3500);
     }
 
     function togglePlay() {
+      if (!vid) return;
       if (vid.paused) {
-        vid.play().catch(e => console.log(e));
+        vid.play().then(() => {
+          btnPlay.innerText = '⏸ Tạm dừng';
+          videoFrame.classList.add('playing');
+        }).catch(err => {
+          console.warn("Autoplay block:", err);
+        });
       } else {
         vid.pause();
+        btnPlay.innerText = '▶ Phát Video';
+        videoFrame.classList.remove('playing');
       }
     }
 
-    vid.addEventListener('play', () => {
-      document.getElementById('btnPlay').innerText = '⏸ Tạm dừng';
-    });
+    if (vid) {
+      vid.addEventListener('play', () => {
+        btnPlay.innerText = '⏸ Tạm dừng';
+        videoFrame.classList.add('playing');
+      });
 
-    vid.addEventListener('pause', () => {
-      if (!vid.ended) {
-        document.getElementById('btnPlay').innerText = '▶ Tiếp tục xem';
-      }
-    });
+      vid.addEventListener('pause', () => {
+        if (!vid.ended) {
+          btnPlay.innerText = '▶ Tiếp tục phát';
+          videoFrame.classList.remove('playing');
+        }
+      });
 
-    vid.addEventListener('timeupdate', () => {
-      const cur = vid.currentTime;
-      const dur = vid.duration || 154; // 2:34
+      vid.addEventListener('timeupdate', () => {
+        const cur = vid.currentTime;
+        const dur = vid.duration || 154;
 
-      if (cur > maxWatched) maxWatched = cur;
+        if (cur > maxTimeReached) maxTimeReached = cur;
 
-      // Update time display
-      const m = String(Math.floor(cur / 60)).padStart(2, '0');
-      const s = String(Math.floor(cur % 60)).padStart(2, '0');
-      const totM = String(Math.floor(dur / 60)).padStart(2, '0');
-      const totS = String(Math.floor(dur % 60)).padStart(2, '0');
-      document.getElementById('timeDisplay').innerText = `${m}:${s} / ${totM}:${totS}`;
+        // Digital Clock
+        const curM = String(Math.floor(cur / 60)).padStart(2, '0');
+        const curS = String(Math.floor(cur % 60)).padStart(2, '0');
+        const durM = String(Math.floor(dur / 60)).padStart(2, '0');
+        const durS = String(Math.floor(dur % 60)).padStart(2, '0');
+        timeDisplay.innerText = `${curM}:${curS} / ${durM}:${durS}`;
 
-      // Update bar
-      const pct = (cur / dur) * 100;
-      document.getElementById('vFill').style.width = pct + '%';
+        // Fill bar
+        const pct = (cur / dur) * 100;
+        cyberFill.style.width = pct + '%';
 
-      // Neo chặn 1 tại giây 50 (0:50)
-      if (cur >= 50 && !quiz1Done) {
-        vid.pause();
-        vid.currentTime = 50;
-        document.getElementById('quizPop1').classList.add('active');
-        document.getElementById('btnPlay').innerText = '🔒 Neo chặn 1';
-      }
+        // Checkpoint 1 at 50s
+        if (cur >= 50 && !quiz1Passed) {
+          vid.pause();
+          vid.currentTime = 50;
+          quizPop1.classList.add('active');
+          btnPlay.innerText = '🔒 Neo chặn 1';
+        }
 
-      // Neo chặn 2 tại giây 100 (1:40)
-      if (cur >= 100 && !quiz2Done) {
-        vid.pause();
-        vid.currentTime = 100;
-        document.getElementById('quizPop2').classList.add('active');
-        document.getElementById('btnPlay').innerText = '🔒 Neo chặn 2';
-      }
-    });
+        // Checkpoint 2 at 100s (1:40)
+        if (cur >= 100 && !quiz2Passed) {
+          vid.pause();
+          vid.currentTime = 100;
+          quizPop2.classList.add('active');
+          btnPlay.innerText = '🔒 Neo chặn 2';
+        }
+      });
 
-    // Anti-seeking check
-    vid.addEventListener('seeking', () => {
-      let maxAllowed = maxWatched;
-      if (!quiz1Done && maxAllowed > 50) maxAllowed = 50;
-      if (!quiz2Done && maxAllowed > 100) maxAllowed = 100;
+      // Seeking prevention (Chống tua nhanh qua mốc chưa xem)
+      vid.addEventListener('seeking', () => {
+        let maxAllowed = maxTimeReached;
+        if (!quiz1Passed && maxAllowed > 50) maxAllowed = 50;
+        if (!quiz2Passed && maxAllowed > 100) maxAllowed = 100;
 
-      if (vid.currentTime > maxAllowed + 1.5) {
-        alert("🔒 Chặn tua nhanh: Em cần xem video tuần tự và trả lời đúng câu hỏi neo chặn để được xem tiếp!");
-        vid.currentTime = maxAllowed;
-      }
-    });
+        if (vid.currentTime > maxAllowed + 1.5) {
+          showToast('🔒 Khóa tua nhanh: Em phải xem tuần tự và vượt qua câu hỏi neo chặn!');
+          vid.currentTime = maxAllowed;
+        }
+      });
+
+      vid.addEventListener('ended', () => {
+        btnPlay.innerText = '✔ Hoàn thành 100%';
+        btnPlay.disabled = true;
+        document.getElementById('btnNextFromTab1').disabled = false;
+        videoFinishOverlay.classList.add('active');
+        
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+
+        // Tự động chuyển tab sau 5 giây
+        let secondsLeft = 5;
+        const countdownEl = document.getElementById('countdownAutoRedirect');
+        const timer = setInterval(() => {
+          secondsLeft--;
+          if (countdownEl) countdownEl.innerText = `Tự động chuyển tiếp sau ${secondsLeft} giây...`;
+          if (secondsLeft <= 0) {
+            clearInterval(timer);
+            switchTab(2);
+          }
+        }, 1000);
+      });
+    }
 
     function handleSeek(e) {
-      const track = document.getElementById('progTrack');
-      const rect = track.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      const dur = vid.duration || 154;
-      const targetTime = pos * dur;
+      if (!vid) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = clickX / rect.width;
+      const targetTime = pct * (vid.duration || 154);
 
-      let maxAllowed = maxWatched;
-      if (!quiz1Done && maxAllowed > 50) maxAllowed = 50;
-      if (!quiz2Done && maxAllowed > 100) maxAllowed = 100;
+      let maxAllowed = maxTimeReached;
+      if (!quiz1Passed && maxAllowed > 50) maxAllowed = 50;
+      if (!quiz2Passed && maxAllowed > 100) maxAllowed = 100;
 
-      if (targetTime <= maxAllowed) {
-        vid.currentTime = targetTime;
+      if (targetTime > maxAllowed + 1) {
+        showToast('🔒 Khóa tua nhanh: Em không thể tua vượt qua đoạn chưa xem!');
+        vid.currentTime = maxAllowed;
       } else {
-        alert("🔒 Chặn tua nhanh: Em cần xem video tuần tự và vượt qua các câu hỏi neo chặn!");
+        vid.currentTime = targetTime;
       }
     }
 
-    vid.addEventListener('ended', () => {
-      document.getElementById('btnPlay').innerText = '✔ Đã xem xong 100%';
-      document.getElementById('btnPlay').disabled = true;
-      document.getElementById('btnGoToModule').style.display = 'inline-flex';
-      soundTing();
-      alert("🎉 Chúc mừng em đã theo dõi trọn vẹn video Dấu chân kỹ thuật số! Hãy bấm chuyển sang Tab 2.2 để tham gia Game Dây chuyền sản xuất Quyền dữ liệu.");
-    });
-
     function pickQ1(val, el) {
-      selQ1 = val;
-      el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+      selectedQ1 = val;
+      document.querySelectorAll('#quizPop1 .quiz-opt-btn').forEach(btn => btn.classList.remove('selected'));
       el.classList.add('selected');
     }
 
     function submitQ1() {
-      if (selQ1 !== 'A') {
-        soundBuzzer();
-        alert('Chưa chính xác! Dựa vào bài học: Tương tác, bình luận, like trên mạng tạo thành "Dấu chân kỹ thuật số". Hãy chọn lại!');
+      if (!selectedQ1) {
+        alert("Em hãy chọn một phương án trả lời!");
         return;
       }
-      quiz1Done = true;
-      soundTing();
-      document.getElementById('quizPop1').classList.remove('active');
+      if (selectedQ1 !== 'A') {
+        alert("Chưa chính xác! Nhắc lại: Các tương tác, like, bình luận của em trên mạng tạo thành 'Dấu chân kỹ thuật số'. Hãy chọn lại phương án A!");
+        return;
+      }
+      quiz1Passed = true;
+      quizPop1.classList.remove('active');
+      showToast("🎉 Chính xác! Tiếp tục khám phá video.");
       vid.play();
     }
 
     function pickQ2(val, el) {
-      selQ2 = val;
-      el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+      selectedQ2 = val;
+      document.querySelectorAll('#quizPop2 .quiz-opt-btn').forEach(btn => btn.classList.remove('selected'));
       el.classList.add('selected');
     }
 
     function submitQ2() {
-      if (selQ2 !== 'A') {
-        soundBuzzer();
-        alert('Chưa chính xác! Các công ty thu thập dữ liệu hành vi để phân tích sở thích và bán quảng cáo kiếm tiền. Hãy chọn lại!');
+      if (!selectedQ2) {
+        alert("Em hãy chọn một phương án trả lời!");
         return;
       }
-      quiz2Done = true;
-      soundTing();
-      document.getElementById('quizPop2').classList.remove('active');
+      if (selectedQ2 !== 'A') {
+        alert("Chưa chính xác! Các công ty công nghệ thu thập dữ liệu để phân tích thói quen và quảng cáo kiếm tiền. Hãy chọn lại phương án A!");
+        return;
+      }
+      quiz2Passed = true;
+      quizPop2.classList.remove('active');
+      showToast("🎉 Tuyệt vời! Hoàn thành câu hỏi neo chặn 2.");
       vid.play();
     }
 
     // ========================================================
-    // LOGIC TAB 2: GAME DÂY CHUYỀN SẢN XUẤT DỮ LIỆU
+    // TAB 2: TRẮC NGHIỆM TÌNH HUỐNG "QUYỀN CỦA CHỦ THỂ DỮ LIỆU"
     // ========================================================
-    let assembledCrates = [false, false, false];
-    let selectedChipEl = null;
-    let draggedChipId = null;
-
-    function toggleBeltRun() {
-      const belt = document.getElementById('beltTrack');
-      const btn = document.getElementById('btnBeltStatus');
-      belt.classList.toggle('paused');
-      if (belt.classList.contains('paused')) {
-        btn.innerText = '▶ Khởi động băng chuyền';
-      } else {
-        btn.innerText = '⏸ Tạm dừng băng chuyền';
+    const quizData = [
+      {
+        roundId: 1,
+        badge: "THỬ THÁCH 1 / 3 • QUYỀN SỞ HỮU & QUYỀN ĐỒNG Ý",
+        leadSubtitle: "Kiện hàng số 1: Quyền quyết định dữ liệu",
+        prompt: "Tình huống 1: Minh tải một ứng dụng chơi cờ vua trực tuyến. Khi đăng ký tài khoản, ứng dụng hỏi: <em>'Ai là người DUY NHẤT có quyền quyết định cho phép hoặc từ chối chia sẻ thông tin cá nhân của em?'</em>",
+        options: [
+          {
+            letter: "A",
+            title: "Nhà phát triển game hoặc chủ trang web",
+            sub: "Vì em đang sử dụng trò chơi miễn phí do họ cung cấp.",
+            isCorrect: false
+          },
+          {
+            letter: "B",
+            title: "Chủ thể dữ liệu (Chính bản thân em)",
+            sub: "Vì dữ liệu cá nhân là tài sản riêng gắn liền với nhân thân của mỗi con người.",
+            isCorrect: true
+          },
+          {
+            letter: "C",
+            title: "Người lạ kết bạn trên mạng xã hội",
+            sub: "Người lạ có thể đại diện quyết định thay cho em.",
+            isCorrect: false
+          },
+          {
+            letter: "D",
+            title: "Bất kỳ ai tìm thấy thông tin của em",
+            sub: "Dữ liệu đưa lên mạng là tài sản công cộng không có người sở hữu.",
+            isCorrect: false
+          }
+        ],
+        explainCorrect: "Chính xác! Dữ liệu cá nhân là tài sản gắn liền với quyền riêng tư của mỗi con người. Chỉ có chính em (chủ thể dữ liệu) mới có quyền quyết định cho phép hay từ chối chia sẻ.",
+        legalNote: "📌 Căn cứ Khoản 1 & 2 Điều 9 Nghị định 13/2023/NĐ-CP: Chủ thể dữ liệu có quyền được biết và đồng ý hoặc không đồng ý cho phép xử lý dữ liệu cá nhân của mình."
+      },
+      {
+        roundId: 2,
+        badge: "THỬ THÁCH 2 / 3 • QUYỀN THU HỒI & YÊU CẦU XÓA DỮ LIỆU",
+        leadSubtitle: "Kiện hàng số 2: Ngừng cấp quyền truy cập",
+        prompt: "Tình huống 2: Sau 2 tuần dùng ứng dụng 'Đèn pin chiếu sáng', Minh phát hiện ứng dụng liên tục âm thầm định vị GPS và đòi đọc danh bạ bạn bè. Minh có quyền gì theo quy định pháp luật?",
+        options: [
+          {
+            letter: "A",
+            title: "Bắt buộc phải chấp nhận vô điều kiện",
+            sub: "Vì lúc cài đặt Minh đã lỡ bấm nút 'Đồng ý với điều khoản'.",
+            isCorrect: false
+          },
+          {
+            letter: "B",
+            title: "Quyền rút lại sự đồng ý & yêu cầu ngừng xử lý, xóa dữ liệu",
+            sub: "Thu hồi quyền truy cập ngay trong phần Cài đặt và xóa ứng dụng.",
+            isCorrect: true
+          },
+          {
+            letter: "C",
+            title: "Phải trả tiền chuộc dữ liệu cho nhà phát triển",
+            sub: "Phải nộp phí để công ty đồng ý xóa hồ sơ cá nhân của mình.",
+            isCorrect: false
+          },
+          {
+            letter: "D",
+            title: "Chỉ có cách vứt bỏ điện thoại mua máy mới",
+            sub: "Dữ liệu đã nạp vào ứng dụng thì vĩnh viễn không thể thu hồi.",
+            isCorrect: false
+          }
+        ],
+        explainCorrect: "Rất xuất sắc! Pháp luật bảo vệ quyền thu hồi của em: Em có thể rút lại sự đồng ý bất kỳ lúc nào và yêu cầu bên thu thập phải xóa bỏ dữ liệu cá nhân của mình.",
+        legalNote: "📌 Căn cứ Khoản 3 & 5 Điều 9 Nghị định 13/2023/NĐ-CP: Chủ thể dữ liệu có quyền rút lại sự đồng ý và yêu cầu xóa dữ liệu cá nhân đã cung cấp."
+      },
+      {
+        roundId: 3,
+        badge: "THỬ THÁCH 3 / 3 • BẢO VỆ DỮ LIỆU CÁ NHÂN CỦA TRẺ EM",
+        leadSubtitle: "Kiện hàng số 3: Quy định pháp lý với học sinh lớp 6",
+        prompt: "Tình huống 3: Bạn Minh năm nay 12 tuổi (học sinh lớp 6). Một trang web mua sắm muốn thu thập họ tên, số điện thoại và địa chỉ nhà của Minh. Pháp luật quy định điều kiện bắt buộc gì?",
+        options: [
+          {
+            letter: "A",
+            title: "Chỉ cần trang web hứa tặng quà khuyến mãi là được",
+            sub: "Trang web tặng phiếu giảm giá thì được quyền tự ý thu thập.",
+            isCorrect: false
+          },
+          {
+            letter: "B",
+            title: "Chỉ cần bản thân Minh đồng ý",
+            sub: "Học sinh lớp 6 tự quyết định mà không cần hỏi ý kiến ai.",
+            isCorrect: false
+          },
+          {
+            letter: "C",
+            title: "Phải có sự đồng ý của cả Minh VÀ Cha mẹ / Người giám hộ",
+            sub: "Trẻ em từ đủ 7 tuổi cần sự đồng ý kép của chính trẻ em và phụ huynh.",
+            isCorrect: true
+          },
+          {
+            letter: "D",
+            title: "Chỉ cần một bạn cùng lớp 12 tuổi đồng ý thay",
+            sub: "Bạn bè cùng tuổi có thể xác nhận thay cho nhau trên mạng.",
+            isCorrect: false
+          }
+        ],
+        explainCorrect: "Hoàn toàn chính xác! Trẻ em là đối tượng được bảo vệ tối cao. Với học sinh từ đủ 7 tuổi trở lên, pháp luật bắt buộc phải có sự đồng ý của cả trẻ em và cha mẹ hoặc người giám hộ hợp pháp.",
+        legalNote: "📌 Căn cứ Khoản 1 & 2 Điều 20 Nghị định 13/2023/NĐ-CP & Luật Trẻ em 2016: Xử lý dữ liệu cá nhân trẻ em từ đủ 7 tuổi phải có sự đồng ý của trẻ em và cha mẹ/người giám hộ."
       }
+    ];
+
+    let currentQuestionIdx = 0;
+    let selectedOptionIdx = -1;
+    let quizScore = 0;
+    let correctAnswersCount = 0;
+
+    function initQuiz() {
+      currentQuestionIdx = 0;
+      selectedOptionIdx = -1;
+      correctAnswersCount = 0;
+      document.getElementById('quizArena').style.display = 'block';
+      document.getElementById('victoryCard').classList.remove('active');
+      renderQuestion(0);
     }
 
-    // Drag and drop setup for Chips
-    document.querySelectorAll('.data-chip').forEach(chip => {
-      chip.addEventListener('dragstart', (e) => {
-        draggedChipId = chip.id;
-        e.dataTransfer.setData('text/plain', chip.id);
-        playTone(380, 'triangle', 0.05);
+    function renderQuestion(idx) {
+      selectedOptionIdx = -1;
+      const q = quizData[idx];
+
+      // Update Dots
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('dot' + i);
+        dot.className = 'round-dot';
+        if (i - 1 < idx) dot.classList.add('completed');
+        else if (i - 1 === idx) dot.classList.add('active');
+      }
+
+      document.getElementById('roundIndicator').innerText = q.badge;
+      document.getElementById('questionPrompt').innerHTML = q.prompt;
+
+      // Render Options
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+
+      q.options.forEach((opt, oIdx) => {
+        const card = document.createElement('div');
+        card.className = 'opt-card';
+        card.id = 'opt-' + oIdx;
+        card.onclick = () => selectOption(oIdx);
+
+        card.innerHTML = `
+          <div class="opt-letter">${opt.letter}</div>
+          <div class="opt-content">
+            <div class="opt-title">${opt.title}</div>
+            <div class="opt-sub">${opt.sub}</div>
+          </div>
+        `;
+        grid.appendChild(card);
       });
-    });
 
-    function allowDrop(e) {
-      e.preventDefault();
-      e.currentTarget.classList.add('drag-hover');
+      // Reset Feedback and Buttons
+      const fb = document.getElementById('feedbackBanner');
+      fb.className = 'feedback-banner';
+      fb.style.display = 'none';
+
+      document.getElementById('btnConfirmAnswer').style.display = 'inline-flex';
+      document.getElementById('btnConfirmAnswer').disabled = false;
+      document.getElementById('btnNextQuestion').style.display = 'none';
     }
 
-    function handleDropChip(e, crateNum) {
-      e.preventDefault();
-      e.currentTarget.classList.remove('drag-hover');
-      const chipId = e.dataTransfer.getData('text/plain') || draggedChipId;
-      const chipEl = document.getElementById(chipId);
-      installChipToCrate(chipEl, crateNum);
-    }
-
-    // Click-to-install support for mobile & tablet
-    function selectChip(chipEl) {
-      if (chipEl.classList.contains('installed')) return;
-      document.querySelectorAll('.data-chip').forEach(c => c.classList.remove('selected-chip'));
-      selectedChipEl = chipEl;
-      chipEl.classList.add('selected-chip');
-      playTone(440, 'sine', 0.08);
-    }
-
-    function clickInstall(crateNum) {
-      if (!selectedChipEl) {
-        alert("Vui lòng nhấp chọn một Chip linh kiện ở Kho bên dưới trước, sau đó nhấp vào đây để lắp ráp!");
+    function selectOption(idx) {
+      if (document.getElementById('btnNextQuestion').style.display === 'inline-flex') {
+        // Đã trả lời đúng câu này rồi thì không cho chọn đổi
         return;
       }
-      installChipToCrate(selectedChipEl, crateNum);
-      selectedChipEl.classList.remove('selected-chip');
-      selectedChipEl = null;
+      selectedOptionIdx = idx;
+      document.querySelectorAll('.opt-card').forEach((card, i) => {
+        card.classList.remove('selected', 'wrong');
+        if (i === idx) card.classList.add('selected');
+      });
     }
 
-    function installChipToCrate(chipEl, crateNum) {
-      if (!chipEl) return;
-      const expectedAns = String(crateNum);
-      const chipAns = chipEl.dataset.ans;
+    function checkCurrentAnswer() {
+      if (selectedOptionIdx === -1) {
+        alert("Em hãy bấm chọn một phương án trả lời trước khi xác nhận!");
+        return;
+      }
 
-      if (chipAns === expectedAns) {
-        // Correct Assembly
-        soundStamp();
-        const socket = document.getElementById('socket' + crateNum);
-        socket.innerHTML = `✅ ĐÃ LẮP: <strong>${chipEl.innerText.trim()}</strong>`;
-        socket.classList.add('assembled');
+      const q = quizData[currentQuestionIdx];
+      const isCorrect = q.options[selectedOptionIdx].isCorrect;
+      const chosenCard = document.getElementById('opt-' + selectedOptionIdx);
 
-        document.getElementById('dot' + crateNum).classList.add('assembled');
-        document.getElementById('crate' + crateNum).style.borderColor = '#10b981';
+      const fb = document.getElementById('feedbackBanner');
+      const fbHeader = document.getElementById('fbHeader');
+      const fbIcon = document.getElementById('fbIcon');
+      const fbTitle = document.getElementById('fbTitle');
+      const fbBody = document.getElementById('fbBody');
+      const fbLegal = document.getElementById('fbLegal');
 
-        chipEl.classList.add('installed');
-        assembledCrates[crateNum - 1] = true;
+      if (isCorrect) {
+        chosenCard.classList.remove('selected');
+        chosenCard.classList.add('correct');
 
-        updateFactoryStatus();
+        fb.className = 'feedback-banner success show';
+        fbIcon.innerText = '✅';
+        fbTitle.innerText = 'Chính xác tuyệt đối! Xin chúc mừng em.';
+        fbBody.innerText = q.explainCorrect;
+        fbLegal.innerText = q.legalNote;
+
+        // Cập nhật HUD
+        correctAnswersCount++;
+        const safetyVal = Math.min(100, 30 + correctAnswersCount * 25);
+        const legalVal = Math.round((correctAnswersCount / 3) * 100);
+        document.getElementById('hudSafety').innerText = safetyVal + '%';
+        document.getElementById('hudLegal').innerText = legalVal + '%';
+
+        if (correctAnswersCount === 1) document.getElementById('hudRank').innerText = "Trợ lý bảo vệ";
+        else if (correctAnswersCount === 2) document.getElementById('hudRank').innerText = "Chiến binh số";
+        else if (correctAnswersCount === 3) document.getElementById('hudRank').innerText = "Hiệp sĩ dữ liệu 🛡️";
+
+        document.getElementById('btnConfirmAnswer').style.display = 'none';
+        document.getElementById('btnNextQuestion').style.display = 'inline-flex';
+
+        confetti({ particleCount: 35, spread: 50, origin: { y: 0.7 } });
       } else {
-        // Defective chip or wrong crate
-        soundBuzzer();
-        alert(`❌ LỖI LẮP RÁP Ở KIỆN #${crateNum}: Linh kiện này không tương thích!\nCăn cứ Nghị định 13/2023/NĐ-CP: Hãy đọc kỹ nội dung kiện hàng để chọn đúng linh kiện bảo vệ dữ liệu!`);
+        chosenCard.classList.add('wrong');
+        fb.className = 'feedback-banner error show';
+        fbIcon.innerText = '⚠️';
+        fbTitle.innerText = 'Chưa chính xác! Hãy suy nghĩ lại.';
+        fbBody.innerText = 'Phương án này tiềm ẩn nguy cơ làm lộ lọt hoặc mất quyền kiểm soát dữ liệu cá nhân. Em hãy đọc kỹ lại tình huống và chọn lại phương án an toàn nhất!';
+        fbLegal.innerText = '💡 Gợi ý: Dữ liệu cá nhân là tài sản của em, pháp luật Việt Nam luôn trao quyền quyết định và bảo vệ cho chính em và cha mẹ!';
       }
     }
 
-    function updateFactoryStatus() {
-      const finishedCount = assembledCrates.filter(Boolean).length;
-      document.getElementById('cratesFinished').innerText = `${finishedCount} / 3 kiện`;
-      const perf = Math.round((finishedCount / 3) * 100);
-      document.getElementById('factoryPerf').innerText = `${perf}%`;
-
-      if (finishedCount === 3) {
-        soundTing();
-        document.getElementById('factorySummary').style.display = 'flex';
-        if (typeof scorm !== 'undefined') {
-          scorm.setScore(100, 100, 0);
-          scorm.complete();
-        }
-        try {
-          window.parent.postMessage({ type: 'LMS_COMPLETE_ACTIVITY', activity: 2 }, '*');
-        } catch (e) {}
+    function goToNextQuestion() {
+      if (currentQuestionIdx < quizData.length - 1) {
+        currentQuestionIdx++;
+        renderQuestion(currentQuestionIdx);
+      } else {
+        // Hoàn thành cả 3 câu
+        finishAllQuestions();
       }
     }
 
-    function finishActivity2() {
-      try {
-        window.parent.postMessage({ type: 'LMS_SWITCH_TAB', tabIndex: 2 }, '*');
-      } catch (e) {}
-      try {
-        if (window.parent && window.parent.switchPreviewTab) {
-          window.parent.switchPreviewTab(2);
-          return;
-        }
-      } catch (e) {}
-      window.location.href = "hoc_lieu_3_gamification_keo_tha.html";
+    function finishAllQuestions() {
+      document.getElementById('quizArena').style.display = 'none';
+      document.getElementById('victoryCard').classList.add('active');
+
+      document.getElementById('hudSafety').innerText = '100%';
+      document.getElementById('hudLegal').innerText = '100%';
+      document.getElementById('hudRank').innerText = 'Hiệp sĩ dữ liệu 🏆';
+
+      // Nổ pháo hoa lớn
+      confetti({ particleCount: 100, spread: 80, origin: { y: 0.5 } });
+      setTimeout(() => {
+        confetti({ particleCount: 80, spread: 100, origin: { y: 0.4 } });
+      }, 400);
+
+      // Lưu điểm SCORM 100% Passed
+      commitScormScore(100);
+    }
+
+    function restartQuiz() {
+      initQuiz();
     }
   </script>
 </body>

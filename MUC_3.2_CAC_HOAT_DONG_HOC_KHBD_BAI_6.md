@@ -51,7 +51,7 @@
 
 **b. Nội dung:**
 - **HĐ 2.1 (15 phút):** Xem Video tương tác SCORM "Dấu chân kỹ thuật số của bạn", trả lời 2 câu hỏi trắc nghiệm neo chặn tại 0:50 và 1:40.
-- **HĐ 2.2 (15 phút):** Đọc Module bài giảng vi mô về "Quyền của chủ thể dữ liệu" và tham gia **Game Dây chuyền sản xuất vi mạch** (Conveyor Belt Factory Game) để lắp ráp 3 nguyên tắc pháp lý vào 3 kiện hàng đang chuyển động trên băng chuyền.
+- **HĐ 2.2 (15 phút):** Đọc Module bài giảng vi mô về "Quyền của chủ thể dữ liệu" và tham gia **Trắc nghiệm tình huống tương tác (Interactive Scenario Quiz)** cùng bạn Minh (12 tuổi • Lớp 6) để giải quyết 3 tình huống pháp lý cốt lõi theo Nghị định 13/2023/NĐ-CP và Luật Trẻ em.
 
 **c. Sản phẩm:**
 - Điểm số trắc nghiệm neo chặn và tiến độ xem video 100% được ghi nhận qua chuẩn SCORM 1.2.

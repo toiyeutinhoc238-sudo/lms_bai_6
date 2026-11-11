@@ -45,22 +45,22 @@
 
 ---
 
-## 3. MODULE BÀI GIẢNG TƯƠNG TÁC & GAME DÂY CHUYỀN SẢN XUẤT VI MẠCH (HĐ 2.2 — 15 PHÚT)
+## 3. MODULE BÀI GIẢNG TƯƠNG TÁC & TRẮC NGHIỆM TÌNH HUỐNG PHÁP LÝ (HĐ 2.2 — 15 PHÚT)
 * **Tên hoạt động:** Khám phá *"Quyền của chủ thể dữ liệu"*.
-* **Công cụ:** Module bài giảng vi mô (Micro-learning) kết hợp **Game Dây chuyền sản xuất vi mạch (Conveyor Belt Factory Game)**.
-* **Nội dung thẻ bài giảng:**
-  1. **Chủ thể dữ liệu:** Em là người tạo ra dữ liệu, chính là chủ sở hữu hợp pháp. Dữ liệu cá nhân là tài sản gắn liền với em, không ai có quyền tự tiện chiếm đoạt.
-  2. **Quyền Đồng ý:** Chỉ em (và cha mẹ/người giám hộ) mới có quyền quyết định cho phép ứng dụng truy cập và sử dụng thông tin của mình hay không.
-  3. **Quyền Rút lại sự đồng ý:** Nếu đã từng bấm "Đồng ý", em vẫn có toàn quyền rút lại bất cứ lúc nào bằng cách vào Cài đặt thiết bị để tắt quyền hoặc gỡ bỏ ứng dụng!
-* **Game Dây chuyền sản xuất vi mạch (Conveyor Belt Factory Game):**
-  * **Cơ chế vận hành:** Mô phỏng nhà máy công nghệ với băng chuyền chuyển động liên tục, con lăn công nghiệp, vạch kẻ an toàn (hazard stripes) và hệ thống đèn báo vi mạch LED.
-  * **3 Kiện hàng di chuyển trên băng chuyền:**
-    * *Kiện #01 (Sở hữu):* "Chỉ **[ ? ]** mới có quyền quyết định việc chia sẻ hoặc cho phép sử dụng dữ liệu cá nhân đó." $\rightarrow$ Linh kiện đúng: `💎 Chủ sở hữu`.
-    * *Kiện #02 (Thu hồi):* "Khi ứng dụng đòi dữ liệu bất thường, em có quyền **[ ? ]** để ngừng cấp quyền truy cập." $\rightarrow$ Linh kiện đúng: `🛑 Rút lại sự đồng ý`.
-    * *Kiện #03 (Bảo vệ trẻ em):* "Với trẻ em từ đủ 7 tuổi, xử lý dữ liệu phải có sự đồng ý của **[ ? ]**." $\rightarrow$ Linh kiện đúng: `👨‍👩‍👧 Trẻ em & Cha mẹ / Người giám hộ` (Theo Điều 20 Nghị định 13/2023/NĐ-CP).
-  * **Kho linh kiện vi mạch (Parts Warehouse):** Có cơ chế kéo thả chuột (Drag & Drop) và nhấp chọn (Click-to-install) hỗ trợ hoàn hảo cả máy tính lẫn máy tính bảng/điện thoại di động; tích hợp chip nhiễu (distractors) để thử thách tư duy phản biện.
-  * **Hiệu ứng âm thanh:** Bộ tổng hợp âm thanh Web Audio API (âm thanh lắp khớp chip, chuông chiến thắng, còi báo động linh kiện lỗi).
-* **Điều kiện hoàn thành:** Lắp ráp chính xác cả 3 kiện hàng (hiệu suất 100%) $\rightarrow$ Tự động mở khóa Game HĐ 3.
+* **Công cụ:** Module bài giảng vi mô kết hợp **Trắc nghiệm tình huống tương tác (Interactive Scenario Quiz)** chuẩn sư phạm theo mô hình LMS Bài 4.
+* **Hệ thống Dashboard chỉ số thời gian thực (HUD):**
+  * 🛡️ **Mức độ an toàn dữ liệu (Safety):** Cập nhật từ 30% $\rightarrow$ 100%.
+  * ⚖️ **Hiểu biết pháp luật Nghị định 13 (Legal):** Cập nhật từ 0% $\rightarrow$ 100%.
+  * 🏅 **Cấp độ bảo vệ nhân vật:** Học viên số $\rightarrow$ Trợ lý bảo vệ $\rightarrow$ Chiến binh số $\rightarrow$ Hiệp sĩ dữ liệu.
+* **3 Thử thách trắc nghiệm tình huống thực tế cùng bạn Minh (12 tuổi • Lớp 6):**
+  * **Thử thách 1 (Quyền sở hữu & đồng ý):** Cài đặt ứng dụng game online hỏi về quyền quyết định chia sẻ thông tin cá nhân $\rightarrow$ *Đáp án đúng:* **Chủ thể dữ liệu (Chính bản thân em)** (Căn cứ Khoản 1 & 2 Điều 9 NĐ 13/2023/NĐ-CP).
+  * **Thử thách 2 (Quyền thu hồi & yêu cầu xóa dữ liệu):** Ứng dụng giải trí đòi quyền vị trí GPS và danh bạ bất thường $\rightarrow$ *Đáp án đúng:* **Quyền rút lại sự đồng ý & yêu cầu ngừng xử lý, xóa dữ liệu cá nhân ngay lập tức** (Căn cứ Khoản 3 & 5 Điều 9 NĐ 13/2023/NĐ-CP).
+  * **Thử thách 3 (Bảo vệ dữ liệu cá nhân trẻ em):** Trang web mạng xã hội/mua sắm thu thập dữ liệu học sinh lớp 6 $\rightarrow$ *Đáp án đúng:* **Phải có sự đồng ý của cả trẻ em VÀ cha mẹ / người giám hộ hợp pháp** (Căn cứ Khoản 1 & 2 Điều 20 NĐ 13/2023/NĐ-CP & Luật Trẻ em 2016).
+* **Cơ chế phản hồi sư phạm:**
+  * Thẻ câu hỏi trắc nghiệm A, B, C, D trực quan, hỗ trợ hoàn hảo cả Desktop lẫn Smartphone/Tablet.
+  * Phản hồi tức thì: Lựa chọn đúng hiển thị biểu ngữ xanh lá và trích dẫn cụ thể điều luật; Lựa chọn sai cảnh báo rủi ro đỏ để học sinh tư duy chọn lại.
+  * Hoàn thành 3 thử thách: Màn hình vinh danh Cúp Vàng 🏆, hiệu ứng pháo hoa Confetti và đồng bộ điểm số SCORM 100/100 (passed).
+* **Điều kiện hoàn thành:** Vượt qua cả 3 thử thách trắc nghiệm $\rightarrow$ Tự động mở khóa Game HĐ 3.
 
 ---
 

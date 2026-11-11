@@ -912,6 +912,144 @@
       padding-top: 20px;
       border-top: 1px solid var(--border);
     }
+  
+    /* Trắc nghiệm tình huống HĐ 2.2 */
+    .scenario-quiz-hud {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .hud-box {
+      background: #090e1a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hud-box-icon {
+      font-size: 1.5rem;
+    }
+    .hud-box-val {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: monospace;
+    }
+    .hud-box-title {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    .scenario-card {
+      background: #0f172a;
+      border: 1.5px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .scenario-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: #00f2fe;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .scenario-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .scenario-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sc-opt {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+      color: #e2e8f0;
+    }
+    .sc-opt:hover {
+      border-color: #00f2fe;
+      background: rgba(0, 242, 254, 0.08);
+      transform: translateX(3px);
+    }
+    .sc-opt.selected {
+      border-color: #00f2fe;
+      background: rgba(0, 242, 254, 0.15);
+      font-weight: 700;
+      color: #fff;
+    }
+    .sc-opt.correct {
+      border-color: #10b981 !important;
+      background: rgba(16, 185, 129, 0.18) !important;
+    }
+    .sc-opt.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.15) !important;
+    }
+    .sc-opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .sc-opt.selected .sc-opt-letter {
+      background: #00f2fe;
+      color: #070d18;
+    }
+    .sc-opt.correct .sc-opt-letter {
+      background: #10b981;
+      color: #fff;
+    }
+    .sc-opt.wrong .sc-opt-letter {
+      background: #ef4444;
+      color: #fff;
+    }
+    .scenario-fb {
+      display: none;
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin-top: 16px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .scenario-fb.correct {
+      display: block;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid #10b981;
+      color: #34d399;
+    }
+    .scenario-fb.wrong {
+      display: block;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid #ef4444;
+      color: #f87171;
+    }
+
   </style>
 </head>
 <body>
@@ -1136,143 +1274,58 @@
     <!-- ==================== HĐ 2.2: MODULE BÀI GIẢNG & ĐIỀN KHUYẾT ==================== -->
     <section class="activity-section" id="sec-2">
       <span class="section-tag tag-module">Hoạt động 2.2: Khám phá kiến thức (15 phút)</span>
-      <h3 class="section-title">Module Bài giảng Tương tác: "Quyền của chủ thể dữ liệu"</h3>
-      <p class="section-desc">Đọc các thẻ kiến thức vi mô dưới đây, sau đó hoàn thành bài tập điền khuyết ở cuối phần học để xác nhận kiến thức.</p>
+      <h3 class="section-title">Trắc Nghiệm Tình Huống Tương Tác: "Quyền của chủ thể dữ liệu"</h3>
+      <p class="section-desc">Cùng bạn Minh (12 tuổi • Lớp 6) xử lý 3 thử thách trắc nghiệm pháp lý bám sát quy định tại Nghị định số 13/2023/NĐ-CP và Luật Trẻ em.</p>
 
-      <div class="module-card-grid">
-        <div class="rights-card">
-          <h4><span>👑</span> 1. Chủ thể dữ liệu</h4>
-          <p>
-            Em là người tạo ra dữ liệu, chính là <strong>Chủ thể dữ liệu</strong> (chủ sở hữu). Dữ liệu cá nhân là tài sản gắn liền với em, không ai có quyền tự tiện chiếm đoạt.
-          </p>
+      <!-- HUD Dashboard -->
+      <div class="scenario-quiz-hud">
+        <div class="hud-box">
+          <div class="hud-box-icon">🛡️</div>
+          <div>
+            <div class="hud-box-title">An Toàn Dữ Liệu</div>
+            <div class="hud-box-val" id="lmsSafetyVal">30%</div>
+          </div>
         </div>
-        <div class="rights-card" style="border-top-color: #34a853;">
-          <h4 style="color: #34a853;"><span>✅</span> 2. Quyền Đồng ý</h4>
-          <p>
-            Chỉ em (và cha mẹ/người giám hộ) mới có quyền quyết định cho phép ứng dụng truy cập và sử dụng thông tin của mình hay không.
-          </p>
+        <div class="hud-box">
+          <div class="hud-box-icon">⚖️</div>
+          <div>
+            <div class="hud-box-title">Hiểu Luật NĐ 13/2023</div>
+            <div class="hud-box-val" id="lmsLegalVal">0%</div>
+          </div>
         </div>
-        <div class="rights-card" style="border-top-color: #ea4335;">
-          <h4 style="color: #ea4335;"><span>🛑</span> 3. Quyền Rút lại đồng ý</h4>
-          <p>
-            Nếu đã từng bấm "Đồng ý", em vẫn có toàn quyền <strong>Rút lại sự đồng ý</strong> bất cứ lúc nào bằng cách vào Cài đặt thiết bị để tắt quyền hoặc gỡ ứng dụng!
-          </p>
+        <div class="hud-box">
+          <div class="hud-box-icon">🏅</div>
+          <div>
+            <div class="hud-box-title">Cấp Độ Bảo Vệ</div>
+            <div class="hud-box-val" id="lmsRankVal" style="color: #c084fc; font-size: 0.95rem;">Học viên số</div>
+          </div>
         </div>
       </div>
 
-      <!-- Conveyor Belt Factory Game -->
-      <div style="margin-top: 24px;">
-        <div class="factory-hud">
-          <div class="hud-title">
-            <span class="gear-icon">⚙️</span>
-            <span>DÂY CHUYỀN SẢN XUẤT VI MẠCH QUYỀN DỮ LIỆU</span>
-          </div>
-          <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-            <div class="hud-stat">
-              <span>Đã hoàn thành:</span>
-              <strong id="cratesFinished">0 / 3 kiện</strong>
-            </div>
-            <div class="hud-stat">
-              <span>Hiệu suất:</span>
-              <strong id="factoryPerf">0%</strong>
-            </div>
-            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8rem; background: #1e293b; color: white;" onclick="toggleBeltRun()">
-              <span id="btnBeltStatus">⏸ Tạm dừng băng chuyền</span>
-            </button>
-          </div>
+      <!-- Quiz Card Area -->
+      <div class="scenario-card" id="lmsQuizCard">
+        <div class="scenario-badge" id="lmsQuizBadge">THỬ THÁCH 1 / 3 • QUYỀN SỞ HỮU & ĐỒNG Ý</div>
+        <div class="scenario-title" id="lmsQuizTitle">
+          Tình huống 1: Minh tải một ứng dụng chơi cờ vua trực tuyến. Khi đăng ký tài khoản, ứng dụng hỏi: <em>'Ai là người DUY NHẤT có quyền quyết định cho phép hoặc từ chối chia sẻ thông tin cá nhân của em?'</em>
         </div>
 
-        <!-- Conveyor Stage -->
-        <div class="conveyor-stage">
-          <div class="hazard-stripe"></div>
-          <div class="belt-track" id="beltTrack">
-            <div class="crates-row">
-              <!-- Crate 1 -->
-              <div class="data-crate" id="crate1">
-                <div class="crate-header">
-                  <span class="crate-tag tag-c1">KIỆN HÀNG #01 • SỞ HỮU</span>
-                  <span class="crate-status-dot" id="dot1"></span>
-                </div>
-                <div class="crate-text">
-                  "Chỉ <span style="color: #38bdf8; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span> mới có quyền quyết định việc chia sẻ hoặc cho phép sử dụng dữ liệu cá nhân đó."
-                </div>
-                <div class="drop-socket" id="socket1" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 1)" onclick="clickInstall(1)">
-                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
-                </div>
-              </div>
-
-              <!-- Crate 2 -->
-              <div class="data-crate" id="crate2">
-                <div class="crate-header">
-                  <span class="crate-tag tag-c2">KIỆN HÀNG #02 • THU HỒI</span>
-                  <span class="crate-status-dot" id="dot2"></span>
-                </div>
-                <div class="crate-text">
-                  "Khi ứng dụng đòi dữ liệu bất thường, em có quyền <span style="color: #fbbf24; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span> để ngừng cấp quyền truy cập."
-                </div>
-                <div class="drop-socket" id="socket2" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 2)" onclick="clickInstall(2)">
-                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
-                </div>
-              </div>
-
-              <!-- Crate 3 -->
-              <div class="data-crate" id="crate3">
-                <div class="crate-header">
-                  <span class="crate-tag tag-c3">KIỆN HÀNG #03 • TRẺ EM</span>
-                  <span class="crate-status-dot" id="dot3"></span>
-                </div>
-                <div class="crate-text">
-                  "Với trẻ em từ đủ 7 tuổi, xử lý dữ liệu phải có sự đồng ý của <span style="color: #c084fc; font-weight: bold;">[ LINH KIỆN KHUYẾT ]</span>."
-                </div>
-                <div class="drop-socket" id="socket3" ondragover="allowDrop(event)" ondrop="handleDropChip(event, 3)" onclick="clickInstall(3)">
-                  ⚡ KÉO / CHỌN CHIP VÀO ĐÂY
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hazard-stripe" style="margin-top: 14px; margin-bottom: 0;"></div>
+        <div class="scenario-options" id="lmsQuizOptions">
+          <!-- Options rendered by JS -->
         </div>
 
-        <!-- Warehouse / Hopper -->
-        <div class="warehouse-bay">
-          <div class="bay-header">
-            <div class="bay-title">
-              <span>📦</span> KHO LINH KIỆN VI MẠCH (Kéo thả hoặc nhấp chọn để lắp ráp):
-            </div>
-            <span style="font-size: 0.8rem; color: #f59e0b;">Căn cứ: Nghị định 13/2023/NĐ-CP & UNICEF</span>
-          </div>
+        <div class="scenario-fb" id="lmsQuizFb"></div>
 
-          <div class="chips-rack" id="chipsRack">
-            <div class="data-chip" draggable="true" id="chip-owner" data-ans="1" onclick="selectChip(this)">
-              💎 Chủ sở hữu
-            </div>
-            <div class="data-chip" draggable="true" id="chip-revoke" data-ans="2" onclick="selectChip(this)">
-              🛑 Rút lại sự đồng ý
-            </div>
-            <div class="data-chip" draggable="true" id="chip-children" data-ans="3" onclick="selectChip(this)">
-              👨‍👩‍👧 Trẻ em & Cha mẹ / Người giám hộ
-            </div>
-            <!-- Distractor chips -->
-            <div class="data-chip" draggable="true" id="chip-dev" data-ans="wrong" onclick="selectChip(this)">
-              ❌ Nhà phát triển game
-            </div>
-            <div class="data-chip" draggable="true" id="chip-auto" data-ans="wrong" onclick="selectChip(this)">
-              ❌ Chấp nhận vô điều kiện
-            </div>
-            <div class="data-chip" draggable="true" id="chip-stranger" data-ans="wrong" onclick="selectChip(this)">
-              ❌ Người lạ trên mạng
-            </div>
-          </div>
+        <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 12px;">
+          <button class="btn btn-primary" id="lmsBtnConfirm" onclick="confirmLmsQuiz()">Xác nhận đáp án</button>
+          <button class="btn btn-success" id="lmsBtnNext" style="display: none;" onclick="nextLmsQuiz()">Câu tiếp theo ➔</button>
         </div>
+      </div>
 
-        <!-- Factory Summary Box -->
-        <div class="factory-summary" id="factorySummary">
-          <div>
-            <strong style="font-size: 1.1rem; display: block; margin-bottom: 4px;">🎉 XUẤT XƯỞNG THÀNH CÔNG! HIỆU SUẤT ĐẠT 100%</strong>
-            <span>Em đã lắp ráp chính xác toàn bộ 3 nguyên tắc pháp lý cốt lõi về Quyền của chủ thể dữ liệu.</span>
-          </div>
-          <button class="btn btn-success" onclick="switchTab(3)">Chuyển sang HĐ 3: Game Luyện Tập ➔</button>
-        </div>
+      <!-- Victory Alert -->
+      <div class="alert alert-success" id="lmsQuizVictory" style="display: none;">
+        <strong>🎉 XUẤT SẮC! EM ĐÃ HOÀN THÀNH 3 THỬ THÁCH TRẮC NGHIỆM PHÁP LÝ!</strong><br>
+        Em đã nắm vững toàn bộ 3 quyền cốt lõi: <strong>1. Quyền sở hữu & đồng ý</strong> • <strong>2. Quyền thu hồi & yêu cầu xóa dữ liệu</strong> • <strong>3. Quyền được bảo vệ của trẻ em (NĐ 13/2023/NĐ-CP)</strong>.<br>
+        Nút chuyển sang Hoạt động 3 bên dưới đã được mở khóa!
       </div>
 
       <div class="activity-footer">
@@ -1664,118 +1717,128 @@
       simVid.play();
     }
 
-    // ========== HĐ 2.2: Game Dây Chuyền Sản Xuất Vi Mạch ==========
-    let assembledCrates = [false, false, false];
-    let selectedChipEl = null;
-    let draggedChipId = null;
-
-    function toggleBeltRun() {
-      const belt = document.getElementById('beltTrack');
-      const btn = document.getElementById('btnBeltStatus');
-      belt.classList.toggle('paused');
-      if (belt.classList.contains('paused')) {
-        btn.innerText = '▶ Khởi động băng chuyền';
-      } else {
-        btn.innerText = '⏸ Tạm dừng băng chuyền';
+    // ========== HĐ 2.2: TRẮC NGHIỆM TÌNH HUỐNG PHÁP LÝ (QUIZ DATA) ==========
+    const lmsQuizList = [
+      {
+        badge: "THỬ THÁCH 1 / 3 • QUYỀN SỞ HỮU & ĐỒNG Ý",
+        title: "Tình huống 1: Minh tải một ứng dụng chơi cờ vua trực tuyến. Khi đăng ký tài khoản, ứng dụng hỏi: 'Ai là người DUY NHẤT có quyền quyết định cho phép hoặc từ chối chia sẻ thông tin cá nhân của em?'",
+        options: [
+          { letter: "A", text: "Nhà phát triển game hoặc chủ trang web (vì em đang dùng app miễn phí của họ)", correct: false },
+          { letter: "B", text: "Chủ thể dữ liệu (Chính bản thân em) - Dữ liệu cá nhân là tài sản riêng gắn liền nhân thân", correct: true },
+          { letter: "C", text: "Người lạ kết bạn trên mạng xã hội", correct: false },
+          { letter: "D", text: "Bất kỳ ai tìm thấy dữ liệu của em trên mạng", correct: false }
+        ],
+        explain: "Chính xác! Căn cứ Khoản 1 & 2 Điều 9 Nghị định 13/2023/NĐ-CP: Chủ thể dữ liệu là người duy nhất có quyền được biết và đồng ý hoặc không đồng ý cho phép xử lý dữ liệu cá nhân của mình."
+      },
+      {
+        badge: "THỬ THÁCH 2 / 3 • QUYỀN THU HỒI & YÊU CẦU XÓA DỮ LIỆU",
+        title: "Tình huống 2: Sau 2 tuần dùng ứng dụng 'Đèn pin chiếu sáng', Minh phát hiện ứng dụng liên tục âm thầm định vị GPS và đòi đọc danh bạ bạn bè. Minh có quyền gì?",
+        options: [
+          { letter: "A", text: "Bắt buộc phải chấp nhận vô điều kiện vì lúc cài đặt đã lỡ ấn 'Đồng ý'", correct: false },
+          { letter: "B", text: "Quyền rút lại sự đồng ý & yêu cầu ngừng xử lý, xóa dữ liệu cá nhân ngay lập tức", correct: true },
+          { letter: "C", text: "Phải trả tiền chuộc dữ liệu cho nhà phát triển để họ xóa hồ sơ", correct: false },
+          { letter: "D", text: "Chỉ có cách vứt bỏ điện thoại mua máy mới", correct: false }
+        ],
+        explain: "Rất xuất sắc! Căn cứ Khoản 3 & 5 Điều 9 Nghị định 13/2023/NĐ-CP: Em có toàn quyền rút lại sự đồng ý bất cứ lúc nào và yêu cầu xóa bỏ toàn bộ dữ liệu đã cung cấp."
+      },
+      {
+        badge: "THỬ THÁCH 3 / 3 • BẢO VỆ DỮ LIỆU CÁ NHÂN CỦA TRẺ EM",
+        title: "Tình huống 3: Bạn Minh năm nay 12 tuổi (học sinh lớp 6). Một trang web mua sắm muốn thu thập họ tên, số điện thoại và địa chỉ nhà của Minh. Pháp luật quy định điều kiện bắt buộc gì?",
+        options: [
+          { letter: "A", text: "Chỉ cần trang web hứa tặng quà khuyến mãi là được thu thập tự do", correct: false },
+          { letter: "B", text: "Chỉ cần bản thân Minh đồng ý mà không cần hỏi ý kiến phụ huynh", correct: false },
+          { letter: "C", text: "Phải có sự đồng ý của cả Minh VÀ Cha mẹ / Người giám hộ hợp pháp", correct: true },
+          { letter: "D", text: "Chỉ cần một bạn cùng lớp 12 tuổi đồng ý thay", correct: false }
+        ],
+        explain: "Hoàn toàn chính xác! Căn cứ Khoản 1 & 2 Điều 20 Nghị định 13/2023/NĐ-CP & Luật Trẻ em: Xử lý dữ liệu trẻ em từ đủ 7 tuổi bắt buộc phải có sự đồng ý của cả trẻ em và cha mẹ/người giám hộ!"
       }
-    }
+    ];
 
-    // Drag and drop setup for Chips
-    document.querySelectorAll('.data-chip').forEach(chip => {
-      chip.addEventListener('dragstart', (e) => {
-        draggedChipId = chip.id;
-        e.dataTransfer.setData('text/plain', chip.id);
-        playSynthBeep(380, 0.05);
+    let lmsCurQ = 0;
+    let lmsSelectedOpt = -1;
+    let lmsCorrectCount = 0;
+
+    function renderLmsQuiz(idx) {
+      lmsSelectedOpt = -1;
+      const q = lmsQuizList[idx];
+      document.getElementById('lmsQuizBadge').innerText = q.badge;
+      document.getElementById('lmsQuizTitle').innerText = q.title;
+
+      const optsContainer = document.getElementById('lmsQuizOptions');
+      optsContainer.innerHTML = '';
+      q.options.forEach((opt, oIdx) => {
+        const div = document.createElement('div');
+        div.className = 'sc-opt';
+        div.id = 'lms-opt-' + oIdx;
+        div.onclick = () => selectLmsOpt(oIdx);
+        div.innerHTML = '<div class="sc-opt-letter">' + opt.letter + '</div><div>' + opt.text + '</div>';
+        optsContainer.appendChild(div);
       });
-    });
 
-    function allowDrop(e) {
-      e.preventDefault();
-      e.currentTarget.classList.add('drag-hover');
+      const fb = document.getElementById('lmsQuizFb');
+      fb.className = 'scenario-fb';
+      fb.style.display = 'none';
+
+      document.getElementById('lmsBtnConfirm').style.display = 'inline-block';
+      document.getElementById('lmsBtnNext').style.display = 'none';
     }
 
-    function handleDropChip(e, crateNum) {
-      e.preventDefault();
-      e.currentTarget.classList.remove('drag-hover');
-      const chipId = e.dataTransfer.getData('text/plain') || draggedChipId;
-      const chipEl = document.getElementById(chipId);
-      installChipToCrate(chipEl, crateNum);
+    function selectLmsOpt(idx) {
+      if (document.getElementById('lmsBtnNext').style.display === 'inline-block') return;
+      lmsSelectedOpt = idx;
+      document.querySelectorAll('.sc-opt').forEach((el, i) => {
+        el.classList.remove('selected');
+        if (i === idx) el.classList.add('selected');
+      });
     }
 
-    function selectChip(chipEl) {
-      if (chipEl.classList.contains('installed')) return;
-      document.querySelectorAll('.data-chip').forEach(c => c.classList.remove('selected-chip'));
-      selectedChipEl = chipEl;
-      chipEl.classList.add('selected-chip');
-      playSynthBeep(440, 0.08);
-    }
-
-    function clickInstall(crateNum) {
-      if (!selectedChipEl) {
-        alert("Vui lòng nhấp chọn một Chip linh kiện ở Kho bên dưới trước, sau đó nhấp vào đây để lắp ráp!");
+    function confirmLmsQuiz() {
+      if (lmsSelectedOpt === -1) {
+        alert("Em hãy chọn một phương án trả lời!");
         return;
       }
-      installChipToCrate(selectedChipEl, crateNum);
-      selectedChipEl.classList.remove('selected-chip');
-      selectedChipEl = null;
-    }
+      const q = lmsQuizList[lmsCurQ];
+      const isCorrect = q.options[lmsSelectedOpt].correct;
+      const chosenEl = document.getElementById('lms-opt-' + lmsSelectedOpt);
+      const fb = document.getElementById('lmsQuizFb');
 
-    function installChipToCrate(chipEl, crateNum) {
-      if (!chipEl) return;
-      const expectedAns = String(crateNum);
-      const chipAns = chipEl.dataset.ans;
+      if (isCorrect) {
+        chosenEl.classList.remove('selected');
+        chosenEl.classList.add('correct');
+        fb.className = 'scenario-fb correct';
+        fb.innerHTML = '<strong>✅ CHÍNH XÁC:</strong> ' + q.explain;
 
-      if (chipAns === expectedAns) {
-        // Correct Assembly
-        playSynthBeep(600, 0.12);
-        const socket = document.getElementById('socket' + crateNum);
-        socket.innerHTML = `✅ ĐÃ LẮP: <strong>${chipEl.innerText.trim()}</strong>`;
-        socket.classList.add('assembled');
+        lmsCorrectCount++;
+        document.getElementById('lmsSafetyVal').innerText = Math.min(100, 30 + lmsCorrectCount * 25) + '%';
+        document.getElementById('lmsLegalVal').innerText = Math.round((lmsCorrectCount / 3) * 100) + '%';
+        if (lmsCorrectCount === 1) document.getElementById('lmsRankVal').innerText = "Trợ lý bảo vệ";
+        else if (lmsCorrectCount === 2) document.getElementById('lmsRankVal').innerText = "Chiến binh số";
+        else if (lmsCorrectCount === 3) document.getElementById('lmsRankVal').innerText = "Hiệp sĩ dữ liệu 🛡️";
 
-        document.getElementById('dot' + crateNum).classList.add('assembled');
-        document.getElementById('crate' + crateNum).style.borderColor = '#10b981';
-
-        chipEl.classList.add('installed');
-        assembledCrates[crateNum - 1] = true;
-
-        updateFactoryStatus();
+        document.getElementById('lmsBtnConfirm').style.display = 'none';
+        document.getElementById('lmsBtnNext').style.display = 'inline-block';
       } else {
-        // Defective chip or wrong crate
-        playSynthBeep(180, 0.25);
-        alert(`❌ LỖI LẮP RÁP Ở KIỆN #${crateNum}: Linh kiện này không tương thích!\nCăn cứ Nghị định 13/2023/NĐ-CP: Hãy đọc kỹ nội dung kiện hàng để chọn đúng linh kiện bảo vệ dữ liệu!`);
+        chosenEl.classList.add('wrong');
+        fb.className = 'scenario-fb wrong';
+        fb.innerHTML = '<strong>⚠️ CHƯA CHÍNH XÁC:</strong> Quyết định này tiềm ẩn rủi ro làm mất quyền kiểm soát dữ liệu cá nhân. Em hãy đọc kỹ lại tình huống và chọn lại phương án an toàn nhất!';
       }
     }
 
-    function updateFactoryStatus() {
-      const finishedCount = assembledCrates.filter(Boolean).length;
-      document.getElementById('cratesFinished').innerText = `${finishedCount} / 3 kiện`;
-      const perf = Math.round((finishedCount / 3) * 100);
-      document.getElementById('factoryPerf').innerText = `${perf}%`;
-
-      if (finishedCount === 3) {
-        playSynthBeep(880, 0.3);
-        document.getElementById('factorySummary').style.display = 'flex';
+    function nextLmsQuiz() {
+      if (lmsCurQ < lmsQuizList.length - 1) {
+        lmsCurQ++;
+        renderLmsQuiz(lmsCurQ);
+      } else {
+        document.getElementById('lmsQuizCard').style.display = 'none';
+        document.getElementById('lmsQuizVictory').style.display = 'block';
         document.getElementById('btn-next-2').disabled = false;
         state.completedTabs[2] = true;
         updateProgress();
       }
     }
 
-    function playSynthBeep(freq, dur) {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.12, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + dur);
-      } catch (e) {}
-    }
+    // Khởi tạo Quiz HĐ 2.2
+    renderLmsQuiz(0);
 
     // ========== HĐ 3 Game Logic ==========
     let draggedId = null;
