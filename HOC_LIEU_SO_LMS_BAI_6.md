@@ -30,6 +30,7 @@
 
 ## 2. GÓI SCORM VIDEO TƯƠNG TÁC (HĐ 2.1 — 15 PHÚT)
 * **Tên hoạt động:** Khám phá *"Dấu chân kỹ thuật số của bạn"* (Your Digital Footprint).
+* **Nguồn Video & YouTube:** File video nội bộ `Dấu chân kỹ thuật số của bạn.mp4` tích hợp link dự phòng YouTube chính thức: [https://youtu.be/RNac5ZDIN-g](https://youtu.be/RNac5ZDIN-g).
 * **Công cụ:** Gói SCORM 1.2/2004 hoặc gói H5P Interactive Video.
 * **Cơ chế neo chặn (Gatekeeping):** Khóa tính năng tua tới (Disable Forward Seeking). Học sinh bắt buộc phải trả lời đúng 2 câu hỏi pop-up quiz mới được phát tiếp.
 * **Chi tiết 2 điểm neo chặn:**

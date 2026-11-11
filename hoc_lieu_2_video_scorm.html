@@ -1022,90 +1022,6 @@
       line-height: 1.4;
     }
 
-    /* ========================================================
-       TAB 3: SỔ TAY KIẾN THỨC & CHỐT LÝ THUYẾT
-       ======================================================== */
-    .handbook-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 28px;
-    }
-
-    .handbook-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 22px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #1e293b;
-    }
-
-    .handbook-icon {
-      font-size: 2.2rem;
-    }
-
-    .handbook-title h2 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .handbook-title p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .law-article {
-      background: #090e1a;
-      border-left: 4px solid var(--cyan-neon);
-      border-radius: 0 12px 12px 0;
-      padding: 16px 20px;
-      margin-bottom: 18px;
-    }
-
-    .law-article h4 {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--cyan-neon);
-      margin-bottom: 6px;
-    }
-
-    .law-article p {
-      font-size: 0.88rem;
-      color: #e2e8f0;
-      line-height: 1.55;
-    }
-
-    .takeaway-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-top: 22px;
-    }
-
-    .takeaway-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 18px;
-    }
-
-    .takeaway-card h4 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .takeaway-card p {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
-
     /* Footer Nav */
     .module-footer {
       margin-top: 28px;
@@ -1148,17 +1064,12 @@
     <nav class="flow-stepper">
       <div class="step-item active" id="stepTab1" onclick="switchTab(1)">
         <div class="step-num">1</div>
-        <div class="step-title">🎬 Video Hoạt Hình (2.5')</div>
+        <div class="step-title">🎬 Video Tương Tác: Dấu Chân Số (2.5')</div>
       </div>
       <div class="step-arrow">➔</div>
       <div class="step-item" id="stepTab2" onclick="switchTab(2)">
         <div class="step-num">2</div>
-        <div class="step-title">🎮 Trắc Nghiệm Quyền Dữ Liệu (3 Tình Huống)</div>
-      </div>
-      <div class="step-arrow">➔</div>
-      <div class="step-item" id="stepTab3" onclick="switchTab(3)">
-        <div class="step-num">3</div>
-        <div class="step-title">📖 Sách Học Sinh & Chốt Lý Thuyết</div>
+        <div class="step-title">🎮 Trắc Nghiệm: Quyền Của Chủ Thể Dữ Liệu (3 Tình Huống)</div>
       </div>
     </nav>
 
@@ -1299,7 +1210,7 @@
         <div>
           📌 <em>Nếu trình duyệt gặp lỗi phát video, em có thể xem video dự phòng trên YouTube:</em>
         </div>
-        <a href="https://youtu.be/HwhHHdbmcBE" target="_blank" rel="noopener noreferrer" class="btn-yt-backup">
+        <a href="https://youtu.be/RNac5ZDIN-g" target="_blank" rel="noopener noreferrer" class="btn-yt-backup">
           ▶ Xem trên YouTube (Dự phòng)
         </a>
       </div>
@@ -1430,71 +1341,16 @@
 
           <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
             <button class="btn-secondary" onclick="restartQuiz()">🔄 Làm lại trắc nghiệm</button>
-            <button class="btn-main" onclick="switchTab(3)">
-              <span>Mở Sách Học Sinh & Chốt Lý Thuyết</span> 📖
-            </button>
+            <a href="hoc_lieu_3_gamification_keo_tha.html" class="btn-main" style="text-decoration: none;">
+              <span>Chuyển sang Hoạt động 3: Game Kéo Thả Kho Báu</span> ➔
+            </a>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- ========================================================
-         TAB 3: SÁCH HỌC SINH & CHỐT LÝ THUYẾT
-         ======================================================== -->
-    <div class="tab-content" id="tabContent3">
-      <div class="handbook-card">
-        <div class="handbook-header">
-          <div class="handbook-icon">📖</div>
-          <div class="handbook-title">
-            <h2>Sổ Tay Ghi Nhớ: Quyền Của Chủ Thể Dữ Liệu Cá Nhân</h2>
-            <p>Hệ thống hóa kiến thức trọng tâm bài học theo Nghị định số 13/2023/NĐ-CP và SGK Tin học 6</p>
-          </div>
-        </div>
-
-        <div class="law-article">
-          <h4>Điều 9 Nghị định 13/2023/NĐ-CP: Quyền của chủ thể dữ liệu</h4>
-          <p>
-            Chủ thể dữ liệu có các quyền cơ bản: <strong>Quyền được biết</strong> mục đích xử lý dữ liệu; <strong>Quyền đồng ý hoặc không đồng ý</strong>; <strong>Quyền truy cập và chỉnh sửa</strong>; <strong>Quyền rút lại sự đồng ý</strong>; <strong>Quyền yêu cầu xóa dữ liệu</strong>; và <strong>Quyền khiếu nại, tố cáo, bồi thường thiệt hại</strong> khi dữ liệu bị xâm phạm.
-          </p>
-        </div>
-
-        <div class="law-article" style="border-left-color: var(--purple-neon);">
-          <h4 style="color: #c084fc;">Điều 20 Nghị định 13/2023/NĐ-CP: Bảo vệ dữ liệu cá nhân của trẻ em</h4>
-          <p>
-            Trẻ em là đối tượng được bảo vệ đặc biệt. Việc xử lý dữ liệu cá nhân của <strong>trẻ em từ đủ 7 tuổi trở lên</strong> phải có sự đồng ý của cả trẻ em và cha mẹ (hoặc người giám hộ hợp pháp). Tổ chức, doanh nghiệp phải xác minh tuổi và ngừng xử lý khi có yêu cầu.
-          </p>
-        </div>
-
-        <h3 style="font-size: 1.1rem; font-weight: 800; color: #fff; margin: 24px 0 14px;">
-          💡 3 Nguyên tắc "Vàng" bảo vệ tài sản dữ liệu của em:
-        </h3>
-
-        <div class="takeaway-grid">
-          <div class="takeaway-card">
-            <h4 style="color: #38bdf8;">🔑 1. Không chia sẻ tùy tiện</h4>
-            <p>Không công khai số điện thoại, địa chỉ nhà, căn cước công dân hoặc mật khẩu lên mạng xã hội, nhóm chat công cộng.</p>
-          </div>
-          <div class="takeaway-card">
-            <h4 style="color: #34d399;">🛑 2. Kiểm tra quyền ứng dụng</h4>
-            <p>Khi cài đặt ứng dụng hoặc game, chỉ cấp quyền thật sự cần thiết. Từ chối ngay nếu ứng dụng giải toán đòi xem danh bạ hay vị trí.</p>
-          </div>
-          <div class="takeaway-card">
-            <h4 style="color: #fbbf24;">🗣️ 3. Lên tiếng khi bị xâm phạm</h4>
-            <p>Khi phát hiện thông tin của mình bị người khác đăng lên bôi nhọ, lập tức báo cho cha mẹ, thầy cô và báo cáo vi phạm với nền tảng.</p>
-          </div>
-        </div>
-
-        <div class="module-footer">
-          <button class="btn-secondary" onclick="switchTab(2)">⬅ Quay lại Trắc nghiệm</button>
-          <a href="hoc_lieu_3_gamification_keo_tha.html" class="btn-main" style="text-decoration: none;">
-            <span>Chuyển sang Hoạt động 3: Game Kéo Thả Kho Báu</span> ➔
-          </a>
-        </div>
-      </div>
     </div>
-
-  </div>
 
   <!-- ========================================================
        JAVASCRIPT LOGIC
