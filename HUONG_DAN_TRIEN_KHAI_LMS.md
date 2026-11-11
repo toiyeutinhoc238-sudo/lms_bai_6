@@ -1,11 +1,12 @@
 # HƯỚNG DẪN CHI TIẾT TRIỂN KHAI & CẤU HÌNH HỌC LIỆU SỐ BÀI 6 TRÊN LMS
 **Dành cho:** Giáo viên Tin học 6 & Quản trị viên hệ thống LMS  
 **Bài học:** Bài 6: Dữ liệu cá nhân là tài sản của mỗi con người (Chuyên đề AI - 60 phút)  
+**Tài liệu viện dẫn:** *Công văn 5512/BGDĐT-GDTrH*, *Nghị định 13/2023/NĐ-CP*, *Luật Trẻ em 2016*.
 
 ---
 
 ## MỤC LỤC
-1. Kịch bản phân cảnh chi tiết (Storyboard) gói SCORM / H5P Video tương tác (HĐ 2.1)
+1. Kịch bản phân cảnh chi tiết (Storyboard) gói SCORM Video tương tác (HĐ 2.1)
 2. Hướng dẫn thiết lập luồng điều kiện mở khóa tự động (Prerequisites / Completion Tracking)
 3. Hướng dẫn cấu hình chi tiết trên từng hệ thống LMS (Canvas, Moodle, K12Online, Azota)
 4. Ngân hàng câu nhận xét mẫu của Giáo viên trên Diễn đàn (Theo thang Rubric 10 điểm)
@@ -13,10 +14,11 @@
 
 ---
 
-## PHẦN 1: KỊCH BẢN PHÂN CẢNH CHI TIẾT (STORYBOARD) CHO VIDEO SCORM / H5P
+## PHẦN 1: KỊCH BẢN PHÂN CẢNH CHI TIẾT (STORYBOARD) CHO VIDEO SCORM TƯƠNG TÁC
 
-* **Tên tệp:** `Video_Dau_Chan_Ky_Thuat_So_Interactive.mp4` / H5P Content ID: `interactive-video-b6`
-* **Thời lượng gốc:** 02 phút 00 giây
+* **Tên tệp:** `hoc_lieu_2_video_scorm.html` / SCORM Package: `SCORM_Bai6_HoatDong2_VideoTuongTac.zip`
+* **Nguồn Video & YouTube:** Link YouTube chính thức: [https://youtu.be/RNac5ZDIN-g](https://youtu.be/RNac5ZDIN-g)
+* **Thời lượng gốc:** 02 phút 34 giây
 * **Định dạng âm thanh/hình ảnh:** Hoạt họa 2D sinh động (Motion Graphics), giọng đọc chuẩn phổ thông, truyền cảm, nhịp độ vừa phải cho học sinh lớp 6.
 
 ```
@@ -36,13 +38,13 @@
 |              | gắn liền với tên tài khoản của bạn nhỏ.   | mất. Người ta gọi đó là gì nhỉ?"     |
 +-----------------------------------------------------------------------------------------------+
 | 00:50        | === [NEO CHẶN TƯƠNG TÁC 1: VIDEO DỪNG BẮT BUỘC TRẢ LỜI] =======================|
-| (Pause)      | Popup trắc nghiệm hiện toàn màn hình:                                          |
-|              | "Những lượt like, bình luận và video mà em đã xem được gọi là gì?"              |
-|              | [ ] A. Dấu chân kỹ thuật số (Dữ liệu phản ánh hoạt động mạng) -> [ĐÚNG]        |
+| (Pause)      | Popup trắc nghiệm hiện giữa màn hình:                                          |
+|              | "Những lượt like, bình luận của em được gọi là gì?"                            |
+|              | [ ] A. Dấu chân kỹ thuật số -> [ĐÚNG - Căn cứ Điều 2 NĐ 13/2023/NĐ-CP]         |
 |              | [ ] B. Lịch sử duyệt web tạm thời, máy sẽ tự xóa                               |
 |              | [ ] C. Tài sản công cộng của nhà mạng viễn thông                               |
 |              | *Phản hồi khi đúng: Phát âm thanh Ting! và mở nút 'Xem tiếp'.                   |
-|              | *Phản hồi khi sai: Rung nhẹ màn hình, yêu cầu chọn lại.                         |
+|              | *Phản hồi khi sai: Cảnh báo, yêu cầu suy nghĩ chọn lại.                         |
 +-----------------------------------------------------------------------------------------------+
 | 00:51 - 01:15| Cảnh các biểu tượng dấu chân được gom lại | "Chính xác! Đó là 'Dấu chân kỹ thuật |
 |              | vào một chiếc phễu thông minh khổng lồ của| số'. Theo pháp luật Việt Nam, đây    |
@@ -58,17 +60,28 @@
 |              | tăng vọt.                                 |                                      |
 +-----------------------------------------------------------------------------------------------+
 | 01:40        | === [NEO CHẶN TƯƠNG TÁC 2: VIDEO DỪNG BẮT BUỘC TRẢ LỜI] =======================|
-| (Pause)      | Popup trắc nghiệm hiện toàn màn hình:                                          |
-|              | "Các công ty công nghệ thu thập dữ liệu hành vi của em chủ yếu để làm gì?"     |
-|              | [ ] A. Để phân tích sở thích, gợi ý nội dung và quảng cáo kiếm tiền -> [ĐÚNG]   |
+| (Pause)      | Popup trắc nghiệm hiện giữa màn hình:                                          |
+|              | "Các công ty thu thập dữ liệu này để làm gì?"                                  |
+|              | [ ] A. Để quảng cáo kiếm tiền -> [ĐÚNG]                                        |
 |              | [ ] B. Để tặng quà và tiền học bổng ngẫu nhiên cho học sinh                     |
 |              | [ ] C. Để lưu trữ trong kho mà không bao giờ dùng đến                          |
 +-----------------------------------------------------------------------------------------------+
-| 01:41 - 02:00| Hình ảnh bạn nhỏ đeo huy hiệu 'Chủ nhân số'| "Dữ liệu cá nhân chính là tài sản vô |
-|              | tự tin cầm chiếc khiên bảo vệ kho dữ liệu | giá của mỗi con người. Em chính là   |
-|              | của mình. Xuất hiện dòng chữ: 'Em là chủ  | chủ nhân duy nhất có quyền quyết định|
-|              | sở hữu - Hãy làm chủ dữ liệu của mình!'.  | cho ai xem, ai dùng. Hãy luôn là     |
-|              |                                           | người sử dụng công nghệ thông thái!" |
+| 01:41 - 02:24| Cảnh bạn nhỏ trao đổi cùng bố mẹ khi dùng | "Dữ liệu cá nhân là tài sản vô giá   |
+|              | mạng xã hội và cài đặt game. Lời giải     | của mỗi con người. Đặc biệt, pháp    |
+|              | thích về sự bảo vệ đặc biệt đối với học   | luật bảo vệ rất nghiêm ngặt đối với  |
+|              | sinh lứa tuổi trẻ em."                    | dữ liệu của trẻ em từ đủ 7 tuổi!"    |
++-----------------------------------------------------------------------------------------------+
+| 02:25        | === [NEO CHẶN TƯƠNG TÁC 3: VIDEO DỪNG BẮT BUỘC TRẢ LỜI] =======================|
+| (Pause)      | Popup trắc nghiệm hiện giữa màn hình:                                          |
+|              | "Với trẻ em từ đủ 7 tuổi trở lên, xử lý dữ liệu cần có sự đồng ý của ai?"      |
+|              | [ ] A. Cả trẻ em VÀ cha mẹ / người giám hộ hợp pháp -> [ĐÚNG - Căn cứ Điều 20] |
+|              | [ ] B. Chỉ cần nhà phát triển game đồng ý                                      |
+|              | [ ] C. Chỉ cần bạn bè cùng lớp đồng ý                                          |
++-----------------------------------------------------------------------------------------------+
+| 02:26 - 02:34| Hình ảnh bạn nhỏ đeo huy hiệu 'Hiệp sĩ số'| "Hoàn thành video! Hệ thống mở khóa  |
+|              | tự tin cầm chiếc khiên bảo vệ kho dữ liệu | bài Trắc nghiệm tình huống pháp lý   |
+|              | của mình. Xuất hiện huy hiệu chúc mừng!   | tiếp theo để em cùng bạn Minh thực   |
+|              |                                           | hành bảo vệ dữ liệu của mình nhé!"   |
 +-----------------------------------------------------------------------------------------------+
 ```
 
@@ -76,18 +89,18 @@
 
 ## PHẦN 2: THIẾT LẬP LUỒNG ĐIỀU KIỆN MỞ KHÓA TỰ ĐỘNG (RESTRICT ACCESS / PREREQUISITES)
 
-Để đảm bảo học sinh học tập nghiêm túc, đúng tiến trình sư phạm mà không nhảy cóc, GV thiết lập luồng **Hoàn thành hoạt động (Activity Completion)** trên LMS theo mô hình bậc thang:
+Để đảm bảo học sinh học tập nghiêm túc, đúng tiến trình sư phạm mà không nhảy cóc, GV thiết lập luồng **Hoàn thành hoạt động (Activity Completion)** trên LMS theo mô hình bậc thang nghiêm ngặt:
 
 ```mermaid
 graph TD
-    S0["Học sinh đăng nhập LMS"] --> H1["1. Khởi động: Bảng hỏi Google Maps"]
-    H1 -- "Đã nộp câu trả lời" --> H21["2.1. SCORM Video tương tác"]
+    S0["Học sinh đăng nhập LMS"] --> H1["1. Khởi động: Google Forms & Biểu đồ"]
+    H1 -- "Đã gửi Form & Xác nhận" --> H21["2.1. SCORM Video tương tác (YouTube)"]
     H1 -. "Chưa nộp" .-> L1["🔒 Khóa HĐ 2.1"]
     
-    H21 -- "Hoàn thành 100% thời lượng & 2 Neo chặn (0:50 & 1:40)" --> H22["2.2. Game Băng chuyền Quyền dữ liệu"]
-    H21 -. "Chưa xong" .-> L2["🔒 Khóa HĐ 2.2"]
+    H21 -- "Xem 100% video & đạt 3 Neo chặn (0:50, 1:40, 2:25)" --> H22["2.2. Trắc nghiệm tình huống pháp lý (Nghị định 13)"]
+    H21 -. "Chưa xong / Chưa đạt 3 neo chặn" .-> L2["🔒 KHÓA TIÊN QUYẾT HĐ 2.2"]
     
-    H22 -- "Lắp ráp đúng 3/3 kiện hàng (Hiệu suất 100%)" --> H3["3. Game Kéo - Thả: Bảo vệ Kho báu"]
+    H22 -- "Vượt qua 3 thử thách pháp lý (SCORM 100/100)" --> H3["3. Game Kéo - Thả: Bảo vệ Kho báu"]
     H22 -. "Chưa xong" .-> L3["🔒 Khóa HĐ 3"]
     
     H3 -- "Điểm số đạt ≥ 8/10" --> H4["4. Diễn đàn thảo luận: Lời mời hấp dẫn"]
@@ -105,23 +118,24 @@ graph TD
 2. **Thiết lập Prerequisites:**
    * Trong phần cài đặt Module, chọn `Requirements` $\rightarrow$ `Students must complete all of these requirements` $\rightarrow$ `Students must move through requirements in sequential order`.
 3. **Cấu hình từng mục:**
-   * **Mục 1 (Poll):** Tạo `Ungraded Survey` hoặc `Discussion`. Tiêu chí hoàn thành: `Submit the assignment`.
-   * **Mục 2 (Video):** Tạo trang nhúng LTI H5P Interactive Video / SCORM. Tiêu chí: `Must view the item` hoặc `Score at least 100%`.
-   * **Mục 3 (Module):** Tạo Canvas Page có bài tập Cloze. Tiêu chí: `Must mark as done` sau khi đạt điểm.
+   * **Mục 1 (Google Forms):** Tạo trang nhúng Iframe Google Forms (`hoc_lieu_1_khao_sat.html`). Tiêu chí: `Submit the assignment` hoặc `Mark as done`.
+   * **Mục 2 (Video 2.1):** Tạo trang SCORM / Video tương tác (`hoc_lieu_2_video_scorm.html`). Tiêu chí: `Score at least 100%` (hoàn thành 3 neo chặn).
+   * **Mục 3 (Trắc nghiệm 2.2):** Tích hợp trong gói học liệu 2, cài đặt khóa tiên quyết `Must complete Video 2.1`.
    * **Mục 4 (Game):** Tạo Assignment (External Tool). Tiêu chí: `Score at least 8 out of 10`.
    * **Mục 5 (Forum & Rubric):** Tạo Graded Discussion. Bật tính năng `Users must post before seeing replies`. Bấm vào menu 3 chấm $\rightarrow$ `Show Rubric` $\rightarrow$ Thêm bảng Rubric 10 điểm (3 tiêu chí) để dùng SpeedGrader chấm 1 chạm.
 
 ### 2. Trên nền tảng Moodle
 1. **Bật Activity Completion:** Vào `Course Settings` $\rightarrow$ `Enable completion tracking` = **Yes**.
-2. **Cấu hình HĐ 1:** Thêm hoạt động `Choice` (Khảo sát nhanh). Trong mục `Activity completion`, chọn: *Show activity as complete when user makes a choice*.
-3. **Cấu hình HĐ 2.1:** Thêm hoạt động `H5P` hoặc `SCORM package`. Mục `Restrict access`: Thêm điều kiện *Hoạt động 1 phải completed*. Mục `Grade`: Passing grade = 10.
-4. **Cấu hình HĐ 3 (Game):** Thêm H5P Drag and Drop. Mục `Grade to pass`: Điền **8.0**. Mục `Restrict access`: Yêu cầu hoàn thành HĐ 2.2.
-5. **Cấu hình HĐ 4 (Diễn đàn):** Thêm `Forum`. Loại diễn đàn: `Standard forum for general use` hoặc `Q and A forum`. Trong mục `Ratings/Grading`: Chọn `Point` (Scale: 10). Gắn mẫu chấm `Rubric`.
+2. **Cấu hình HĐ 1:** Thêm hoạt động `URL` hoặc nhúng `Google Forms`. Trong mục `Activity completion`, chọn: *Show activity as complete when user makes a choice*.
+3. **Cấu hình HĐ 2.1:** Thêm hoạt động `SCORM package` (`SCORM_Bai6_HoatDong2_VideoTuongTac.zip`). Mục `Restrict access`: Thêm điều kiện *Hoạt động 1 phải completed*. Mục `Grade`: Passing grade = 100.
+4. **Cấu hình HĐ 2.2:** Cài đặt `Restrict access` yêu cầu SCORM HĐ 2.1 đạt `completed`.
+5. **Cấu hình HĐ 3 (Game):** Thêm H5P / Web Game Drag and Drop. Mục `Grade to pass`: Điền **8.0**. Mục `Restrict access`: Yêu cầu hoàn thành HĐ 2.2.
+6. **Cấu hình HĐ 4 (Diễn đàn):** Thêm `Forum`. Loại diễn đàn: `Standard forum for general use` hoặc `Q and A forum`. Trong mục `Ratings/Grading`: Chọn `Point` (Scale: 10). Gắn mẫu chấm `Rubric`.
 
 ### 3. Trên nền tảng K12Online / Azota
 1. **Tạo Bài giảng chuyên đề:**
    * Thêm bài học mới dạng **Tiến trình bài học** (SCORM/E-learning).
-   * Tải tệp SCORM/HTML mô phỏng (`LMS_Bai6_Interactive_Module.html`) lên thư viện học liệu số.
+   * Tải tệp SCORM/HTML mô phỏng (`LMS_Bai6_Interactive_Module.html` hoặc `SCORM_Bai6_HoatDong2_VideoTuongTac.zip`) lên thư viện học liệu số.
 2. **Cài đặt chặn tua & tỷ lệ hoàn thành:**
    * Bật tùy chọn: `Không cho phép tua video / bài giảng`.
    * Tỷ lệ học tối thiểu: **100%**.
@@ -151,4 +165,3 @@ Dựa trên dữ liệu log hệ thống LMS tự động xuất ra, Giáo viên
 1. **Chỉ số Nhận thức quyền dữ liệu:** Tỷ lệ % học sinh chọn từ chối cấp quyền trong tình huống khởi động và tình huống vận dụng (chỉ số đo lường năng lực NLa: Tư duy lấy con người làm trung tâm).
 2. **Tỷ lệ vượt ải Game Kéo thả lần đầu:** Nếu > 80% học sinh đạt $\ge 8/10$ ngay lượt 1 chứng tỏ học sinh phân biệt rất tốt giữa Dữ liệu cơ bản và Dữ liệu nhạy cảm.
 3. **Chỉ số Tương tác cộng đồng số:** Số lượng lượt thích (tim) và số lượng phản hồi chéo trên Forum chứng minh phẩm chất trách nhiệm và năng lực giao tiếp hợp tác trong môi trường số.
-
