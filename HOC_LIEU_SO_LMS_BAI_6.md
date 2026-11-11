@@ -2,72 +2,99 @@
 ## BÀI 6: DỮ LIỆU CÁ NHÂN LÀ TÀI SẢN CỦA MỖI CON NGƯỜI
 **Môn học:** Tin học 6 — Chuyên đề Trí tuệ Nhân tạo  
 **Thời lượng:** 01 tiết học trực tuyến trên LMS (60 phút)  
-**Tài liệu tham chiếu:** *Kế hoạch bài dạy Bài 6*, *Nghị định 13/2023/NĐ-CP*, *Tài liệu UNICEF 2021*.
+**Tài liệu tham chiếu:** *Kế hoạch bài dạy Bài 6*, *Nghị định 13/2023/NĐ-CP*, *Luật Trẻ em 2016*, *Tài liệu UNICEF 2021*.
 
 ---
 
-### Tệp mô phỏng tương tác đã tạo trong thư mục:
-* [`LMS_Bai6_Interactive_Module.html`](./LMS_Bai6_Interactive_Module.html): Ứng dụng Web HTML5 chạy offline mô phỏng trọn vẹn cả 5 học liệu số trên LMS với đầy đủ tính năng tương tác, tự động chấm điểm và Rubric.
+### Danh mục tệp học liệu tương tác trong hệ thống:
+* [`index.html`](./index.html): Cổng điều hướng trọn bộ học liệu số tích hợp dạy học trực tuyến 100% trên LMS.
+* [`hoc_lieu_1_khao_sat.html`](./hoc_lieu_1_khao_sat.html): Khảo sát tình huống trực tuyến nhúng Google Forms và biểu đồ thời gian thực.
+* [`hoc_lieu_2_video_scorm.html`](./hoc_lieu_2_video_scorm.html): Video tương tác 3 điểm neo chặn (link YouTube: `https://youtu.be/RNac5ZDIN-g`) tích hợp Trắc nghiệm quyền dữ liệu với cơ chế **Khóa tiên quyết tuyệt đối**.
+* [`hoc_lieu_3_gamification_keo_tha.html`](./hoc_lieu_3_gamification_keo_tha.html): Game phân loại kho báu dữ liệu kéo thả tích hợp tính điểm Gradebook.
+* [`hoc_lieu_4_dien_dan_rubric.html`](./hoc_lieu_4_dien_dan_rubric.html): Diễn đàn thảo luận kèm bảng chấm điểm Rubric 10 điểm (SpeedGrader).
+* [`LMS_Bai6_Interactive_Module.html`](./LMS_Bai6_Interactive_Module.html): Ứng dụng Web HTML5 All-in-One mô phỏng trọn vẹn tiến trình học tập trên LMS.
 
 ---
 
 ## 1. BẢNG HỎI KHẢO SÁT NHANH (HĐ KHỞI ĐỘNG — 5 PHÚT)
-* **Tên hoạt động trên LMS:** Khảo sát tình huống: *"Em có bao nhiêu 'tài sản số'?"*
-* **Công cụ thiết lập:** Công cụ Khảo sát nhanh (LMS Single Poll / Survey).
-* **Nội dung tình huống:**
-  > *"Khi dùng Google Maps để tìm đường đi xe đạp đến nhà bạn, ứng dụng gợi ý một đường tắt rất gần giúp tiết kiệm 10 phút, nhưng con đường này phải đi xuyên qua một bãi đất trống vắng người và nhiều cỏ dại rậm rạp. Em sẽ quyết định như thế nào?"*
-* **Phương án lựa chọn:**
+* **Tên hoạt động trên LMS:** Khảo sát tình huống: *"Em có những tài sản số nào?"* (Qua Google Forms)
+* **Công cụ thiết lập:** Biểu mẫu trực tuyến **Google Forms** nhúng trực tiếp qua thẻ `<iframe>` trên LMS kết hợp liên kết mở tab mới.
+  * **Liên kết Google Forms chính thức:** [https://docs.google.com/forms/d/e/1FAIpQLSdu_Ms_gAXaeezflkU8zBLYFxMbRIjs3rvtsUfSroXKo40p7A/viewform](https://docs.google.com/forms/d/e/1FAIpQLSdu_Ms_gAXaeezflkU8zBLYFxMbRIjs3rvtsUfSroXKo40p7A/viewform)
+  * **Đường dẫn nhúng (Embedded URL):** `https://docs.google.com/forms/d/e/1FAIpQLSdu_Ms_gAXaeezflkU8zBLYFxMbRIjs3rvtsUfSroXKo40p7A/viewform?embedded=true`
+* **Nội dung tình huống thực tế:**
+  > *"Khi dùng ứng dụng bản đồ (Google Maps) để tìm đường đi xe đạp đến nhà một người bạn, ứng dụng chỉ một đường tắt rất gần giúp tiết kiệm 10 phút, nhưng con đường này phải đi xuyên qua một bãi đất trống vắng người và nhiều cỏ dại rậm rạp. **Em sẽ quyết định thế nào?**"*
+* **3 Phương án lựa chọn (Khớp 100% biểu mẫu Google Forms):**
   * **A.** Đi theo đường tắt ngay vì Google Maps là ứng dụng thông minh nhất, chỉ đường ngắn nhất là tốt nhất.
-  * **B.** Không đi đường tắt; chọn con đường quen thuộc có đèn đường và đông người dù xa hơn một chút.
-  * **C.** Dừng xe lại quan sát thực tế và hỏi thêm ý kiến của bố mẹ/người lớn trước khi quyết định.
-* **Cơ chế LMS tự động:**
-  * Hiển thị ngay biểu đồ phân bố % kết quả của cả lớp sau khi gửi.
-  * Xuất hiện thông điệp dẫn dắt sư phạm tự động:
-    > *"Ứng dụng công nghệ có thể tính toán khoảng cách rất nhanh, nhưng nó không biết đường đi đó có an toàn hay phù hợp với chiếc xe đạp của em hay không. Con người chúng ta mới là người đưa ra quyết định cuối cùng! Hôm nay, chúng ta sẽ học cách làm chủ tài sản quý giá nhất của mình trên mạng: **Dữ liệu cá nhân!**"*
-  * Điều kiện hoàn thành: Gửi bình chọn $\rightarrow$ Tự động mở khóa HĐ 2.1.
+  * **B.** Không đi đường tắt; chọn con đường quen thuộc, có đèn đường và đông người qua lại dù xa hơn một chút.
+  * **C.** Dừng lại quan sát thực tế và gọi điện hỏi ý kiến bố mẹ hoặc người lớn trước khi quyết định.
+* **Cơ chế LMS & Trực quan hóa dữ liệu:**
+  * Học sinh hoàn thành gửi biểu mẫu trên Google Forms, sau đó bấm nút *"Tôi đã gửi form & xem biểu đồ của lớp"*.
+  * Hệ thống tự động tổng hợp và hiển thị biểu đồ phân bố % ý kiến cả lớp theo thời gian thực (Live Analytics):
+    * Lựa chọn A (Tin cậy máy móc): ~15%.
+    * Lựa chọn B (Con người tự chủ quyết định an toàn): ~52%.
+    * Lựa chọn C (Kiểm chứng thực tế / hỏi người lớn): ~33%.
+  * Hiển thị thông điệp dẫn dắt sư phạm tự động của Giáo viên:
+    > *"Ứng dụng công nghệ có thể tính toán khoảng cách rất nhanh, nhưng nó không biết đường đi đó có an toàn hay phù hợp với chiếc xe đạp của em hay không. **Hôm nay, chúng ta sẽ học cách tự mình đưa ra quyết định cuối cùng nhé!**"*
+  * Điều kiện hoàn thành: Gửi phản hồi $\rightarrow$ Tự động mở khóa Hoạt động 2.
 
 ---
 
 ## 2. GÓI SCORM VIDEO TƯƠNG TÁC (HĐ 2.1 — 15 PHÚT)
 * **Tên hoạt động:** Khám phá *"Dấu chân kỹ thuật số của bạn"* (Your Digital Footprint).
-* **Nguồn Video & YouTube:** File video nội bộ `Dấu chân kỹ thuật số của bạn.mp4` tích hợp link dự phòng YouTube chính thức: [https://youtu.be/RNac5ZDIN-g](https://youtu.be/RNac5ZDIN-g).
-* **Công cụ:** Gói SCORM 1.2/2004 hoặc gói H5P Interactive Video.
-* **Cơ chế neo chặn (Gatekeeping):** Khóa tính năng tua tới (Disable Forward Seeking). Học sinh bắt buộc phải trả lời đúng 2 câu hỏi pop-up quiz mới được phát tiếp.
-* **Chi tiết 2 điểm neo chặn:**
+* **Nguồn Video & YouTube:** File video bài giảng chuẩn hóa tích hợp link YouTube chính thức: [https://youtu.be/RNac5ZDIN-g](https://youtu.be/RNac5ZDIN-g).
+* **Công cụ:** Gói SCORM 1.2 / HTML5 Video tương tác tích hợp API SCORM (`scorm_api.js`).
+* **Cơ chế neo chặn & chống tua (Gatekeeping):** 
+  * Khóa hoàn toàn thanh tiến trình (Disable Forward Seeking), không cho phép tua vượt trước nội dung chưa học.
+  * Khi video chạm đến mốc thời gian quy định, video tự động tạm dừng (pause) và bật cửa sổ câu hỏi tương tác (checkpoint modal). Học sinh bắt buộc phải trả lời đúng mới được mở khóa xem tiếp.
+* **Chi tiết 3 điểm neo chặn chuẩn xác:**
   * **Neo chặn 1 (Giây 0:50):**
-    * *Câu hỏi:* Những lượt like, bình luận và video mà em từng xem trên không gian mạng được gọi chung là gì?
-    * *Đáp án đúng:* **Dấu chân kỹ thuật số** (Dữ liệu phản ánh lịch sử hoạt động trên mạng).
-    * *Căn cứ:* Nghị định 13/2023/NĐ-CP (Điều 2 Khoản 3 mục k): Dữ liệu phản ánh hoạt động, lịch sử hoạt động trên không gian mạng là dữ liệu cá nhân cơ bản.
+    * *Câu hỏi:* Những lượt like, bình luận của em trên không gian mạng được gọi chung là gì?
+    * *Đáp án đúng:* **Dấu chân kỹ thuật số** (Digital Footprint).
+    * *Căn cứ pháp lý:* Nghị định 13/2023/NĐ-CP (Điều 2 Khoản 3 mục k) - Dữ liệu phản ánh hoạt động, lịch sử hoạt động trên mạng là dữ liệu cá nhân cơ bản.
   * **Neo chặn 2 (Giây 1:40):**
-    * *Câu hỏi:* Các công ty công nghệ và nền tảng mạng xã hội thu thập dữ liệu hành vi của em chủ yếu để làm gì?
-    * *Đáp án đúng:* **Để phân tích sở thích, huấn luyện thuật toán gợi ý và bán quảng cáo kiếm tiền.**
-    * *Phản hồi giải thích:* Dữ liệu cá nhân chính là tài sản sinh lời cho các công ty công nghệ. Vì vậy, em cần bảo vệ dữ liệu của mình.
-* **Điều kiện hoàn thành:** Xem 100% video và đạt cả 2 câu hỏi neo chặn $\rightarrow$ Mở khóa HĐ 2.2.
+    * *Câu hỏi:* Các công ty công nghệ thu thập dữ liệu này của người dùng để làm gì?
+    * *Đáp án đúng:* **Để quảng cáo kiếm tiền** (Phân tích sở thích, xây dựng hồ sơ hành vi người dùng).
+    * *Phản hồi giải thích:* Dữ liệu của em chính là tài sản sinh lời cho các nền tảng thương mại số, vì vậy em cần học cách quản lý và bảo vệ.
+  * **Neo chặn 3 (Giây 2:25):**
+    * *Câu hỏi:* Với trẻ em từ đủ 7 tuổi trở lên, việc xử lý dữ liệu cá nhân cần có sự đồng ý của ai?
+    * *Đáp án đúng:* **Cả trẻ em VÀ cha mẹ / người giám hộ hợp pháp.**
+    * *Căn cứ pháp lý:* Điều 20 Nghị định 13/2023/NĐ-CP & Luật Trẻ em 2016.
+* **Cơ chế Khóa tiên quyết tuyệt đối (Strict Prerequisite):**
+  * Học sinh **bắt buộc phải xem 100% video và trả lời đúng cả 3 câu hỏi neo chặn** thì hệ thống mới tự động tháo gỡ ổ khóa `🔒` để cho phép truy cập sang HĐ 2.2.
+  * Nếu chưa xem hết video, Tab HĐ 2.2 hiển thị trạng thái `🔒 ĐANG KHÓA (TIÊN QUYẾT: HOÀN THÀNH VIDEO HĐ 2.1)`.
+  * *Lưu ý:* Phần Tab Sách học sinh (Tab 3 cũ) đã được tinh giản, loại bỏ hoàn toàn khỏi giao diện theo yêu cầu.
 
 ---
 
-## 3. MODULE BÀI GIẢNG TƯƠNG TÁC & TRẮC NGHIỆM TÌNH HUỐNG PHÁP LÝ (HĐ 2.2 — 15 PHÚT)
+## 3. TRẮC NGHIỆM TÌNH HUỐNG PHÁP LÝ TƯƠNG TÁC (HĐ 2.2 — 15 PHÚT)
 * **Tên hoạt động:** Khám phá *"Quyền của chủ thể dữ liệu"*.
-* **Công cụ:** Module bài giảng vi mô kết hợp **Trắc nghiệm tình huống tương tác (Interactive Scenario Quiz)** chuẩn sư phạm theo mô hình LMS Bài 4.
+* **Công cụ:** Module Trắc nghiệm tình huống tương tác (Interactive Scenario Quiz) chuẩn sư phạm hiện đại.
 * **Hệ thống Dashboard chỉ số thời gian thực (HUD):**
-  * 🛡️ **Mức độ an toàn dữ liệu (Safety):** Cập nhật từ 30% $\rightarrow$ 100%.
-  * ⚖️ **Hiểu biết pháp luật Nghị định 13 (Legal):** Cập nhật từ 0% $\rightarrow$ 100%.
-  * 🏅 **Cấp độ bảo vệ nhân vật:** Học viên số $\rightarrow$ Trợ lý bảo vệ $\rightarrow$ Chiến binh số $\rightarrow$ Hiệp sĩ dữ liệu.
-* **3 Thử thách trắc nghiệm tình huống thực tế cùng bạn Minh (12 tuổi • Lớp 6):**
-  * **Thử thách 1 (Quyền sở hữu & đồng ý):** Cài đặt ứng dụng game online hỏi về quyền quyết định chia sẻ thông tin cá nhân $\rightarrow$ *Đáp án đúng:* **Chủ thể dữ liệu (Chính bản thân em)** (Căn cứ Khoản 1 & 2 Điều 9 NĐ 13/2023/NĐ-CP).
-  * **Thử thách 2 (Quyền thu hồi & yêu cầu xóa dữ liệu):** Ứng dụng giải trí đòi quyền vị trí GPS và danh bạ bất thường $\rightarrow$ *Đáp án đúng:* **Quyền rút lại sự đồng ý & yêu cầu ngừng xử lý, xóa dữ liệu cá nhân ngay lập tức** (Căn cứ Khoản 3 & 5 Điều 9 NĐ 13/2023/NĐ-CP).
-  * **Thử thách 3 (Bảo vệ dữ liệu cá nhân trẻ em):** Trang web mạng xã hội/mua sắm thu thập dữ liệu học sinh lớp 6 $\rightarrow$ *Đáp án đúng:* **Phải có sự đồng ý của cả trẻ em VÀ cha mẹ / người giám hộ hợp pháp** (Căn cứ Khoản 1 & 2 Điều 20 NĐ 13/2023/NĐ-CP & Luật Trẻ em 2016).
-* **Cơ chế phản hồi sư phạm:**
-  * Thẻ câu hỏi trắc nghiệm A, B, C, D trực quan, hỗ trợ hoàn hảo cả Desktop lẫn Smartphone/Tablet.
-  * Phản hồi tức thì: Lựa chọn đúng hiển thị biểu ngữ xanh lá và trích dẫn cụ thể điều luật; Lựa chọn sai cảnh báo rủi ro đỏ để học sinh tư duy chọn lại.
-  * Hoàn thành 3 thử thách: Màn hình vinh danh Cúp Vàng 🏆, hiệu ứng pháo hoa Confetti và đồng bộ điểm số SCORM 100/100 (passed).
-* **Điều kiện hoàn thành:** Vượt qua cả 3 thử thách trắc nghiệm $\rightarrow$ Tự động mở khóa Game HĐ 3.
+  * 🛡️ **Mức độ an toàn dữ liệu (Safety):** Tăng từ 30% $\rightarrow$ 100%.
+  * ⚖️ **Hiểu biết pháp luật Nghị định 13 (Legal):** Tăng từ 0% $\rightarrow$ 100%.
+  * 🏅 **Danh hiệu cấp độ bảo vệ:** Học viên số $\rightarrow$ Trợ lý bảo vệ $\rightarrow$ Chiến binh số $\rightarrow$ Hiệp sĩ dữ liệu.
+* **3 Thử thách tình huống thực tế theo Nghị định 13/2023/NĐ-CP:**
+  * **Thử thách 1 (Quyền sở hữu & đồng ý):** Cài đặt ứng dụng game online hỏi về quyền quyết định chia sẻ thông tin cá nhân.
+    * *Đáp án đúng:* **Chủ thể dữ liệu (Chính bản thân em)**.
+    * *Căn cứ:* Khoản 1 & 2 Điều 9 Nghị định 13/2023/NĐ-CP.
+  * **Thử thách 2 (Quyền thu hồi & yêu cầu xóa dữ liệu):** Ứng dụng giải trí đòi quyền vị trí GPS và danh bạ bất thường.
+    * *Đáp án đúng:* **Quyền rút lại sự đồng ý & yêu cầu ngừng xử lý, xóa dữ liệu cá nhân ngay lập tức**.
+    * *Căn cứ:* Khoản 3 & 5 Điều 9 Nghị định 13/2023/NĐ-CP.
+  * **Thử thách 3 (Bảo vệ dữ liệu cá nhân trẻ em):** Trang web mạng xã hội/mua sắm thu thập dữ liệu học sinh lớp 6.
+    * *Đáp án đúng:* **Phải có sự đồng ý của cả trẻ em VÀ cha mẹ / người giám hộ hợp pháp**.
+    * *Căn cứ:* Khoản 1 & 2 Điều 20 Nghị định 13/2023/NĐ-CP & Luật Trẻ em 2016.
+* **Cơ chế tương tác & Phản hồi:**
+  * Thẻ câu hỏi trắc nghiệm trực quan, dễ thao tác trên cả PC và điện thoại.
+  * Lựa chọn đúng: Hiển thị ngay lời khen và điều luật pháp lý trích dẫn.
+  * Lựa chọn sai: Hệ thống phân tích rủi ro và cho phép suy nghĩ thử lại.
+  * Hoàn thành: Màn hình vinh danh Huy hiệu Hiệp sĩ dữ liệu 🏆, pháo hoa Confetti và ghi nhận SCORM 100/100 điểm.
+* **Điều kiện hoàn thành:** Vượt qua cả 3 thử thách $\rightarrow$ Tự động mở khóa Hoạt động 3 (Game Kho báu).
 
 ---
 
 ## 4. TRÒ CHƠI TƯƠNG TÁC KÉO - THẢ (HĐ 3: LUYỆN TẬP — 10 PHÚT)
 * **Tên game:** *"Bảo vệ Kho báu dữ liệu"* (Data Treasure Guard).
-* **Công cụ:** Game tương tác HTML5 / H5P Drag and Drop tích hợp Gradebook.
+* **Công cụ:** Game tương tác HTML5 / Gamification 3.0 Pro tích hợp Gradebook.
 * **Thiết kế:** 2 chiếc giỏ phân loại và 10 thẻ thông tin thực tế:
   * **Giỏ 1 — Dữ liệu cá nhân cơ bản (5 thẻ):**
     1. Họ, chữ đệm và tên khai sinh.
@@ -107,4 +134,3 @@
 | **1. Khả năng giải quyết tình huống** *(6 điểm)* | **(5 - 6 điểm)**<br>Đầy đủ 2 vế:<br>• Dứt khoát **từ chối** cấp quyền vì ứng dụng học Toán không cần đến danh bạ/GPS.<br>• Biết cách khắc phục khi lỡ tay: Vào Cài đặt máy để **rút lại sự đồng ý** (tắt quyền) hoặc xóa ứng dụng. | **(3 - 4 điểm)**<br>Trả lời được 1 trong 2 vế (biết từ chối nhưng không biết cách khắc phục nếu lỡ đồng ý, hoặc ngược lại). | **(0 - 2 điểm)**<br>Đồng ý cấp quyền vô điều kiện vì ham quà khuyến mãi VIP; không nhận thức được rủi ro lộ lọt thông tin. |
 | **2. Lập luận dựa trên kiến thức pháp lý** *(2 điểm)* | **(2 điểm)**<br>Sử dụng đúng thuật ngữ: *Dữ liệu cá nhân, Chủ thể dữ liệu, Quyền đồng ý, Quyền rút lại sự đồng ý* (Nghị định 13/2023/NĐ-CP). | **(1 điểm)**<br>Lập luận hợp lý nhưng theo cảm tính cá nhân, chưa dùng đúng từ khóa đã học. | **(0 điểm)**<br>Không đưa ra được căn cứ hoặc lập luận sai lệch. |
 | **3. Tương tác & Trách nhiệm số** *(2 điểm)* | **(2 điểm)**<br>Đăng bài đúng hạn, đúng chính tả; có tương tác phản hồi lịch sự, xây dựng với ít nhất 1 bài của bạn bè. | **(1 điểm)**<br>Đăng bài đúng hạn nhưng không tương tác với bạn, hoặc còn mắc lỗi chính tả. | **(0 điểm)**<br>Nộp bài đối phó, sao chép hoặc dùng từ ngữ không phù hợp. |
-
